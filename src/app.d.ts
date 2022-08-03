@@ -4,8 +4,32 @@
 // for information about these interfaces
 // and what to do when importing types
 declare namespace App {
-	// interface Locals {}
-	// interface Platform {}
-	// interface Session {}
-	// interface Stuff {}
+    // interface Locals {}
+    // interface Platform {}
+    // interface Session {}
+    // interface Stuff {}
+}
+
+declare namespace Monolieta {
+    type Entity = {
+        id: string;
+    };
+
+    type Entities = readonly Entity[];
+
+    type Label = {
+        id: string;
+        name: string;
+        color: string;
+    } & Entity;
+
+    type Labels = readonly Label[];
+
+    type Project = {
+        id: string;
+        name: string;
+        labels: Label[];
+    };
+
+    type Direction = 'horizontal' | 'vertical';
 }
