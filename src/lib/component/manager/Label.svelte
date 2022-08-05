@@ -5,18 +5,18 @@
     import More from '../action/More.svelte';
     import Search from '../input/Search.svelte';
     import color from '$lib/color';
+    import image from '$lib/assets/label.webp';
     import store from '$lib/store/label';
     import { nanoid } from 'nanoid';
 
     export let items: Monolieta.Labels = [];
 
-    const generate = (name: string = '') => ({
+    // prettier-ignore
+    const add = () => store.set({
         id: nanoid(),
-        name: name,
+        name: '',
         color: color()
     });
-
-    const add = () => store.set(generate());
 
     store.subscribe((values) => {
         items = values;
@@ -35,9 +35,21 @@
         <Search search={() => {}} />
     </div>
     <div class="collection">
-        <List {items} setting={{ direction: 'vertical', rowHeight: 38 }}>
-            <Label />
-        </List>
+        {#if items.length === 0}
+            <div class="empty-state">
+                <div class="empty-state-picture">
+                    <img alt="The label" src={image} />
+                </div>
+                <div class="empty-state-info">
+                    <p>A label that gives information about your annotation.</p>
+                    <a href={'#'} on:click={add}>New label</a>
+                </div>
+            </div>
+        {:else}
+            <List {items} setting={{ direction: 'vertical', rowHeight: 38 }} padding={8} let:item>
+                <Label color={item.color} />
+            </List>
+        {/if}
     </div>
 </div>
 
@@ -82,5 +94,48 @@
     .collection {
         height: 300px;
         width: 100%;
+    }
+
+    .empty-state {
+        align-items: center;
+        display: flex;
+        flex-direction: row;
+        gap: 16px;
+        justify-content: center;
+    }
+
+    .empty-state-picture {
+        align-items: center;
+        display: flex;
+        justify-content: center;
+    }
+
+    .empty-state-picture img {
+        width: 128px;
+    }
+
+    .empty-state-info {
+        align-items: flex-start;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+        justify-content: center;
+    }
+
+    .empty-state-info a {
+        color: var(--accent-color);
+        text-decoration: none;
+    }
+
+    .empty-state-info a:hover {
+        text-decoration: underline;
+    }
+
+    .empty-state-info p {
+        color: var(--font-color);
+        font-family: inherit;
+        font-size: 18px;
+        font-weight: 500;
+        margin: 0;
     }
 </style>

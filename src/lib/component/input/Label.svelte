@@ -3,13 +3,15 @@
     import More from '$lib/component/action/More.svelte';
 
     export let color: string = '333';
+    export let placeholder: string = 'Enter label name';
+    export let value: string = '';
 </script>
 
 <div class="main">
     <div class="color">
         <Color {color} />
     </div>
-    <input type="text" placeholder="Enter label name" autocomplete="off" />
+    <input type="text" autocomplete="off" {placeholder} {value} />
     <div class="more">
         <More tabindex={-1} click={() => {}} />
     </div>

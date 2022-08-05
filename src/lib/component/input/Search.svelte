@@ -66,10 +66,10 @@
         border-radius: 4px;
         border: 1px solid var(--oc-gray-2);
         box-sizing: border-box;
-        color: inherit;
         font-family: inherit;
         font-size: inherit;
         height: 38px;
+        transition: background-color, border-color 0.2s ease-in-out;
         outline: none;
         padding: 8px 8px 8px 36px;
         width: 100%;

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import { onMount } from 'svelte';
+    import scroll from '$lib/action/scroll';
 
     type Vertical = {
         columnWidth?: never;
@@ -15,9 +15,22 @@
 
     export let items: Monolieta.Entities = [];
     export let setting: Vertical | Horizontal;
+    export let padding: number = 0;
 
-    let dataset: Monolieta.Entities = [];
+    let bodyStyle: string = '';
+    let entities: Monolieta.Entities = [];
     let main: HTMLDivElement;
+    let viewportStyle: string = '';
+
+    function getViewportStyle(value: number) {
+        return isVertical() ? `height:${value}px` : `width:${value}px`;
+    }
+
+    function getBodyStyle(value: number) {
+        return isVertical()
+            ? `transform: translate(0, ${value}px); gap: ${padding}px`
+            : `transform: translate(${value}px, 0); gap: ${padding}px`;
+    }
 
     function getSize() {
         return items.length;
@@ -34,19 +47,19 @@
             columnWidth = 0 
         } = setting;
 
-        return isVertical() ? rowHeight : columnWidth;
+        return (isVertical() ? rowHeight : columnWidth) + padding;
     }
 
     function getOffset() {
         if (main) {
-            return isVertical() ? main.scrollTop : main.scrollLeft;
+            return isVertical() ? main.offsetHeight : main.offsetWidth;
         }
         return 0;
     }
 
-    function getClientSize() {
+    function getScroll() {
         if (main) {
-            return isVertical() ? main.clientHeight : main.clientWidth;
+            return isVertical() ? main.scrollTop : main.scrollLeft;
         }
         return 0;
     }
@@ -55,47 +68,108 @@
         return getNode() * getSize();
     }
 
-    function getVisibleNode(offset: number, node: number, content: number) {
-        console.log('offset', offset);
-        console.log('node', node);
-        console.log('content', content);
-
-        const translateNode = Math.floor(offset / content);
-        const startNode = Math.max(0, translateNode);
-
-        const visibleNode = Math.ceil(node / content);
-        const visibleNodeCount = Math.min(content - startNode, visibleNode + 2);
-        
-        return [startNode, visibleNodeCount];
+    function getTranslate(start: number, node: number) {
+        const value = start * node;
+        return !isNaN(value) ? value : 0;
     }
 
-    function getContent() {
+    function getContent(scroll: number) {
         const node = getNode();
-        const offset = getOffset();
         const content = getContentSize();
 
-        const [startNode, visibleNodeCount] = getVisibleNode(offset, node, content);
-        return items.slice(startNode, startNode + visibleNodeCount);
+        const [startNode, visibleNodeCount] = getVisibleNode(scroll, node);
+        const translate = getTranslate(startNode, node);
+
+        bodyStyle = getBodyStyle(translate);
+        viewportStyle = getViewportStyle(content);
+
+        entities = items.slice(startNode, startNode + visibleNodeCount);
+    }
+
+    function getVisibleNode(scroll: number, node: number) {
+        const total = getSize();
+        const offset = getOffset();
+
+        const translateNode = Math.floor(scroll / node);
+        const startNode = Math.max(0, translateNode);
+
+        const visibleColumnCount = Math.ceil(offset / node);
+        const visibleNodeCount = Math.min(total - startNode, visibleColumnCount + 2);
+
+        return [startNode, visibleNodeCount];
     }
 
     $: handleDataSourcesChange(items);
 
     function handleDataSourcesChange(_: Monolieta.Entities) {
-        dataset = getContent();
+        getContent(getScroll());
+    }
+
+    function handleScroll(left: number, top: number) {
+        getContent(isVertical() ? top : left);
     }
 </script>
 
-<div bind:this={main} class="main">
-    <div>
-        {#each dataset as item (item.id)}
-            <slot {item} />
-        {/each}
+<!-- TODO: include space for the scroll -->
+<div class="main main--{setting.direction}" use:scroll={{ set: handleScroll }} bind:this={main}>
+    <div class="viewport" style={viewportStyle}>
+        <div class="body body--{setting.direction}" style={bodyStyle}>
+            {#each entities as item (item.id)}
+                <slot {item} />
+            {/each}
+        </div>
     </div>
 </div>
 
 <style>
     .main {
-        background-color: transparent;
+        align-items: stretch;
+        background: transparent;
+        display: flex;
         height: 100%;
+        margin: 0;
+        position: relative;
+        transform: translateZ(0);
+        width: 100%;
+        will-change: scroll-position;
+    }
+
+    .main--vertical {
+        overflow-x: hidden;
+    }
+
+    .main--horizontal {
+        overflow-y: hidden;
+    }
+
+    .viewport {
+        height: 100%;
+        overflow: hidden;
+        position: absolute;
+        transform: translateZ(0);
+        width: 100%;
+        will-change: transform;
+    }
+
+    .body {
+        align-content: flex-start;
+        align-items: flex-start;
+        contain: content;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        height: 100%;
+        justify-content: flex-start;
+        margin: 0 auto;
+        padding: 0;
+        will-change: transform;
+    }
+
+    .body--horizontal {
+        flex-direction: row;
+    }
+
+    .body--vertical {
+        flex-direction: column;
     }
 </style>

@@ -8,6 +8,7 @@
 
 <style>
     input {
+        background-color: var(--oc-gray-2);
         border-radius: 4px;
         border: 1px solid var(--oc-gray-3);
         box-sizing: border-box;

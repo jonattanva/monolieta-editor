@@ -1,7 +1,7 @@
 import { onMount } from 'svelte';
 
 type Option = {
-    set?: (x: number, y: number) => void;
+    set?: (left: number, top: number) => void;
 };
 
 export default function scroll(node: HTMLDivElement, option: Option) {
