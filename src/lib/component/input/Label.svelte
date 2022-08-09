@@ -1,19 +1,35 @@
 <script lang="ts">
-    import Color from '$lib/component/picker/Color.svelte';
-    import More from '$lib/component/action/More.svelte';
-
-    export let color: string = '333';
+    export let item: Monolieta.Label;
+    export let change: (item: Monolieta.Label) => void;
+    export let color: (event: Event, item: Monolieta.Label) => void;
     export let placeholder: string = 'Enter label name';
-    export let value: string = '';
+    export let test: string | null = null;
+
+    function handleNameChange(event: Event) {
+        const target = event.target as HTMLInputElement;
+        item.name = target.value;
+        change(item);
+    }
+
+    function handleColorChange(event: Event) {
+        color(event, item);
+    }
 </script>
 
 <div class="main">
     <div class="color">
-        <Color {color} />
+        <button on:click={handleColorChange} style="--color-picker: {item.color}" tabindex="-1" />
     </div>
-    <input type="text" autocomplete="off" {placeholder} {value} />
+    <input
+        autocomplete="off"
+        data-testid={test}
+        on:change={handleNameChange}
+        type="text"
+        value={item.name}
+        {placeholder}
+    />
     <div class="more">
-        <More tabindex={-1} click={() => {}} />
+        <!--<More tabindex={-1} click={handleMoreOpen} />-->
     </div>
 </div>
 
@@ -72,5 +88,14 @@
         right: 8px;
         top: 0;
         visibility: hidden;
+    }
+
+    .color button {
+        background-color: var(--color-picker);
+        border-radius: 4px;
+        border: 1px solid transparent;
+        cursor: pointer;
+        height: 24px;
+        width: 24px;
     }
 </style>

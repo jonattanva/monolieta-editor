@@ -1,6 +1,7 @@
 <script lang="ts">
     import Fab from './Fab.svelte';
-    export let click: () => void;
+
+    export let click: (event: MouseEvent) => void;
     export let test: string | null = null;
 </script>
 

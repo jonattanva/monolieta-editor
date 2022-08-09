@@ -2,6 +2,7 @@
 @import 'open-color/open-color.css';
 
 :root {
+    --accent-color-dark: #5700d5;
     --accent-color: #6200ee;
     --font-color: #001d35;
     --font-roboto: 'Roboto Flex', sans-serif;

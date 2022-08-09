@@ -47,7 +47,7 @@
                 <div>#</div>
                 <input type="text" maxlength="6" bind:value={color} />
             </div>
-            <div class="palette">
+            <div class="palette"> 
                 {#each colors as color}
                     <button
                         class="color"

@@ -13,12 +13,14 @@
         rowHeight?: never;
     };
 
-    export let items: Monolieta.Entities = [];
+    type Collection = readonly any[];
+
+    export let items: Collection = [];
     export let setting: Vertical | Horizontal;
     export let padding: number = 0;
 
     let bodyStyle: string = '';
-    let entities: Monolieta.Entities = [];
+    let entities: Collection = [];
     let main: HTMLDivElement;
     let viewportStyle: string = '';
 

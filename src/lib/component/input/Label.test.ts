@@ -1,17 +1,24 @@
-import Text from './Text.svelte';
+import Label from './Label.svelte';
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/svelte';
 
-describe('<Text />', function () {
+describe('<Label />', function () {
     it('should render with placeholder', function () {
-        render(Text, { placeholder: 'placeholder' });
+        render(Label, { placeholder: 'placeholder' });
         const input = screen.getByRole('textbox');
 
         expect(input).toHaveAttribute('placeholder', 'placeholder');
     });
 
     it('should render with data test', function () {
-        render(Text, { test: 'action' });
+        render(Label, { test: 'action' });
         expect(screen.getByTestId('action')).toBeInTheDocument();
+    });
+
+    it('should render with value', function () {
+        render(Label, { value: 'value' });
+        const input = screen.getByRole('textbox');
+
+        expect(input).toHaveValue('value');
     });
 });

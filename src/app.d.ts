@@ -19,8 +19,11 @@ declare namespace Monolieta {
 
     type Label = {
         id: string;
+        createdAt: number;
+        updatedAt: number;
         name: string;
         color: string;
+        token: string;
     } & Entity;
 
     type Labels = readonly Label[];

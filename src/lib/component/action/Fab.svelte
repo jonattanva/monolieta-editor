@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let click: () => void;
+    export let click: (event: MouseEvent) => void;
     export let test: string | null = null;
     export let tabindex: number = 0;
 </script>

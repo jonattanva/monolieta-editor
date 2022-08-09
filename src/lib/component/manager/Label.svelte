@@ -1,22 +1,59 @@
 <script lang="ts">
     import Add from '../action/Add.svelte';
+    import Color from '../menu/Color.svelte';
     import Label from '../input/Label.svelte';
     import List from '../virtual/List.svelte';
     import More from '../action/More.svelte';
     import Search from '../input/Search.svelte';
-    import color from '$lib/color';
     import image from '$lib/assets/label.webp';
-    import store from '$lib/store/label';
-    import { nanoid } from 'nanoid';
+    import store, { template } from '$lib/store/label';
+
+    type Selected = {
+        label: Monolieta.Label | null;
+        x: number;
+        y: number;
+    };
 
     export let items: Monolieta.Labels = [];
 
-    // prettier-ignore
-    const add = () => store.set({
-        id: nanoid(),
-        name: '',
-        color: color()
-    });
+    let selected: Selected = {
+        label: null,
+        x: 0,
+        y: 0
+    };
+
+    function handleClose() {
+        selected.label = null;
+    }
+
+    function handleNewLabel() {
+        store.add(template());
+    }
+
+    function handleOpenColor(event: Event, item: Monolieta.Label) {
+        const pointer = event as PointerEvent;
+        selected = {
+            x: pointer.clientX,
+            y: pointer.clientY,
+            label: item
+        };
+
+        event.stopPropagation();
+        event.preventDefault();
+    }
+
+    function handleColorChange(value: string) {
+        if (selected.label) {
+            selected.label.color = `#${value}`;
+            store.set(selected.label);
+
+            handleClose();
+        }
+    }
+
+    function search(query: string) {
+        items = store.search(query);
+    }
 
     store.subscribe((values) => {
         items = values;
@@ -28,11 +65,11 @@
         <div class="control">
             <div>Classes</div>
             <div class="action">
-                <Add click={add} />
+                <Add click={handleNewLabel} />
                 <More click={() => {}} />
             </div>
         </div>
-        <Search search={() => {}} />
+        <Search {search} />
     </div>
     <div class="collection">
         {#if items.length === 0}
@@ -42,13 +79,22 @@
                 </div>
                 <div class="empty-state-info">
                     <p>A label that gives information about your annotation.</p>
-                    <a href={'#'} on:click={add}>New label</a>
+                    <a href={'#'} on:click={handleNewLabel}>New label</a>
                 </div>
             </div>
         {:else}
             <List {items} setting={{ direction: 'vertical', rowHeight: 38 }} padding={8} let:item>
-                <Label color={item.color} />
+                <Label {item} change={store.set} color={handleOpenColor} />
             </List>
+            {#if selected.label !== null}
+                <Color
+                    close={handleClose}
+                    save={handleColorChange}
+                    value={selected.label.color}
+                    x={selected.x}
+                    y={selected.y}
+                />
+            {/if}
         {/if}
     </div>
 </div>
