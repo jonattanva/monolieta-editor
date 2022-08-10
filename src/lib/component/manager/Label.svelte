@@ -8,6 +8,7 @@
     import image from '$lib/assets/label.webp';
     import store, { template } from '$lib/store/label';
 
+    type Message = string | null;
     type Selected = {
         label: Monolieta.Label | null;
         x: number;
@@ -16,6 +17,7 @@
 
     export let items: Monolieta.Labels = [];
 
+    let message: Message = null;
     let selected: Selected = {
         label: null,
         x: 0,
@@ -24,10 +26,6 @@
 
     function handleClose() {
         selected.label = null;
-    }
-
-    function handleNewLabel() {
-        store.add(template());
     }
 
     function handleOpenColor(event: Event, item: Monolieta.Label) {
@@ -52,7 +50,11 @@
     }
 
     function search(query: string) {
+        message = null;
         items = store.search(query);
+        if (query.trim().length > 0 && items.length === 0) {
+            message = 'No labels found';
+        }
     }
 
     store.subscribe((values) => {
@@ -65,23 +67,29 @@
         <div class="control">
             <div>Classes</div>
             <div class="action">
-                <Add click={handleNewLabel} />
-                <More click={() => {}} />
+                <Add click={() => store.add(template())} />
+                <!--<More click={() => {}} />-->
             </div>
         </div>
         <Search {search} />
     </div>
     <div class="collection">
         {#if items.length === 0}
-            <div class="empty-state">
-                <div class="empty-state-picture">
-                    <img alt="The label" src={image} />
+            {#if message !== null}
+                <div class="empty-state">
+                    <div class="empty-state-info">{message}</div>
                 </div>
-                <div class="empty-state-info">
-                    <p>A label that gives information about your annotation.</p>
-                    <a href={'#'} on:click={handleNewLabel}>New label</a>
+            {:else}
+                <div class="empty-state">
+                    <div class="empty-state-picture">
+                        <img alt="The label" src={image} />
+                    </div>
+                    <div class="empty-state-info">
+                        <p>A label that gives information about your annotation.</p>
+                        <a href={'#'} on:click={() => store.add(template())}>New label</a>
+                    </div>
                 </div>
-            </div>
+            {/if}
         {:else}
             <List {items} setting={{ direction: 'vertical', rowHeight: 38 }} padding={8} let:item>
                 <Label {item} change={store.set} color={handleOpenColor} />

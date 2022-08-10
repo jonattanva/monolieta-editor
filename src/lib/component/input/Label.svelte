@@ -7,18 +7,20 @@
 
     function handleNameChange(event: Event) {
         const target = event.target as HTMLInputElement;
-        item.name = target.value;
-        change(item);
-    }
-
-    function handleColorChange(event: Event) {
-        color(event, item);
+        if (target) {
+            item.name = target.value;
+            change(item);
+        }
     }
 </script>
 
 <div class="main">
     <div class="color">
-        <button on:click={handleColorChange} style="--color-picker: {item.color}" tabindex="-1" />
+        <button
+            on:click={(event) => color(event, item)}
+            style="--color-picker: {item.color}"
+            tabindex="-1"
+        />
     </div>
     <input
         autocomplete="off"
