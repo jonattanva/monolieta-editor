@@ -1,10 +1,9 @@
 <script lang="ts">
-    import Add from '../action/Add.svelte';
-    import Color from '../menu/Color.svelte';
-    import Label from '../input/Label.svelte';
-    import List from '../virtual/List.svelte';
-    import More from '../action/More.svelte';
-    import Search from '../input/Search.svelte';
+    import Add from '$lib/component/action/Add.svelte';
+    import Color from '$lib/component/menu/Color.svelte';
+    import Label from '$lib/component/input/Label.svelte';
+    import List from '$lib/component/virtual/List.svelte';
+    import Search from '$lib/component/input/Search.svelte';
     import image from '$lib/assets/label.webp';
     import store, { template } from '$lib/store/label';
 
@@ -65,9 +64,9 @@
 <div class="main">
     <div class="header">
         <div class="control">
-            <div>Classes</div>
+            <div>Labels</div>
             <div class="action">
-                <Add click={() => store.add(template())} />
+                <Add title="New label" click={() => store.add(template())} />
                 <!--<More click={() => {}} />-->
             </div>
         </div>
@@ -91,7 +90,7 @@
                 </div>
             {/if}
         {:else}
-            <List {items} setting={{ direction: 'vertical', rowHeight: 38 }} padding={8} let:item>
+            <List {items} setting={{ direction: 'vertical', rowHeight: 38 }} padding={4} let:item>
                 <Label {item} change={store.set} color={handleOpenColor} />
             </List>
             {#if selected.label !== null}
@@ -109,6 +108,7 @@
 
 <style>
     .main {
+        color: var(--font-color);
         display: flex;
         flex-direction: column;
         font-family: inherit;
@@ -146,14 +146,14 @@
     }
 
     .collection {
-        height: 300px;
+        height: 100%;
         width: 100%;
     }
 
     .empty-state {
         align-items: center;
         display: flex;
-        flex-direction: row;
+        flex-direction: column;
         gap: 16px;
         justify-content: center;
     }
@@ -169,15 +169,19 @@
     }
 
     .empty-state-info {
-        align-items: flex-start;
+        align-items: center;
+        color: inherit;
         display: flex;
         flex-direction: column;
+        font-family: inherit;
+        font-size: 14px;
         gap: 8px;
         justify-content: center;
     }
 
     .empty-state-info a {
         color: var(--accent-color);
+        font-family: inherit;
         text-decoration: none;
     }
 
@@ -186,10 +190,10 @@
     }
 
     .empty-state-info p {
-        color: var(--font-color);
+        color: inherit;
         font-family: inherit;
-        font-size: 18px;
         font-weight: 500;
         margin: 0;
+        text-align: center;
     }
 </style>

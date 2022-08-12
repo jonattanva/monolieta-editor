@@ -66,7 +66,7 @@
 
 <style>
     .main {
-        background-color: #fff;
+        background-color: var(--oc-white);
         border-radius: 4px;
         box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
         box-sizing: border-box;
@@ -142,7 +142,7 @@
         background-color: var(--accent-color);
         border-radius: 4px;
         border: 1px solid var(--accent-color);
-        color: var(--white-color);
+        color: var(--oc-white);
         height: 24px;
         min-width: 56px;
     }

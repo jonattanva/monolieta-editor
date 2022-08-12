@@ -62,23 +62,21 @@
     }
 
     input {
-        background-color: var(--oc-gray-2);
+        background-color: var(--oc-white);
         border-radius: 4px;
         border: 1px solid var(--oc-gray-2);
         box-sizing: border-box;
         font-family: inherit;
         font-size: inherit;
         height: 38px;
-        transition: background-color, border-color 0.2s ease-in-out;
         outline: none;
         padding: 8px 8px 8px 36px;
+        transition: background-color, border-color 0.2s ease-in-out;
         width: 100%;
     }
 
     input:focus {
-        background-color: var(--white-color);
-        border-color: var(--white-color);
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--oc-gray-4);
     }
 
     input:focus::-webkit-search-cancel-button {

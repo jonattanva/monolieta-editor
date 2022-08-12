@@ -3,9 +3,10 @@
 
     export let click: (event: MouseEvent) => void;
     export let test: string | null = null;
+    export let title: string | null = null;
 </script>
 
-<Fab {click} {test}>
+<Fab {click} {test} {title}>
     <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"

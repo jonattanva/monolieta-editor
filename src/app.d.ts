@@ -34,5 +34,6 @@ declare namespace Monolieta {
         labels: Label[];
     };
 
+    type Context = 'resource' | 'label';
     type Direction = 'horizontal' | 'vertical';
 }

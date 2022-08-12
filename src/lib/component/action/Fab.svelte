@@ -1,10 +1,11 @@
 <script lang="ts">
     export let click: (event: MouseEvent) => void;
-    export let test: string | null = null;
     export let tabindex: number = 0;
+    export let test: string | null = null;
+    export let title: string | null = null;
 </script>
 
-<button on:click={click} data-testid={test} {tabindex}>
+<button on:click={click} data-testid={test} {tabindex} {title}>
     <slot />
 </button>
 

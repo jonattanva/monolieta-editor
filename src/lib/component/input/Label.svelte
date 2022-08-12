@@ -53,27 +53,28 @@
     }
 
     input {
-        background-color: var(--oc-gray-2);
+        background-color: var(--oc-gray-0);
         border-radius: 4px;
-        border: 1px solid var(--oc-gray-2);
+        border: 1px solid var(--oc-gray-0);
         box-sizing: border-box;
         color: inherit;
         font-family: inherit;
         font-size: inherit;
-        outline: none;
         height: 38px;
+        outline: none;
         padding: 8px 42px;
+        transition: background-color, border-color 0.2s ease-in-out;
         width: 100%;
     }
 
     input:hover,
     input:focus {
-        background-color: var(--white-color);
-        border-color: var(--white-color);
+        background-color: var(--oc-white);
+        border: 1px solid var(--oc-gray-2);
     }
 
     input:focus {
-        box-shadow: 0 0 8px rgba(0, 0, 0, 0.2);
+        border: 1px solid var(--oc-gray-4);
     }
 
     .more:hover,

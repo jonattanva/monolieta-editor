@@ -1,5 +1,5 @@
-<script lang="ts">
-    import Label from '$lib/component/manager/Label.svelte';
-</script>
+<svelte:head>
+	<title>Monolieta</title>
+</svelte:head>
 
-<Label />
+<div>Content</div>

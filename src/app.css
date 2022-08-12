@@ -1,4 +1,5 @@
 @import '@fontsource/roboto-flex';
+@import '@fontsource/sigmar-one';
 @import 'open-color/open-color.css';
 
 :root {
@@ -6,13 +7,13 @@
     --accent-color: #6200ee;
     --font-color: #001d35;
     --font-roboto: 'Roboto Flex', sans-serif;
-    --white-color: #fff;
+    --font-sigmar: 'Sigmar One', cursive;
 }
 
 body {
-    background-color: var(--oc-gray-0);
+    background-color: var(--white);
     color: var(--oc-gray-7);
     font-family: var(--font-roboto);
     font-size: 14px;
-    margin: 16px;
+    margin: 0;
 }
