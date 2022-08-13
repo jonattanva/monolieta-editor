@@ -1,4 +1,4 @@
-import More from './More.svelte';
+import More from './more.svelte';
 import { describe, it, vi } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/svelte';
 

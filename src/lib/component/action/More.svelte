@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Fab from './Fab.svelte';
+    import Fab from './fab.svelte';
 
     export let click: (event: MouseEvent) => void;
     export let tabindex: number = 0;

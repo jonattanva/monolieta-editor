@@ -1,4 +1,4 @@
-import Fab from './Fab.svelte';
+import Fab from './fab.svelte';
 import { describe, it, vi } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/svelte';
 
