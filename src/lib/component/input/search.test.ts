@@ -1,4 +1,4 @@
-import Search from './Search.svelte';
+import Search from './search.svelte';
 import { describe, it, vi } from 'vitest';
 import { render, fireEvent, screen, waitFor } from '@testing-library/svelte';
 

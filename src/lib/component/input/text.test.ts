@@ -1,4 +1,4 @@
-import Text from './Text.svelte';
+import Text from './text.svelte';
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/svelte';
 

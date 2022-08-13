@@ -1,4 +1,4 @@
-import Color from './Color.svelte';
+import Color from './color.svelte';
 import { describe, it, vi } from 'vitest';
 import { render, screen, fireEvent } from '@testing-library/svelte';
 

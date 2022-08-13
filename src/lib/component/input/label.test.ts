@@ -1,4 +1,4 @@
-import Label from './Label.svelte';
+import Label from './label.svelte';
 import { describe, it, vi } from 'vitest';
 import { render, screen } from '@testing-library/svelte';
 
