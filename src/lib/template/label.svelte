@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Add from '$lib/component/action/Add.svelte';
+    import Add from '$lib/component/action/add.svelte';
     import Color from '$lib/component/menu/Color.svelte';
     import Label from '$lib/component/input/Label.svelte';
     import List from '$lib/component/virtual/List.svelte';
@@ -66,7 +66,7 @@
         <div class="control">
             <div>Labels</div>
             <div class="action">
-                <Add title="New label" click={() => store.add(template())} />
+                <Add title="New label" click={() => store.add(template())} test="create-label" />
                 <!--<More click={() => {}} />-->
             </div>
         </div>

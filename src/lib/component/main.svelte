@@ -22,7 +22,7 @@
     <Navigation click={handlePanel} {context} />
     <div class="panel" class:close={open === false}>
         {#if context === 'resource'}
-            resource
+            Resources
         {:else if context === 'label'}
             <Label />
         {/if}

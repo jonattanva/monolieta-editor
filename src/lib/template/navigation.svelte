@@ -4,7 +4,6 @@
 
     export let context: Monolieta.Context | null = null;
     export let click: (event: MouseEvent) => void;
-
 </script>
 
 <nav class="main">
@@ -16,6 +15,7 @@
             class:selected={context === 'resource'}
             class="action"
             data-key="resource"
+            data-testid="manager-resource"
             on:click={click}
             title="Resources"
         >
@@ -25,6 +25,7 @@
             class:selected={context === 'label'}
             class="action"
             data-key="label"
+            data-testid="manager-label"
             on:click={click}
             title="Labels"
         >
