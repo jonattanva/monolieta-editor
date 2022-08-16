@@ -40,7 +40,7 @@ import '@testing-library/cypress/add-commands';
 Cypress.Commands.add('home', () => {
     cy.visit('/');
     cy.title().should('equal', 'Monolieta');
-    cy.wait(1000)
+    cy.wait(5000)
 });
 
 declare global {
