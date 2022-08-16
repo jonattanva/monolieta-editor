@@ -2,7 +2,7 @@
     import Color from '$lib/component/menu/color.svelte';
     import Fab from '$lib/component/action/fab.svelte';
     import Label from '$lib/component/input/label.svelte';
-    import List from '$lib/component/virtual/List.svelte';
+    import List from '$lib/component/virtual/list.svelte';
     import Plus from '$lib/assets/plus.svelte';
     import Search from '$lib/component/input/search.svelte';
     import image from '$lib/assets/label.webp';
