@@ -1,9 +1,10 @@
 <script lang="ts">
-    import Add from '$lib/component/action/add.svelte';
-    import Color from '$lib/component/menu/Color.svelte';
-    import Label from '$lib/component/input/Label.svelte';
+    import Color from '$lib/component/menu/color.svelte';
+    import Fab from '$lib/component/action/fab.svelte';
+    import Label from '$lib/component/input/label.svelte';
     import List from '$lib/component/virtual/List.svelte';
-    import Search from '$lib/component/input/Search.svelte';
+    import Plus from '$lib/assets/plus.svelte';
+    import Search from '$lib/component/input/search.svelte';
     import image from '$lib/assets/label.webp';
     import store, { template } from '$lib/store/label';
 
@@ -66,7 +67,9 @@
         <div class="control">
             <div>Labels</div>
             <div class="action">
-                <Add title="New label" click={() => store.add(template())} test="create-label" />
+                <Fab title="New label" click={() => store.add(template())} test="create-label">
+                    <Plus width={18} height={18} />
+                </Fab>
                 <!--<More click={() => {}} />-->
             </div>
         </div>
