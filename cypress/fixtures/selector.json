@@ -1,9 +1,0 @@
-{
-  "manager": {
-    "label": "[data-testid=manager-label]",
-    "resource": "[data-testid=manager-resource]"
-  },
-  "action": {
-    "label": "[data-testid=create-label]"
-  }
-}

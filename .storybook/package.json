@@ -1,0 +1,20 @@
+{
+    "private": true,
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1",
+        "storybook": "start-storybook -c config -p 6006",
+        "build-storybook": "build-storybook -c config"
+    },
+    "devDependencies": {
+        "@babel/core": "~7.19.0",
+        "@storybook/addon-actions": "~6.5.11",
+        "@storybook/addon-essentials": "~6.5.11",
+        "@storybook/addon-interactions": "~6.5.11",
+        "@storybook/addon-links": "~6.5.11",
+        "@storybook/builder-vite": "~0.2.2",
+        "@storybook/svelte": "~6.5.11",
+        "@storybook/testing-library": "~0.0.13",
+        "babel-loader": "~8.2.5"
+    },
+    "type": "module"
+}

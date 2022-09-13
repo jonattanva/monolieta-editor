@@ -1,65 +1,44 @@
 {
-  "name": "monolieta-editor",
+  "name": "monolieta",
   "version": "0.0.1",
-  "license": "GPL-3.0",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/jonattanva/monolieta-editor.git"
-  },
+  "private": true,
   "scripts": {
     "build": "vite build",
-    "check": "svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-check --tsconfig ./tsconfig.json --watch",
-    "cypress": "cypress open",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "dev": "vite dev",
-    "format": "prettier --write --plugin-search-dir=. .",
-    "lint": "prettier --check --plugin-search-dir=. . && eslint .",
-    "package": "svelte-kit package",
-    "prepare": "svelte-kit sync",
+    "format": "prettier --write .",
+    "lint": "prettier --check . && eslint .",
     "preview": "vite preview",
+    "storybook": "npm run storybook --prefix ./.storybook",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "test:ui": "vitest --ui"
-  },
-  "dependencies": {
-    "@aws-sdk/client-cognito-identity": "~3.150.0",
-    "@aws-sdk/client-s3": "~3.150.0",
-    "@aws-sdk/credential-provider-cognito-identity": "~3.150.0",
-    "@fontsource/roboto-flex": "~4.5.1",
-    "@fontsource/sigmar-one": "~4.5.9",
-    "monolieta-search": "~1.2.0",
-    "nanoid": "~4.0.0",
-    "open-color": "~1.9.1"
+    "test:coverage": "vitest run --coverage"
   },
   "devDependencies": {
-    "@cypress/code-coverage": "~3.10.0",
     "@sveltejs/adapter-auto": "next",
-    "@sveltejs/adapter-vercel": "next",
     "@sveltejs/kit": "next",
     "@testing-library/cypress": "~8.0.3",
     "@testing-library/jest-dom": "~5.16.5",
-    "@testing-library/svelte": "~3.1.3",
-    "@typescript-eslint/eslint-plugin": "~5.33.1",
-    "@typescript-eslint/parser": "~5.33.1",
-    "@vitest/coverage-c8": "~0.22.0",
-    "@vitest/ui": "~0.22.0",
-    "cypress": "~10.5.0",
-    "eslint": "~8.22.0",
+    "@testing-library/svelte": "~3.2.1",
+    "@typescript-eslint/eslint-plugin": "~5.36.2",
+    "@typescript-eslint/parser": "~5.36.2",
+    "@vitest/coverage-c8": "~0.23.2",
+    "eslint": "~8.23.1",
     "eslint-config-prettier": "~8.5.0",
     "eslint-plugin-svelte3": "~4.0.0",
     "jsdom": "~20.0.0",
     "prettier": "~2.7.1",
     "prettier-plugin-svelte": "~2.7.0",
-    "svelte": "~3.49.0",
-    "svelte-check": "~2.8.0",
+    "svelte": "~3.50.1",
+    "svelte-check": "~2.9.0",
     "svelte-preprocess": "~4.10.7",
     "tslib": "~2.4.0",
-    "typescript": "~4.7.4",
-    "vite": "~3.0.8",
-    "vitest": "~0.22.0"
+    "typescript": "~4.8.3",
+    "vite": "~3.1.0",
+    "vitest": "~0.23.2"
   },
   "type": "module",
-  "engines": {
-    "node": ">=16.x"
+  "dependencies": {
+    "open-color": "~1.9.1"
   }
 }
