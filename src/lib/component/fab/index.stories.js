@@ -2,7 +2,7 @@
 import Fab from './index.svelte';
 
 export default {
-	title: 'Fab',
+	title: 'Action/Fab',
 	component: Fab,
 	argTypes: {
 		tabindex: {

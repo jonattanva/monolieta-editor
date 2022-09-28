@@ -1,1 +1,29 @@
+@import '@fontsource/roboto-flex';
 @import 'open-color/open-color.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+    --accent-color-dark: #5700d5;
+    --accent-color-light: #d2b3ff;
+    --accent-color: #6200ee;
+    --font-roboto: 'Roboto Flex', sans-serif;
+}
+
+body {
+    background-color: var(--oc-gray-0);
+    color: var(--oc-gray-9);
+    font-family: var(--font-roboto);
+    font-size: 14px;
+    margin: 0;
+}
+
+.color-accent {
+    color: var(--accent-color);
+}
+
+.text-underline:hover {
+    text-decoration: underline;
+}

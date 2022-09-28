@@ -1,7 +1,17 @@
 <script>
-    export /** @type {() => void} */ let open;
+    export /** @type {(arg0: Event) => void} */ let open;
     export /** @type {string} */ let value = 'E5E5E5';
     export /** @type {(arg0: string) => void} */ let change;
+
+    /** 
+     * @param {string} value
+     */
+    const normalize = (value) => value.replace(/^#/, '');
+
+    /**
+     * @param {string} init
+     */
+    const prepare = (init) => (value = normalize(init));
 
     /**
      * @param {{ target: any; }} event
@@ -12,13 +22,15 @@
             change(value);
         }
     }
+
+    $: prepare(value);
 </script>
 
 <div class="main">
     <div class="color">
         <button on:click={open} tabindex="-1" style="--color-picker: #{value}" />
     </div>
-    <input autocomplete="off" type="text" maxlength="6" {value} on:change={handleNameChange} />
+    <input autocomplete="off" type="text" {value} on:change={handleNameChange} />
 </div>
 
 <style>
@@ -35,10 +47,10 @@
         background: transparent;
         box-sizing: border-box;
         display: flex;
-        height: 38px;
+        height: var(--input-height, 28px);
         justify-content: center;
         position: absolute;
-        width: 38px;
+        width: var(--input-width, 28px);
     }
 
     .color > button {
@@ -46,34 +58,31 @@
         border-radius: 4px;
         border: 1px solid transparent;
         cursor: pointer;
-        height: 24px;
-        width: 24px;
+        height: 18px;
+        width: 18px;
     }
 
     input {
-        background-color: var(--oc-gray-0, #f8f9fa);
+        background-color: var(--oc-gray-2);
         border-radius: 4px;
-        border: 1px solid var(--oc-gray-0, #f8f9fa);
+        border: 1px solid var(--oc-gray-2);
         box-sizing: border-box;
         color: inherit;
         font-family: inherit;
         font-size: inherit;
-        height: 38px;
+        height: var(--input-height, 28px);
         outline: none;
-        padding: 8px;
-        padding: 8px 8px 8px 36px;
+        padding: 0 8px 0 32px;
+        text-transform: uppercase;
         transition: background-color, border-color 0.2s ease-in-out;
         width: 100%;
-        text-transform: uppercase;
     }
 
-    input:hover,
-    input:focus {
-        background-color: var(--oc-white, #fff);
-        border: 1px solid var(--oc-gray-2, #e9ecef);
+    input:hover {
+        border: 1px solid var(--oc-gray-3);
     }
 
     input:focus {
-        border: 1px solid var(--oc-gray-4, #ced4da);
+        border: 1px solid var(--oc-gray-3);
     }
 </style>

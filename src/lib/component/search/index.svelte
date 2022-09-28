@@ -10,7 +10,7 @@
     let timeout = null;
 
     /**
-     * @param {Event & { currentTarget: HTMLInputElement; }} event
+     * @param {{ target: any; }} event
      */
     function handleInput(event) {
         if (timeout) {
@@ -18,7 +18,7 @@
         }
 
         timeout = setTimeout(() => {
-            search(event.currentTarget?.value);
+            search(event.target?.value);
         }, delay);
     }
 </script>
@@ -65,20 +65,20 @@
         background: transparent;
         box-sizing: border-box;
         display: flex;
-        height: var(--input-icon-height, 38px);
+        height: var(--input-icon-height, 28px);
         justify-content: center;
         position: absolute;
-        width: var(--input-icon-width, 38px);
+        width: var(--input-icon-width, 28px);
     }
 
     input {
-        background-color: var(--oc-white, #fff);
+        background-color: var(--oc-gray-2);
         border-radius: 4px;
-        border: 1px solid var(--oc-gray-2, #e9ecef);
+        border: 1px solid var(--oc-gray-2);
         box-sizing: border-box;
         font-family: inherit;
         font-size: inherit;
-        height: var(--input-height, 38px);
+        height: var(--input-height, 28px);
         outline: none;
         padding: 8px 8px 8px 32px;
         transition: background-color, border-color 0.2s ease-in-out;
@@ -86,7 +86,7 @@
     }
 
     input:focus {
-        border: 1px solid var(--oc-gray-4, #ced4da);
+        border: 1px solid var(--oc-gray-3);
     }
 
     input:focus::-webkit-search-cancel-button {
