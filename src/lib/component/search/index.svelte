@@ -1,8 +1,11 @@
 <script>
-    export /** @type {(arg0: string) => void} */ let search;
+    import { createEventDispatcher } from 'svelte';
+
     export /** @type {number} */ let delay = 500;
     export /** @type {string} */ let test = '';
     export /** @type {string} */ let placeholder = 'Search';
+
+    const dispatch = createEventDispatcher();
 
     /**
      * @type {NodeJS.Timeout | null}
@@ -18,13 +21,15 @@
         }
 
         timeout = setTimeout(() => {
-            search(event.target?.value);
+            dispatch('search', {
+                value: event.target?.value
+            });
         }, delay);
     }
 </script>
 
-<div class="main">
-    <div class="icon">
+<div class="flex items-start justify-start w-full">
+    <div class="flex h-7 w-7 absolute items-center justify-center bg-transparent">
         <svg
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
@@ -42,6 +47,7 @@
         </svg>
     </div>
     <input
+        class="rounded w-full h-7 border bg-gray-200 pl-8 pr-2 focus:outline-none hover:border-gray-300 focus:border-gray-300 transition-colors"
         type="search"
         autocomplete="off"
         data-testid={test}
@@ -51,44 +57,6 @@
 </div>
 
 <style>
-    .main {
-        align-items: flex-start;
-        display: flex;
-        font-family: inherit;
-        font-size: inherit;
-        justify-content: flex-start;
-        width: 100%;
-    }
-
-    .icon {
-        align-items: center;
-        background: transparent;
-        box-sizing: border-box;
-        display: flex;
-        height: var(--input-icon-height, 28px);
-        justify-content: center;
-        position: absolute;
-        width: var(--input-icon-width, 28px);
-    }
-
-    input {
-        background-color: var(--oc-gray-2);
-        border-radius: 4px;
-        border: 1px solid var(--oc-gray-2);
-        box-sizing: border-box;
-        font-family: inherit;
-        font-size: inherit;
-        height: var(--input-height, 28px);
-        outline: none;
-        padding: 8px 8px 8px 32px;
-        transition: background-color, border-color 0.2s ease-in-out;
-        width: 100%;
-    }
-
-    input:focus {
-        border: 1px solid var(--oc-gray-3);
-    }
-
     input:focus::-webkit-search-cancel-button {
         opacity: 1;
         pointer-events: all;

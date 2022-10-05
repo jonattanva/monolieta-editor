@@ -2,18 +2,16 @@
     import Fab from '$lib/component/fab/index.svelte';
 
     export /** @type {string} */ let title = '';
-    export /** @type {svelte.JSX.MouseEventHandler<HTMLButtonElement>} */ let click;
 </script>
 
-<Fab {click} {title}>
+<Fab {title} on:click>
     <svg
         xmlns="http://www.w3.org/2000/svg"
         fill="none"
         viewBox="0 0 24 24"
-        height="20"
-        width="20"
         stroke-width="1.5"
         stroke="currentColor"
+        class="h-5 w-5"
     >
         <path
             stroke-linecap="round"

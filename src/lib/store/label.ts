@@ -111,6 +111,13 @@ export default {
         return results;
     },
 
+    sort: (callback: (a: Monolieta.Label, b: Monolieta.Label) => number) => {
+        values.update((previous) => {
+            previous.sort(callback);
+            return [...previous];
+        });
+    },
+
     subscribe: (callback: (values: Monolieta.Labels) => void) => {
         return values.subscribe(callback);
     }

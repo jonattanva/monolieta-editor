@@ -20,15 +20,15 @@
     "@testing-library/cypress": "~8.0.3",
     "@testing-library/jest-dom": "~5.16.5",
     "@testing-library/svelte": "~3.2.1",
-    "@typescript-eslint/eslint-plugin": "~5.38.1",
-    "@typescript-eslint/parser": "~5.38.1",
+    "@typescript-eslint/eslint-plugin": "~5.39.0",
+    "@typescript-eslint/parser": "~5.39.0",
     "@vitest/coverage-c8": "~0.23.4",
     "autoprefixer": "~10.4.12",
     "eslint": "~8.24.0",
     "eslint-config-prettier": "~8.5.0",
     "eslint-plugin-svelte3": "~4.0.0",
-    "jsdom": "~20.0.0",
-    "postcss": "~8.4.16",
+    "jsdom": "~20.0.1",
+    "postcss": "~8.4.17",
     "prettier": "~2.7.1",
     "prettier-plugin-svelte": "~2.7.1",
     "svelte": "~3.50.1",
@@ -43,7 +43,6 @@
   "type": "module",
   "dependencies": {
     "@fontsource/roboto-flex": "~4.5.2",
-    "monolieta-search": "~1.2.0",
-    "open-color": "~1.9.1"
+    "monolieta-search": "~1.2.0"
   }
 }
