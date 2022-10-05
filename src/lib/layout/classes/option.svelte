@@ -1,7 +1,8 @@
 <script lang="ts">
     import Dropdown from '$lib/component/dropdown/index.svelte';
+    import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
-    import More from '$lib/component/action/more.svelte';
+    import More from '$lib/assets/more.svelte';
     import outside from '$lib/action/outside';
     import store from '$lib/store/label';
 
@@ -32,7 +33,11 @@
 </script>
 
 <div use:outside={onCloseOption}>
-    <More on:click={onOpenOption} {title} />
+    <Fab on:click={onOpenOption} {title}>
+        <span class="h-5 w-5">
+            <More />
+        </span>
+    </Fab>
     {#if open}
         <div class="absolute top-9 right-0">
             <Dropdown>

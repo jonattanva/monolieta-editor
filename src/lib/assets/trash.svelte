@@ -1,16 +1,9 @@
-<script lang="ts">
-    export let className: string = '';
-    export let height: number = 24;
-    export let width: number = 24;
-</script>
-
 <svg
-    class={className}
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
     viewBox="0 0 24 24"
-    {width}
-    {height}
+    width="auto"
+    height="auto"
     stroke-width="1.5"
     stroke="currentColor"
 >

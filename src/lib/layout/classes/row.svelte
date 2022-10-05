@@ -1,6 +1,7 @@
 <script lang="ts">
     import Color from '$lib/component/color/index.svelte';
-    import More from '$lib/component/action/more.svelte';
+    import Fab from '$lib/component/fab/index.svelte';
+    import More from '$lib/assets/more.svelte';
     import Text from '$lib/component/text/index.svelte';
     import { createEventDispatcher } from 'svelte';
 
@@ -48,6 +49,10 @@
     </div>
     <div class="flex flex-row w-full gap-2 justify-between">
         <Text placeholder="Enter label name" value={item.name} on:change={onNameChanged} />
-        <More on:click={onMoreAction} />
+        <Fab on:click={onMoreAction}>
+            <span class="h-5 w-5">
+                <More />
+            </span>
+        </Fab>
     </div>
 </div>

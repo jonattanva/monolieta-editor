@@ -5,7 +5,8 @@
     import Item from '$lib/component/dropdown/item.svelte';
     import Option from '$lib/layout/classes/option.svelte';
     import Palette from '$lib/component/palette/index.svelte';
-    import Plus from '$lib/component/action/plus.svelte';
+    import Fab from '$lib/component/fab/index.svelte';
+    import Plus from '$lib/assets/plus.svelte';
     import Row from '$lib/layout/classes/row.svelte';
     import Search from '$lib/component/search/index.svelte';
     import Trash from '$lib/assets/trash.svelte';
@@ -117,7 +118,11 @@
     <div class="flex items-center px-2 font-medium text-base text-slate-900">Labels</div>
     <div class="relative flex flex-row gap-2 justify-between items-center px-2">
         <Search on:search={onSearch} />
-        <Plus on:click={onCreateNewLabel} title="New label" />
+        <Fab on:click={onCreateNewLabel} title="New label">
+            <span class="h-5 w-5">
+                <Plus />
+            </span>
+        </Fab>
         <Option open={false} />
     </div>
     <div class="flex flex-col gap-2">
@@ -155,11 +160,15 @@
         <Dropdown>
             <div class="w-full py-3 px-3.5">
                 <Item click={onRemoveLabel}>
-                    <Trash className="mr-2" width={20} height={20} />
+                    <span class="mr-2 h-5 w-5">
+                        <Trash />
+                    </span>
                     Delete
                 </Item>
                 <Item click={onDuplicateLabel}>
-                    <Duplicate className="mr-2" width={20} height={20} />
+                    <span class="mr-2 h-5 w-5">
+                        <Duplicate />
+                    </span>
                     Duplicate
                 </Item>
             </div>
