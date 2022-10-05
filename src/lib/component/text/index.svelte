@@ -1,6 +1,6 @@
 <script>
     export /** @type {string} */ let test = '';
-    export /** @type {string} */ let placeholder = '';
+    export /** @type {string|null} */ let placeholder = '';
     export /** @type {string} */ let value = '';
 </script>
 

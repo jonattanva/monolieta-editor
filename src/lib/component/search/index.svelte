@@ -2,7 +2,7 @@
     import { createEventDispatcher } from 'svelte';
 
     export /** @type {number} */ let delay = 500;
-    export /** @type {string} */ let test = '';
+    export /** @type {string|null} */ let test = '';
     export /** @type {string} */ let placeholder = 'Search';
 
     const dispatch = createEventDispatcher();
