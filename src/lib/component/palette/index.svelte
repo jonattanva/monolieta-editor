@@ -1,24 +1,25 @@
 <script>
-    import { pallete } from '$lib/color';
     import outside from '$lib/action/outside';
+    import { createEventDispatcher } from 'svelte';
+    import { pallete } from '$lib/color';
 
-    export /** @type {() => void} */ let close;
-    export /** @type {(arg0: string) => void} */ let click;
+    const dispatch = createEventDispatcher();
+
+    const handleClose = () => dispatch('close');
 
     /**
      * @param {{ target: any; }} event
      */
-    function handleColorChanged(event) {
-        const color = event.target.dataset.color;
-        if (click) {
-            click(color);
-        }
-    }
+    const handleColorChanged = (event) => {
+        dispatch('click', {
+            value: event.target.dataset.color
+        });
+    };
 </script>
 
 <div
     class="flex flex-row bg-white rounded flex-wrap justify-start shadow-md gap-1 content-around absolute z-10 p-4 w-56"
-    use:outside={close}
+    use:outside={handleClose}
 >
     {#each pallete as color (color)}
         <button

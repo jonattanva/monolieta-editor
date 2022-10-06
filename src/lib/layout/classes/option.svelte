@@ -1,5 +1,6 @@
 <script lang="ts">
     import Dropdown from '$lib/component/dropdown/index.svelte';
+    import Section from '$lib/component/dropdown/section.svelte';
     import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import More from '$lib/assets/more.svelte';
@@ -41,8 +42,8 @@
     {#if open}
         <div class="absolute top-9 right-0">
             <Dropdown>
-                <div class="w-full py-3 px-3.5">
-                    <Item click={onAscending}>
+                <Section>
+                    <Item on:click={onAscending}>
                         <!-- Heroicon name: outline/bars-arrow-down -->
                         <svg
                             class="mr-2 h-5 w-5"
@@ -60,7 +61,7 @@
                         </svg>
                         Ascending
                     </Item>
-                    <Item click={onDescending}>
+                    <Item on:click={onDescending}>
                         <!-- Heroicon name: outline/bars-arrow-up -->
                         <svg
                             class="mr-2 h-5 w-5"
@@ -78,9 +79,9 @@
                         </svg>
                         Descending
                     </Item>
-                </div>
+                </Section>
                 <div class="border-t border-slate-400/20 w-full py-3 px-3.5">
-                    <Item click={() => {}}>
+                    <Item on:click={() => {}}>
                         <!-- Heroicon name: outline/arrow-down-tray -->
                         <svg
                             class="mr-2 h-5 w-5"
@@ -99,7 +100,7 @@
 
                         Import
                     </Item>
-                    <Item click={() => {}}>
+                    <Item on:click={() => {}}>
                         <!-- Heroicon name: outline/arrow-up-tray -->
                         <svg
                             class="mr-2 h-5 w-5"

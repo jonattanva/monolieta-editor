@@ -2,16 +2,17 @@
     import Dropdown from '$lib/component/dropdown/index.svelte';
     import Duplicate from '$lib/assets/duplicate.svelte';
     import Empty from '$lib/layout/classes/empty.svelte';
+    import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Option from '$lib/layout/classes/option.svelte';
     import Palette from '$lib/component/palette/index.svelte';
-    import Fab from '$lib/component/fab/index.svelte';
     import Plus from '$lib/assets/plus.svelte';
     import Row from '$lib/layout/classes/row.svelte';
     import Search from '$lib/component/search/index.svelte';
+    import Section from '$lib/component/dropdown/section.svelte';
     import Trash from '$lib/assets/trash.svelte';
-    import store, { template } from '$lib/store/label';
     import outside from '$lib/action/outside';
+    import store, { template } from '$lib/store/label';
 
     export let items: Monolieta.Labels = [];
 
@@ -102,10 +103,13 @@
         onCloseMore();
     };
 
-    const onColorChanged = (color: string) => {
+    const onColorChanged = (custom: CustomEvent) => {
+        const color = custom.detail.value;
         if (selected) {
             selected.color = color;
             store.set(selected);
+
+            onCloseColor()
         }
     };
 
@@ -151,27 +155,27 @@
 
 {#if open && open.color}
     <div class="absolute" style="left:{position.x}px;top:{position.y}px">
-        <Palette close={onCloseColor} click={onColorChanged} />
+        <Palette on:close={onCloseColor} on:click={onColorChanged} />
     </div>
 {/if}
 
 {#if open && open.more}
     <div class="absolute" style="left:{position.x}px;top:{position.y}px" use:outside={onCloseMore}>
         <Dropdown>
-            <div class="w-full py-3 px-3.5">
-                <Item click={onRemoveLabel}>
+            <Section>
+                <Item on:click={onRemoveLabel}>
                     <span class="mr-2 h-5 w-5">
                         <Trash />
                     </span>
                     Delete
                 </Item>
-                <Item click={onDuplicateLabel}>
+                <Item on:click={onDuplicateLabel}>
                     <span class="mr-2 h-5 w-5">
                         <Duplicate />
                     </span>
                     Duplicate
                 </Item>
-            </div>
+            </Section>
         </Dropdown>
     </div>
 {/if}
