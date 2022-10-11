@@ -168,7 +168,7 @@
                 </span>
             </span>
             <span class="flex gap-4 items-center justify-between">
-                Include empty
+                Include empty labels
                 <Toggle on:change={onIncludeEmptyChanged} />
             </span>
         </div>
