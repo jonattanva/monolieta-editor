@@ -10,6 +10,6 @@
         <p class="text-base font-medium text-center">
             A label that gives information about your annotation
         </p>
-        <p class="color-accent text-center hover:underline cursor-pointer" on:click>New label</p>
+        <p class="text-accent text-center hover:underline cursor-pointer" on:click>New label</p>
     </div>
 </div>

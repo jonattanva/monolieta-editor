@@ -31,11 +31,10 @@
 <div class="flex items-start justify-start w-full">
     <div class="flex h-7 w-7 absolute items-center justify-center bg-transparent">
         <svg
+            class="h-5 w-5 text-gray-400"
             xmlns="http://www.w3.org/2000/svg"
             fill="none"
             viewBox="0 0 24 24"
-            width="18"
-            height="18"
             stroke-width="1.5"
             stroke="currentColor"
         >

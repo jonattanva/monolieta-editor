@@ -5,7 +5,6 @@
     import Text from '$lib/component/text/index.svelte';
     import { createEventDispatcher } from 'svelte';
 
-    export let change: (label: Monolieta.Label) => void;
     export let item: Monolieta.Label;
 
     const dispatch = createEventDispatcher();
@@ -26,9 +25,9 @@
         const target = event.target as HTMLInputElement;
         if (target) {
             item.color = target?.value.substring(0, 6);
-            if (change) {
-                change(item);
-            }
+            dispatch('change', {
+                value: item
+            });
         }
     };
 
@@ -36,9 +35,9 @@
         const target = event.target as HTMLInputElement;
         if (target) {
             item.name = target?.value;
-            if (change) {
-                change(item);
-            }
+            dispatch('change', {
+                value: item
+            });
         }
     };
 </script>

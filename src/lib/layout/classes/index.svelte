@@ -26,8 +26,8 @@
         color: false
     };
 
-    let message: string | null = null;
     let collection: Monolieta.Labels = [];
+    let message: string | null = null;
     let selected: Monolieta.Label | null = null;
 
     store.subscribe((values) => {
@@ -109,13 +109,13 @@
             selected.color = color;
             store.set(selected);
 
-            onCloseColor()
+            onCloseColor();
         }
     };
 
-    function handleLabelChanged(label: Monolieta.Label) {
-        store.set(label);
-    }
+    const onLabelChanged = (custom: CustomEvent) => {
+        store.set(custom.detail.value);
+    };
 </script>
 
 <div class="flex flex-col gap-4 w-80 py-2">
@@ -123,11 +123,11 @@
     <div class="relative flex flex-row gap-2 justify-between items-center px-2">
         <Search on:search={onSearch} />
         <Fab on:click={onCreateNewLabel} title="New label">
-            <span class="h-5 w-5">
+            <span class="h-5 w-5 text-gray-600">
                 <Plus />
             </span>
         </Fab>
-        <Option open={false} />
+        <Option />
     </div>
     <div class="flex flex-col gap-2">
         {#if collection.length === 0}
@@ -147,7 +147,7 @@
                 {item}
                 on:more={onMoreAction}
                 on:color={onColorAction}
-                change={handleLabelChanged}
+                on:change={onLabelChanged}
             />
         {/each}
     </div>

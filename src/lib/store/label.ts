@@ -1,9 +1,17 @@
 import color from '$lib/color';
+import createFile from '$lib/file/save';
 import { Search } from 'monolieta-search';
 import { get, writable } from 'svelte/store';
 import { nanoid } from 'nanoid';
 
 const client = new Search();
+
+const whiteList = ['id', 'createdAt', 'updatedAt', 'name', 'color'];
+
+const jsonTemplate = `{
+    "labels": [%content%],
+    "version": 1
+}`;
 
 const values = writable<Monolieta.Labels>([]);
 
@@ -118,7 +126,53 @@ export default {
         });
     },
 
-    subscribe: (callback: (values: Monolieta.Labels) => void) => {
-        return values.subscribe(callback);
+    subscribe: (callback: (values: Monolieta.Labels) => void) => values.subscribe(callback),
+
+    export: (format: string, empty: boolean = true) => {
+        let content = '';
+        let template = jsonTemplate;
+        let type = 'application/json';
+
+        if (format === 'csv') {
+            type = 'text/csv';
+            template = '%content%';
+            content = whiteList.join(',').concat('\n');
+        }
+
+        const collections = get(values);
+        for (let index = 0; index < collections.length; index++) {
+            const element = collections[index];
+            const item: { [key: string]: string | number } = {};
+
+            if (!empty && element.name.trim().length === 0) {
+                continue;
+            }
+
+            Object.keys(element)
+                .filter((key) => whiteList.includes(key))
+                .forEach((key: string) => {
+                    item[key] = element[key as keyof Monolieta.Label];
+                });
+
+            switch (format) {
+                case 'csv': {
+                    content += Object.keys(item)
+                        .map((column) => item[column])
+                        .join(',')
+                        .concat('\n');
+                    break;
+                }
+                case 'json': {
+                    content += JSON.stringify(item).concat('\n');
+                    break;
+                }
+            }
+        }
+
+        createFile(
+            new Blob([template.replace('%content%', content)], {
+                type: type
+            })
+        );
     }
 };

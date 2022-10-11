@@ -5,9 +5,6 @@
 @tailwind utilities;
 
 :root {
-    --accent-color-dark: #5700d5;
-    --accent-color-light: #d2b3ff;
-    --accent-color: #6200ee;
     --bg-color: #f8f9fa;
     --font-color: #343a40;
     --font-roboto: 'Roboto Flex', sans-serif;
@@ -18,8 +15,4 @@ body {
     color: var(--font-color);
     font-family: var(--font-roboto);
     font-size: 14px;
-}
-
-.color-accent {
-    color: var(--accent-color);
 }
