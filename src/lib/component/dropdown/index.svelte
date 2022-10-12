@@ -1,5 +1,5 @@
 <div
-    class="flex relative bg-white content-around rounded-lg flex-row flex-wrap justify-start z-10 w-56 shadow-md"
+    class="relative z-10 flex w-56 flex-row flex-wrap content-around justify-start rounded-lg bg-white shadow-md"
 >
     <slot />
 </div>

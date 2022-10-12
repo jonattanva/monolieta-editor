@@ -1,13 +1,17 @@
 <script lang="ts">
+    import ArrowDownTray from '$lib/assets/icon/arrow-down-tray.svelte';
+    import ArrowUpTray from '$lib/assets/icon/arrow-up-tray.svelte';
+    import BarsArrowDown from '$lib/assets/icon/bars-arrow-down.svelte';
+    import BarsArrowUp from '$lib/assets/icon/bars-arrow-up.svelte';
     import Dropdown from '$lib/component/dropdown/index.svelte';
+    import EllipsisHorizontal from '$lib/assets/icon/ellipsis-horizontal.svelte';
     import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Modal from '$lib/component/modal/index.svelte';
-    import More from '$lib/assets/more.svelte';
     import Section from '$lib/component/dropdown/section.svelte';
     import Select from '$lib/component/select/index.svelte';
     import Toggle from '$lib/component/toggle/index.svelte';
-    import format from '$lib/layout/classes/dataset/format.json';
+    import label from '$lib/config/label.json';
     import outside from '$lib/action/outside';
     import store from '$lib/store/label';
 
@@ -17,7 +21,7 @@
     let isOpenExportManager = false;
 
     let includeEmpty = false;
-    let formatFile = format[0];
+    let formatFile = label.format[0];
 
     const onCloseExportManager = () => {
         isOpenExportManager = false;
@@ -70,7 +74,7 @@
 <div use:outside={onCloseMenu}>
     <Fab on:click={onOpenMenu} {title}>
         <span class="h-5 w-5 text-gray-600">
-            <More />
+            <EllipsisHorizontal />
         </span>
     </Fab>
     {#if isOpenMenu}
@@ -78,78 +82,29 @@
             <Dropdown>
                 <Section>
                     <Item on:click={onAscending}>
-                        <!-- Heroicon name: outline/bars-arrow-down -->
-                        <svg
-                            class="mr-2 h-5 w-5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 4.5h14.25M3 9h9.75M3 13.5h9.75m4.5-4.5v12m0 0l-3.75-3.75M17.25 21L21 17.25"
-                            />
-                        </svg>
+                        <span class="mr-2 h-5 w-5">
+                            <BarsArrowDown />
+                        </span>
                         Ascending
                     </Item>
                     <Item on:click={onDescending}>
-                        <!-- Heroicon name: outline/bars-arrow-up -->
-                        <svg
-                            class="mr-2 h-5 w-5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 4.5h14.25M3 9h9.75M3 13.5h5.25m5.25-.75L17.25 9m0 0L21 12.75M17.25 9v12"
-                            />
-                        </svg>
+                        <span class="mr-2 h-5 w-5">
+                            <BarsArrowUp />
+                        </span>
                         Descending
                     </Item>
                 </Section>
-                <div class="border-t border-slate-400/20 w-full py-3 px-3.5">
+                <div class="w-full border-t border-slate-400/20 py-3 px-3.5">
                     <Item on:click={() => {}}>
-                        <!-- Heroicon name: outline/arrow-down-tray -->
-                        <svg
-                            class="mr-2 h-5 w-5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5M16.5 12L12 16.5m0 0L7.5 12m4.5 4.5V3"
-                            />
-                        </svg>
-
+                        <span class="mr-2 h-5 w-5">
+                            <ArrowDownTray />
+                        </span>
                         Import
                     </Item>
                     <Item on:click={onOpenExportManager}>
-                        <!-- Heroicon name: outline/arrow-up-tray -->
-                        <svg
-                            class="mr-2 h-5 w-5"
-                            xmlns="http://www.w3.org/2000/svg"
-                            fill="none"
-                            viewBox="0 0 24 24"
-                            stroke-width="1.5"
-                            stroke="currentColor"
-                        >
-                            <path
-                                stroke-linecap="round"
-                                stroke-linejoin="round"
-                                d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"
-                            />
-                        </svg>
+                        <span class="mr-2 h-5 w-5">
+                            <ArrowUpTray />
+                        </span>
                         Export
                     </Item>
                 </div>
@@ -159,15 +114,15 @@
 </div>
 
 {#if isOpenExportManager}
-    <Modal on:cancel={onCloseExportManager} on:submit={onExport}>
-        <div class="flex flex-col w-full gap-4">
-            <span class="flex gap-4 items-center justify-between">
+    <Modal on:cancel={onCloseExportManager} on:submit={onExport} positiveButton="Export">
+        <div class="flex w-full flex-col gap-4">
+            <span class="flex items-center justify-between gap-4">
                 Export format
-                <span class="w-2/3 relative">
-                    <Select options={format} value={formatFile} on:change={onFormatChanged} />
+                <span class="relative w-2/3">
+                    <Select options={label.format} value={formatFile} on:change={onFormatChanged} />
                 </span>
             </span>
-            <span class="flex gap-4 items-center justify-between">
+            <span class="flex items-center justify-between gap-4">
                 Include empty labels
                 <Toggle on:change={onIncludeEmptyChanged} />
             </span>

@@ -28,8 +28,8 @@
     }
 </script>
 
-<div class="flex items-start justify-start w-full">
-    <div class="flex h-7 w-7 absolute items-center justify-center bg-transparent">
+<div class="flex w-full items-start justify-start">
+    <div class="absolute flex h-7 w-7 items-center justify-center bg-transparent">
         <svg
             class="h-5 w-5 text-gray-400"
             xmlns="http://www.w3.org/2000/svg"
@@ -46,7 +46,7 @@
         </svg>
     </div>
     <input
-        class="rounded w-full h-7 border bg-gray-200 pl-8 pr-2 focus:outline-none hover:border-gray-300 focus:border-gray-300 transition-colors"
+        class="h-7 w-full rounded border bg-gray-200 pl-8 pr-2 transition-colors hover:border-gray-300 focus:border-gray-300 focus:outline-none"
         type="search"
         autocomplete="off"
         data-testid={test}

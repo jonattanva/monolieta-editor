@@ -1,0 +1,12 @@
+{
+  "format": [
+    {
+      "label": "Comma-separated values (.csv)",
+      "value": "csv"
+    },
+    {
+      "label": "Json (.json)",
+      "value": "json"
+    }
+  ]
+}

@@ -1,16 +1,16 @@
 <script lang="ts">
+    import DocumentDuplicate from '$lib/assets/icon/document-duplicate.svelte';
     import Dropdown from '$lib/component/dropdown/index.svelte';
-    import Duplicate from '$lib/assets/duplicate.svelte';
     import Empty from '$lib/layout/classes/empty.svelte';
     import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Option from '$lib/layout/classes/option.svelte';
     import Palette from '$lib/component/palette/index.svelte';
-    import Plus from '$lib/assets/plus.svelte';
+    import PlusSmall from '$lib/assets/icon/plus-small.svelte';
     import Row from '$lib/layout/classes/row.svelte';
     import Search from '$lib/component/search/index.svelte';
     import Section from '$lib/component/dropdown/section.svelte';
-    import Trash from '$lib/assets/trash.svelte';
+    import Trash from '$lib/assets/icon/trash.svelte';
     import outside from '$lib/action/outside';
     import store, { template } from '$lib/store/label';
 
@@ -118,13 +118,13 @@
     };
 </script>
 
-<div class="flex flex-col gap-4 w-80 py-2">
-    <div class="flex items-center px-2 font-medium text-base text-slate-900">Labels</div>
-    <div class="relative flex flex-row gap-2 justify-between items-center px-2">
+<div class="flex w-80 flex-col gap-4 py-2">
+    <div class="flex items-center px-2 text-base font-medium text-slate-900">Labels</div>
+    <div class="relative flex flex-row items-center justify-between gap-2 px-2">
         <Search on:search={onSearch} />
         <Fab on:click={onCreateNewLabel} title="New label">
             <span class="h-5 w-5 text-gray-600">
-                <Plus />
+                <PlusSmall />
             </span>
         </Fab>
         <Option />
@@ -132,8 +132,8 @@
     <div class="flex flex-col gap-2">
         {#if collection.length === 0}
             {#if message !== null}
-                <div class="flex flex-col gap-2 items-center justify-center">
-                    <p class="text-base font-medium text-center">
+                <div class="flex flex-col items-center justify-center gap-2">
+                    <p class="text-center text-base font-medium">
                         {message}
                     </p>
                 </div>
@@ -171,7 +171,7 @@
                 </Item>
                 <Item on:click={onDuplicateLabel}>
                     <span class="mr-2 h-5 w-5">
-                        <Duplicate />
+                        <DocumentDuplicate />
                     </span>
                     Duplicate
                 </Item>

@@ -5,7 +5,7 @@
 </script>
 
 <button
-    class="flex rounded items-center justify-center bg-gray-100 p-1 w-7 h-7 text-gray-700 border border-gray-200 outline-gray-300 hover:bg-gray-300"
+    class="flex h-7 w-7 items-center justify-center rounded border border-gray-200 bg-gray-100 p-1 text-gray-700 outline-gray-300 hover:bg-gray-300"
     data-testid={test}
     on:click
     type="button"

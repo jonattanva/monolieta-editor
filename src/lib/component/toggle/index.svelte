@@ -1,6 +1,6 @@
-<label class="inline-flex relative items-center cursor-pointer">
-    <input type="checkbox" class="sr-only peer" on:change />
+<label class="relative inline-flex cursor-pointer items-center">
+    <input type="checkbox" class="peer sr-only" on:change />
     <div
-        class="w-12 h-7 bg-gray-200 peer-focus:outline-none peer-focus:ring-1 peer-focus:ring-gray-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[4px] after:left-[4px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-accent peer-checked:border peer-checked:border-accent-dark"
+        class="peer h-7 w-12 rounded-full bg-gray-200 after:absolute after:top-[4px] after:left-[4px] after:h-5 after:w-5 after:rounded-full after:border after:border-gray-300 after:bg-white after:transition-all after:content-[''] peer-checked:border peer-checked:border-accent-dark peer-checked:bg-accent peer-checked:after:translate-x-full peer-checked:after:border-white peer-focus:outline-none peer-focus:ring-1 peer-focus:ring-gray-300"
     />
 </label>

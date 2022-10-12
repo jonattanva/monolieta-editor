@@ -52,7 +52,7 @@
         aria-expanded="true"
         aria-haspopup="listbox"
         aria-labelledby="listbox-label"
-        class="relative w-full h-7 rounded border border-gray-300 bg-white pl-3 pr-10 text-left focus:border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300 sm:text-sm cursor-default"
+        class="relative h-7 w-full cursor-default rounded border border-gray-300 bg-white pl-3 pr-10 text-left focus:border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300 sm:text-sm"
         on:click={onOpenMenu}
         type="button"
     >
@@ -87,12 +87,12 @@
         >
             {#each options as option}
                 <li
-                    class="text-gray-900 hover:bg-indigo-100 relative cursor-default select-none py-2 pl-3 pr-9"
+                    class="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-100"
                     data-value={option.value}
                     on:click={onSelected}
                 >
                     <div class="flex items-center">
-                        <span class="font-normal block truncate" title={option.label}>
+                        <span class="block truncate font-normal" title={option.label}>
                             {option.label}
                         </span>
                     </div>

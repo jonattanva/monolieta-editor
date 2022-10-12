@@ -18,12 +18,12 @@
 </script>
 
 <div
-    class="flex flex-row bg-white rounded flex-wrap justify-start shadow-md gap-1 content-around absolute z-10 p-4 w-56"
+    class="absolute z-10 flex w-56 flex-row flex-wrap content-around justify-start gap-1 rounded bg-white p-4 shadow-md"
     use:outside={handleClose}
 >
     {#each pallete as color (color)}
         <button
-            class="rounded cursor-pointer h-5 w-5"
+            class="h-5 w-5 cursor-pointer rounded"
             data-color={color}
             style={`background-color: ${color}`}
             on:click={handleColorChanged}

@@ -5,7 +5,7 @@
 </script>
 
 <input
-    class="w-full h-7 px-2 rounded border bg-gray-100 focus:outline-none hover:border-gray-300 focus:border-gray-300 transition-colors"
+    class="h-7 w-full rounded border bg-gray-100 px-2 transition-colors hover:border-gray-300 focus:border-gray-300 focus:outline-none"
     data-testid={test}
     on:change
     type="text"

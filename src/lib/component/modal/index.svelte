@@ -5,6 +5,11 @@
 
     const dispatch = createEventDispatcher();
 
+    /**
+     * @type {string}
+     */
+    export let positiveButton;
+
     const onCancel = (/** @type {any} */ event) => {
         dispatch('cancel', {
             event
@@ -34,7 +39,9 @@
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     <span class="sm:ml-3">
-                        <Contained on:click={onSubmit}>Export</Contained>
+                        <Contained on:click={onSubmit}>
+                            {positiveButton}
+                        </Contained>
                     </span>
                     <Text on:click={onCancel}>Cancel</Text>
                 </div>

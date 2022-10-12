@@ -1,7 +1,7 @@
 <script lang="ts">
     import Color from '$lib/component/color/index.svelte';
+    import EllipsisHorizontal from '$lib/assets/icon/ellipsis-horizontal.svelte';
     import Fab from '$lib/component/fab/index.svelte';
-    import More from '$lib/assets/more.svelte';
     import Text from '$lib/component/text/index.svelte';
     import { createEventDispatcher } from 'svelte';
 
@@ -42,15 +42,15 @@
     };
 </script>
 
-<div class="p-1 flex flex-row w-full gap-2 px-2 hover:bg-gray-200">
+<div class="flex w-full flex-row gap-2 p-1 px-2 hover:bg-gray-200">
     <div>
         <Color on:change={onColorChanged} on:click={onColorAction} value={item.color} />
     </div>
-    <div class="flex flex-row w-full gap-2 justify-between">
+    <div class="flex w-full flex-row justify-between gap-2">
         <Text placeholder="Enter label name" value={item.name} on:change={onNameChanged} />
         <Fab on:click={onMoreAction}>
             <span class="h-5 w-5">
-                <More />
+                <EllipsisHorizontal />
             </span>
         </Fab>
     </div>
