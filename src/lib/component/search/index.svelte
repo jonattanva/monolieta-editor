@@ -46,7 +46,7 @@
         </svg>
     </div>
     <input
-        class="h-7 w-full rounded border bg-gray-200 pl-8 pr-2 transition-colors hover:border-gray-300 focus:border-gray-300 focus:outline-none"
+        class="h-7 w-full rounded border bg-gray-100 pl-8 pr-2 transition-colors hover:border-gray-300 focus:border-gray-300 focus:outline-none"
         type="search"
         autocomplete="off"
         data-testid={test}

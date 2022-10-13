@@ -21,6 +21,9 @@
 
     const onOpenMenu = () => {
         open = !open;
+        dispatch('click', {
+            value: open
+        });
     };
 
     const onCloseMenu = () => {
@@ -86,16 +89,18 @@
             aria-activedescendant="listbox-option-3"
         >
             {#each options as option}
-                <li
-                    class="relative cursor-default select-none py-2 pl-3 pr-9 text-gray-900 hover:bg-indigo-100"
-                    data-value={option.value}
-                    on:click={onSelected}
-                >
-                    <div class="flex items-center">
-                        <span class="block truncate font-normal" title={option.label}>
-                            {option.label}
-                        </span>
-                    </div>
+                <li class="relative cursor-default select-none text-gray-900 hover:bg-indigo-100">
+                    <button
+                        class="w-full py-2 pl-3 pr-9"
+                        data-value={option.value}
+                        on:click={onSelected}
+                    >
+                        <div class="flex items-center">
+                            <span class="block truncate font-normal" title={option.label}>
+                                {option.label}
+                            </span>
+                        </div>
+                    </button>
                 </li>
             {/each}
         </ul>
