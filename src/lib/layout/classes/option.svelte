@@ -1,10 +1,10 @@
 <script lang="ts">
-    import ArrowDownTray from '$lib/assets/icon/arrow-down-tray.svelte';
-    import ArrowUpTray from '$lib/assets/icon/arrow-up-tray.svelte';
-    import BarsArrowDown from '$lib/assets/icon/bars-arrow-down.svelte';
-    import BarsArrowUp from '$lib/assets/icon/bars-arrow-up.svelte';
+    import ArrowDownTray from '$lib/component/icon/arrow-down-tray.svelte';
+    import ArrowUpTray from '$lib/component/icon/arrow-up-tray.svelte';
+    import BarsArrowDown from '$lib/component/icon/bars-arrow-down.svelte';
+    import BarsArrowUp from '$lib/component/icon/bars-arrow-up.svelte';
     import Dropdown from '$lib/component/dropdown/index.svelte';
-    import EllipsisHorizontal from '$lib/assets/icon/ellipsis-horizontal.svelte';
+    import EllipsisHorizontal from '$lib/component/icon/ellipsis-horizontal.svelte';
     import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Modal from '$lib/component/modal/index.svelte';
@@ -19,9 +19,19 @@
 
     let isOpenMenu = false;
     let isOpenExportManager = false;
+    let isOpenImportManager = false;
 
     let includeEmpty = false;
     let formatFile = label.format[0];
+
+    const onOpenImportManager = () => {
+        isOpenImportManager = !isOpenImportManager;
+        onCloseMenu();
+    };
+
+    const onCloseOpenImportManager = () => {
+        isOpenImportManager = false;
+    };
 
     const onCloseExportManager = () => {
         isOpenExportManager = false;
@@ -69,6 +79,14 @@
         store.export(formatFile.value, includeEmpty);
         // TODO: cerrar export manager
     };
+
+    const onImport = (event: Event) => {
+        const target = event.currentTarget as HTMLButtonElement;
+        if (target) {
+            const key = target.dataset.key;
+            console.log(key);
+        }
+    };
 </script>
 
 <div use:outside={onCloseMenu}>
@@ -95,7 +113,7 @@
                     </Item>
                 </Section>
                 <div class="w-full border-t border-slate-400/20 py-3 px-3.5">
-                    <Item on:click={() => {}}>
+                    <Item on:click={onOpenImportManager}>
                         <span class="mr-2 h-5 w-5">
                             <ArrowDownTray />
                         </span>
@@ -125,6 +143,43 @@
             <span class="flex items-center justify-between gap-4">
                 Include empty labels
                 <Toggle on:change={onIncludeEmptyChanged} />
+            </span>
+        </div>
+    </Modal>
+{/if}
+
+{#if isOpenImportManager}
+    <Modal on:cancel={onCloseOpenImportManager} positiveButton="Import">
+        <div class="flex w-full flex-col gap-4">
+            <span class="flex items-center gap-4 text-base">Import project from</span>
+            <span class="flex flex-row gap-2">
+                {#each label.import as row (row.key)}
+                    <button
+                        class="flex h-9 basis-1/3 cursor-pointer items-center rounded border border-gray-200 bg-transparent text-gray-700 outline-gray-300 transition-colors hover:bg-gray-100 focus:border-gray-100 focus:outline-none"
+                        title={row.title}
+                        on:click={onImport}
+                        data-key={row.key}
+                    >
+                        <span class="mr-2 flex h-full w-9 items-center justify-center bg-gray-100">
+                            {#if row.size === 'normal'}
+                                <img
+                                    class="h-6 w-6"
+                                    alt={row.title}
+                                    src={row.icon}
+                                    loading="lazy"
+                                />
+                            {:else}
+                                <img
+                                    class="h-3 w-3"
+                                    alt={row.title}
+                                    src={row.icon}
+                                    loading="lazy"
+                                />
+                            {/if}
+                        </span>
+                        {row.name}
+                    </button>
+                {/each}
             </span>
         </div>
     </Modal>

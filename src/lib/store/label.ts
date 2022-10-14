@@ -1,14 +1,13 @@
 import color from '$lib/color';
 import createFile from '$lib/file/save';
+import label from '$lib/config/label.json';
 import { Search } from 'monolieta-search';
 import { get, writable } from 'svelte/store';
 import { nanoid } from 'nanoid';
 
 const client = new Search();
 
-const whiteList = ['id', 'createdAt', 'updatedAt', 'name', 'color'];
-
-const jsonTemplate = `{
+const jsonTemplate = `{ 
     "labels": [%content%],
     "version": 1
 }`;
@@ -132,6 +131,8 @@ export default {
         let content = '';
         let template = jsonTemplate;
         let type = 'application/json';
+
+        const whiteList = label.whitelist;
 
         if (format === 'csv') {
             type = 'text/csv';

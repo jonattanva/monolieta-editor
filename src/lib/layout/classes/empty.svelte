@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Image from '$lib/assets/label.svelte';
+    import Image from '$lib/component/icon/label.svelte';
 </script>
 
 <div class="flex flex-col gap-4">

@@ -8,5 +8,28 @@
       "label": "Json (.json)",
       "value": "json"
     }
+  ],
+  "import": [
+    {
+      "icon": "/image/symbol.webp",
+      "key": "csv",
+      "name": "CSV",
+      "size": "mini",
+      "title": "Comma-separated values (.csv)"
+    },
+    {
+      "icon": "/image/code.webp",
+      "key": "json",
+      "name": "Json",
+      "size": "normal",
+      "title": "Json (.json)"
+    }
+  ],
+  "whitelist": [
+    "id",
+    "createdAt",
+    "updatedAt",
+    "name",
+    "color"
   ]
 }

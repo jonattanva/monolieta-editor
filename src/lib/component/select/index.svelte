@@ -88,6 +88,14 @@
             aria-labelledby="listbox-label"
             aria-activedescendant="listbox-option-3"
         >
+            {#if options.length === 0}
+                <li class="relative w-full cursor-default select-none py-2 pl-3 pr-9 text-gray-900">
+                    <div class="flex items-center">
+                        <span class="block truncate font-normal">No options</span>
+                    </div>
+                </li>
+            {/if}
+
             {#each options as option}
                 <li class="relative cursor-default select-none text-gray-900 hover:bg-indigo-100">
                     <button

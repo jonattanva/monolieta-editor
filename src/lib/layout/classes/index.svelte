@@ -1,16 +1,16 @@
 <script lang="ts">
-    import DocumentDuplicate from '$lib/assets/icon/document-duplicate.svelte';
+    import DocumentDuplicate from '$lib/component/icon/document-duplicate.svelte';
     import Dropdown from '$lib/component/dropdown/index.svelte';
     import Empty from '$lib/layout/classes/empty.svelte';
     import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Option from '$lib/layout/classes/option.svelte';
     import Palette from '$lib/component/palette/index.svelte';
-    import PlusSmall from '$lib/assets/icon/plus-small.svelte';
+    import PlusSmall from '$lib/component/icon/plus-small.svelte';
     import Row from '$lib/layout/classes/row.svelte';
     import Search from '$lib/component/search/index.svelte';
     import Section from '$lib/component/dropdown/section.svelte';
-    import Trash from '$lib/assets/icon/trash.svelte';
+    import Trash from '$lib/component/icon/trash.svelte';
     import outside from '$lib/action/outside';
     import store, { template } from '$lib/store/label';
 
