@@ -15,6 +15,9 @@
     /** @type {Monolieta.Option|null} */
     export let value = null;
 
+    /** @type {string} */
+    export let placeholder = 'Select...';
+
     const dispatch = createEventDispatcher();
 
     let open = false;
@@ -60,8 +63,13 @@
         type="button"
     >
         <span class="flex items-center">
-            <span class="block truncate">{value && value.label ? value.label : ''}</span>
+            {#if value && value.label}
+                <span class="block truncate">{value.label}</span>
+            {:else}
+                <span class="block truncate text-gray-400">{placeholder}</span>
+            {/if}
         </span>
+
         <span class="pointer-events-none absolute inset-y-0 right-0 ml-3 flex items-center pr-2">
             <!-- Heroicon name: mini/chevron-up-down -->
             <svg

@@ -15,14 +15,24 @@
       "key": "csv",
       "name": "CSV",
       "size": "mini",
-      "title": "Comma-separated values (.csv)"
+      "title": "Comma-separated values (.csv)",
+      "visible": true
     },
     {
       "icon": "/image/code.webp",
       "key": "json",
       "name": "Json",
       "size": "normal",
-      "title": "Json (.json)"
+      "title": "Json (.json)",
+      "visible": true
+    },
+    {
+      "icon": "/image/aws.svg",
+      "key": "aws",
+      "name": "AWS",
+      "size": "normal",
+      "title": "AWS integration",
+      "visible": false
     }
   ],
   "whitelist": [
@@ -31,5 +41,12 @@
     "updatedAt",
     "name",
     "color"
+  ],
+  "field": [
+    "ID",
+    "Created at",
+    "Updated at",
+    "Name",
+    "Color"
   ]
 }

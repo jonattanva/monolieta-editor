@@ -119,7 +119,7 @@
 </script>
 
 <div class="flex w-80 flex-col gap-4 py-2">
-    <div class="flex items-center px-2 text-base font-medium text-slate-900">Labels</div>
+    <p class="flex items-center px-2 text-base font-medium text-slate-900">Labels</p>
     <div class="relative flex flex-row items-center justify-between gap-2 px-2">
         <Search on:search={onSearch} />
         <Fab on:click={onCreateNewLabel} title="New label">

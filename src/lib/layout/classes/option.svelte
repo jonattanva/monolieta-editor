@@ -14,6 +14,7 @@
     import label from '$lib/config/label.json';
     import outside from '$lib/action/outside';
     import store from '$lib/store/label';
+    import { reader } from '$lib/file';
 
     export let title: string = 'More';
 
@@ -21,16 +22,25 @@
     let isOpenExportManager = false;
     let isOpenImportManager = false;
 
+    let isViewImportProject = true;
+    let showPositiveButton = false;
+
     let includeEmpty = false;
     let formatFile = label.format[0];
+    let columns: { label: string; value: string }[] = [];
+
+    let fileInput: HTMLInputElement | null = null;
 
     const onOpenImportManager = () => {
         isOpenImportManager = !isOpenImportManager;
         onCloseMenu();
     };
 
-    const onCloseOpenImportManager = () => {
+    const onCloseImportManager = () => {
         isOpenImportManager = false;
+
+        isViewImportProject = true;
+        showPositiveButton = false;
     };
 
     const onCloseExportManager = () => {
@@ -77,14 +87,40 @@
 
     const onExport = () => {
         store.export(formatFile.value, includeEmpty);
-        // TODO: cerrar export manager
     };
 
     const onImport = (event: Event) => {
         const target = event.currentTarget as HTMLButtonElement;
         if (target) {
             const key = target.dataset.key;
-            console.log(key);
+            if (fileInput) {
+                fileInput.accept = `.${key}`;
+                fileInput.click();
+            }
+        }
+    };
+
+    const onFileSelected = async (event: Event) => {
+        const target = event.target as HTMLInputElement;
+        if (target) {
+            if (target.files) {
+                const [file] = target.files;
+                const result = (await reader(file)) as string;
+
+                switch (file.type) {
+                    case 'text/csv': {
+                        const [keys] = result.split('\n');
+                        columns = keys.split(',').map((key) => ({
+                            label: key,
+                            value: key
+                        }));
+                        break;
+                    }
+                }
+
+                isViewImportProject = false;
+                showPositiveButton = true;
+            }
         }
     };
 </script>
@@ -149,38 +185,79 @@
 {/if}
 
 {#if isOpenImportManager}
-    <Modal on:cancel={onCloseOpenImportManager} positiveButton="Import">
-        <div class="flex w-full flex-col gap-4">
-            <span class="flex items-center gap-4 text-base">Import project from</span>
-            <span class="flex flex-row gap-2">
-                {#each label.import as row (row.key)}
-                    <button
-                        class="flex h-9 basis-1/3 cursor-pointer items-center rounded border border-gray-200 bg-transparent text-gray-700 outline-gray-300 transition-colors hover:bg-gray-100 focus:border-gray-100 focus:outline-none"
-                        title={row.title}
-                        on:click={onImport}
-                        data-key={row.key}
-                    >
-                        <span class="mr-2 flex h-full w-9 items-center justify-center bg-gray-100">
-                            {#if row.size === 'normal'}
-                                <img
-                                    class="h-6 w-6"
-                                    alt={row.title}
-                                    src={row.icon}
-                                    loading="lazy"
-                                />
-                            {:else}
-                                <img
-                                    class="h-3 w-3"
-                                    alt={row.title}
-                                    src={row.icon}
-                                    loading="lazy"
-                                />
-                            {/if}
+    <div class="absolute">
+        <Modal on:cancel={onCloseImportManager} positiveButton="Import" {showPositiveButton}>
+            <div class="flex w-full flex-col">
+                <p class="text-lg text-slate-900">Import</p>
+                {#if isViewImportProject}
+                    <span class="flex items-center pb-4 text-gray-500">
+                        To get started, click the product you want to import you projects from.
+                    </span>
+                    <div class="w-full border-t border-slate-400/20">
+                        <span class="flex flex-row gap-2 pt-4">
+                            {#each label.import as row (row.key)}
+                                {#if row.visible}
+                                    <button
+                                        class="flex h-9 basis-1/3 cursor-pointer items-center justify-start rounded border border-gray-200 bg-transparent px-4 text-sm outline-gray-300 transition-colors hover:bg-gray-50 focus:border-gray-100 focus:outline-none"
+                                        title={row.title}
+                                        on:click={onImport}
+                                        data-key={row.key}
+                                    >
+                                        <span class="flex h-9 w-9 items-center justify-center">
+                                            {#if row.size === 'normal'}
+                                                <img
+                                                    class="h-6 w-6"
+                                                    alt={row.title}
+                                                    src={row.icon}
+                                                    loading="lazy"
+                                                />
+                                            {:else}
+                                                <img
+                                                    class="h-3 w-3"
+                                                    alt={row.title}
+                                                    src={row.icon}
+                                                    loading="lazy"
+                                                />
+                                            {/if}
+                                        </span>
+                                        {row.name}
+                                    </button>
+                                {/if}
+                            {/each}
+                            <input
+                                class="hidden"
+                                type="file"
+                                multiple={false}
+                                on:change={onFileSelected}
+                                bind:this={fileInput}
+                            />
                         </span>
-                        {row.name}
-                    </button>
-                {/each}
-            </span>
-        </div>
-    </Modal>
+                    </div>
+                {:else}
+                    <div class="w-full">
+                        <div class="flex items-center pb-4 text-gray-500">
+                            Select the CSV fields to import, then set how you would like these
+                            convered to fields in Monolieta.
+                        </div>
+                        <div class="w-full border-t border-slate-400/20">
+                            <div class="grid grid-cols-3 gap-4 pt-4">
+                                <p class="text-center">Monolieta field</p>
+                                <p class="text-center">CSV field</p>
+                                <p class="text-center">Import</p>
+                                {#each label.field as field (field)}
+                                    <div class="flex items-center justify-center">{field}</div>
+                                    <div class="flex items-center justify-center">
+                                        <Select options={columns} placeholder="Select a field" />
+                                    </div>
+                                    <div class="flex items-center justify-center">
+                                        <Toggle />
+                                    </div>
+                                {/each}
+                            </div>
+                        </div>
+                    </div>
+                {/if}
+            </div>
+        </Modal>
+    </div>
 {/if}

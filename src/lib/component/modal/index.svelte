@@ -10,6 +10,11 @@
      */
     export let positiveButton;
 
+    /**
+     * @type {boolean}
+     */
+    export let showPositiveButton = true;
+
     const onCancel = (/** @type {any} */ event) => {
         dispatch('cancel', {
             event
@@ -30,7 +35,7 @@
             class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0"
         >
             <div
-                class="relative transform overflow-hidden rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
+                class="relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
             >
                 <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-start">
@@ -38,11 +43,13 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <span class="sm:ml-3">
-                        <Contained on:click={onSubmit}>
-                            {positiveButton}
-                        </Contained>
-                    </span>
+                    {#if showPositiveButton}
+                        <span class="sm:ml-3">
+                            <Contained on:click={onSubmit}>
+                                {positiveButton}
+                            </Contained>
+                        </span>
+                    {/if}
                     <Text on:click={onCancel}>Cancel</Text>
                 </div>
             </div>

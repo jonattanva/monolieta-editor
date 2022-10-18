@@ -1,5 +1,5 @@
 import color from '$lib/color';
-import createFile from '$lib/file/save';
+import createFile from '$lib/file';
 import label from '$lib/config/label.json';
 import { Search } from 'monolieta-search';
 import { get, writable } from 'svelte/store';
