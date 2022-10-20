@@ -22,4 +22,24 @@ declare namespace Monolieta {
     } & Entity;
 
     type Labels = Label[];
+
+    type Option = {
+        label: string;
+        value: string;
+    };
+
+    type Options = Option[];
+
+    type Ref = {
+        name: string;
+        enabled: boolean;
+    };
+
+    type Import = {
+        columns: Options = [];
+        ref: { [key in string]: Ref };
+        rows: any[];
+    };
+
+    type Index = { [key in string]: any };
 }

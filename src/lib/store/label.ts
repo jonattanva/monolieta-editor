@@ -133,7 +133,6 @@ export default {
         let type = 'application/json';
 
         const whiteList = label.whitelist;
-
         if (format === 'csv') {
             type = 'text/csv';
             template = '%content%';

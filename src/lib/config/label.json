@@ -43,10 +43,25 @@
     "color"
   ],
   "field": [
-    "ID",
-    "Created at",
-    "Updated at",
-    "Name",
-    "Color"
+    {
+      "key": "id",
+      "name": "ID"
+    },
+    {
+      "key": "createdAt",
+      "name": "Created at"
+    },
+    {
+      "key": "updatedAt",
+      "name": "Updated at"
+    },
+    {
+      "key": "name",
+      "name": "Name"
+    },
+    {
+      "key": "color",
+      "name": "Color"
+    }
   ]
 }

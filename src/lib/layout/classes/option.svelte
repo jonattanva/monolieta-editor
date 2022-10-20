@@ -13,7 +13,7 @@
     import Toggle from '$lib/component/toggle/index.svelte';
     import label from '$lib/config/label.json';
     import outside from '$lib/action/outside';
-    import store from '$lib/store/label';
+    import store, { template } from '$lib/store/label';
     import { reader } from '$lib/file';
 
     export let title: string = 'More';
@@ -27,7 +27,12 @@
 
     let includeEmpty = false;
     let formatFile = label.format[0];
-    let columns: { label: string; value: string }[] = [];
+
+    const instance: Monolieta.Import = {
+        columns: [],
+        ref: {},
+        rows: []
+    };
 
     let fileInput: HTMLInputElement | null = null;
 
@@ -89,7 +94,7 @@
         store.export(formatFile.value, includeEmpty);
     };
 
-    const onImport = (event: Event) => {
+    const onImportType = (event: Event) => {
         const target = event.currentTarget as HTMLButtonElement;
         if (target) {
             const key = target.dataset.key;
@@ -109,11 +114,32 @@
 
                 switch (file.type) {
                     case 'text/csv': {
-                        const [keys] = result.split('\n');
-                        columns = keys.split(',').map((key) => ({
-                            label: key,
-                            value: key
+                        const [columns, ...rows] = result.split('\n');
+
+                        instance.columns = columns.split(',').map((column) => ({
+                            label: column,
+                            value: column
                         }));
+
+                        const total = instance.columns.length;
+                        for (let i = 0; i < rows.length; i++) {
+                            const row = rows[i];
+                            const values = row.split(',');
+
+                            if (values.length !== total) {
+                                continue;
+                            }
+
+                            const register = instance.columns.reduce(
+                                (previous, current, index) => ({
+                                    ...previous,
+                                    [current.value]: values[index]
+                                }),
+                                {}
+                            );
+
+                            instance.rows.push(register);
+                        }
                         break;
                     }
                 }
@@ -122,6 +148,54 @@
                 showPositiveButton = true;
             }
         }
+    };
+
+    const onSelectField = (key: string, event: CustomEvent) => {
+        const { value } = event.detail;
+
+        const current = instance.ref[key];
+        instance.ref[key] = {
+            ...current,
+            name: value
+        };
+    };
+
+    const onImportSelectField = (key: string, event: Event) => {
+        const target = event.target as HTMLInputElement;
+
+        const current = instance.ref[key];
+        instance.ref[key] = {
+            ...current,
+            enabled: target.checked
+        };
+    };
+
+    const onImport = async () => {
+        const columns = Object.keys(instance.ref).filter((key) => instance.ref[key].enabled);
+        if (columns.length === 0) {
+            // TODO: Show error messages
+            return;
+        }
+
+        const labels: Monolieta.Labels = [];
+        for (let index = 0; index < instance.rows.length; index++) {
+            const element = instance.rows[index];
+
+            let label = template();
+            columns.forEach((column) => {
+                const ref = instance.ref[column];
+                label = {
+                    ...label,
+                    [column]: element[ref.name]
+                };
+            });
+
+            labels.push(label);
+        }
+
+        store.init(labels);
+        // TODO: Included messages
+        onCloseImportManager();
     };
 </script>
 
@@ -170,6 +244,7 @@
 {#if isOpenExportManager}
     <Modal on:cancel={onCloseExportManager} on:submit={onExport} positiveButton="Export">
         <div class="flex w-full flex-col gap-4">
+            <p class="text-lg text-slate-900">Export</p>
             <span class="flex items-center justify-between gap-4">
                 Export format
                 <span class="relative w-2/3">
@@ -186,7 +261,12 @@
 
 {#if isOpenImportManager}
     <div class="absolute">
-        <Modal on:cancel={onCloseImportManager} positiveButton="Import" {showPositiveButton}>
+        <Modal
+            on:cancel={onCloseImportManager}
+            on:submit={onImport}
+            positiveButton="Import"
+            {showPositiveButton}
+        >
             <div class="flex w-full flex-col">
                 <p class="text-lg text-slate-900">Import</p>
                 {#if isViewImportProject}
@@ -200,7 +280,7 @@
                                     <button
                                         class="flex h-9 basis-1/3 cursor-pointer items-center justify-start rounded border border-gray-200 bg-transparent px-4 text-sm outline-gray-300 transition-colors hover:bg-gray-50 focus:border-gray-100 focus:outline-none"
                                         title={row.title}
-                                        on:click={onImport}
+                                        on:click={onImportType}
                                         data-key={row.key}
                                     >
                                         <span class="flex h-9 w-9 items-center justify-center">
@@ -244,13 +324,20 @@
                                 <p class="text-center">Monolieta field</p>
                                 <p class="text-center">CSV field</p>
                                 <p class="text-center">Import</p>
-                                {#each label.field as field (field)}
-                                    <div class="flex items-center justify-center">{field}</div>
+                                {#each label.field as field (field.key)}
+                                    <div class="flex items-center justify-center">{field.name}</div>
                                     <div class="flex items-center justify-center">
-                                        <Select options={columns} placeholder="Select a field" />
+                                        <Select
+                                            options={instance.columns}
+                                            placeholder="Select a field"
+                                            on:change={(event) => onSelectField(field.key, event)}
+                                        />
                                     </div>
                                     <div class="flex items-center justify-center">
-                                        <Toggle />
+                                        <Toggle
+                                            on:change={(event) =>
+                                                onImportSelectField(field.key, event)}
+                                        />
                                     </div>
                                 {/each}
                             </div>

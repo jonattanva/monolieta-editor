@@ -1,11 +1,4 @@
 <script>
-    /**
-     * @typedef Monolieta.Option
-     * @type {object}
-     * @property {string} label
-     * @property {string} value
-     */
-
     import outside from '$lib/action/outside';
     import { createEventDispatcher } from 'svelte';
 
