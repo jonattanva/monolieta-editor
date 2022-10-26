@@ -33,13 +33,16 @@ export function template(name: string = '') {
 export default {
     init: (value: Monolieta.Labels) => {
         values.update(() => {
-            value.forEach((current) => {
-                if (current.token) {
-                    current.token = nanoid();
+            let results = [];
+            for (let i = 0; i < value.length; i++) {
+                const element = value[i];
+                if (element.token) {
+                    element.token = nanoid();
                 }
-                index(current);
-            });
-            return value;
+                index(element);
+                results.push(element);
+            }
+            return results;
         });
     },
 
@@ -127,6 +130,7 @@ export default {
 
     subscribe: (callback: (values: Monolieta.Labels) => void) => values.subscribe(callback),
 
+    // TODO: OPTIMIZAR
     export: (format: string, empty: boolean = true) => {
         let content = '';
         let template = jsonTemplate;

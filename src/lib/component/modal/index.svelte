@@ -15,6 +15,11 @@
      */
     export let showPositiveButton = true;
 
+    /**
+     * @type {boolean}
+     */
+    export let disabledPositiveButton = false;
+
     const onCancel = (/** @type {any} */ event) => {
         dispatch('cancel', {
             event
@@ -45,7 +50,7 @@
                 <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     {#if showPositiveButton}
                         <span class="sm:ml-3">
-                            <Contained on:click={onSubmit}>
+                            <Contained on:click={onSubmit} disabled={disabledPositiveButton}>
                                 {positiveButton}
                             </Contained>
                         </span>

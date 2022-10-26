@@ -7,6 +7,7 @@
     import EllipsisHorizontal from '$lib/component/icon/ellipsis-horizontal.svelte';
     import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
+    import Message from '$lib/component/message/index.svelte';
     import Modal from '$lib/component/modal/index.svelte';
     import Section from '$lib/component/dropdown/section.svelte';
     import Select from '$lib/component/select/index.svelte';
@@ -18,10 +19,14 @@
 
     export let title: string = 'More';
 
-    let isOpenMenu = false;
+    let fields = label.field;
+
     let isOpenExportManager = false;
     let isOpenImportManager = false;
+    let isOpenMenu = false;
+    let isShowMessage = false;
 
+    let disabledPositiveButton = true;
     let isViewImportProject = true;
     let showPositiveButton = false;
 
@@ -36,6 +41,10 @@
 
     let fileInput: HTMLInputElement | null = null;
 
+    const onCloseMessage = () => {
+        isShowMessage = false;
+    };
+
     const onOpenImportManager = () => {
         isOpenImportManager = !isOpenImportManager;
         onCloseMenu();
@@ -46,6 +55,15 @@
 
         isViewImportProject = true;
         showPositiveButton = false;
+
+        fields = fields.map((field) => {
+            field.checked = false;
+            return field;
+        });
+
+        instance['columns'] = [];
+        instance['ref'] = {};
+        instance['rows'] = []
     };
 
     const onCloseExportManager = () => {
@@ -90,9 +108,7 @@
         formatFile = customEvent.detail;
     };
 
-    const onExport = () => {
-        store.export(formatFile.value, includeEmpty);
-    };
+    const onExport = () => store.export(formatFile.value, includeEmpty);
 
     const onImportType = (event: Event) => {
         const target = event.currentTarget as HTMLButtonElement;
@@ -158,7 +174,27 @@
             ...current,
             name: value
         };
+
+        fields = fields.map((field) => {
+            if (field.key === key) {
+                field.checked = true;
+
+                const current = instance.ref[key];
+                instance.ref[key] = {
+                    ...current,
+                    enabled: true
+                };
+            }
+            return field;
+        });
+
+        disabledPositiveButton = getColumns().length === 0;
     };
+
+    const getColumns = () =>
+        Object.keys(instance.ref).filter((key) => {
+            return instance.ref[key].name && instance.ref[key].enabled;
+        });
 
     const onImportSelectField = (key: string, event: Event) => {
         const target = event.target as HTMLInputElement;
@@ -168,12 +204,13 @@
             ...current,
             enabled: target.checked
         };
+
+        disabledPositiveButton = getColumns().length === 0;
     };
 
     const onImport = async () => {
-        const columns = Object.keys(instance.ref).filter((key) => instance.ref[key].enabled);
+        const columns = getColumns();
         if (columns.length === 0) {
-            // TODO: Show error messages
             return;
         }
 
@@ -194,7 +231,8 @@
         }
 
         store.init(labels);
-        // TODO: Included messages
+
+        isShowMessage = true;
         onCloseImportManager();
     };
 </script>
@@ -241,6 +279,18 @@
     {/if}
 </div>
 
+{#if isShowMessage}
+    <Message
+        message="The import of the labels has been completed"
+        on:positive={onCloseMessage}
+        on:negative={onCloseMessage}
+        positiveButton="Undo"
+        showNegativeButton={false}
+        showPositiveButton={true}
+        title="Successfully imported!"
+    />
+{/if}
+
 {#if isOpenExportManager}
     <Modal on:cancel={onCloseExportManager} on:submit={onExport} positiveButton="Export">
         <div class="flex w-full flex-col gap-4">
@@ -265,6 +315,7 @@
             on:cancel={onCloseImportManager}
             on:submit={onImport}
             positiveButton="Import"
+            {disabledPositiveButton}
             {showPositiveButton}
         >
             <div class="flex w-full flex-col">
@@ -322,9 +373,9 @@
                         <div class="w-full border-t border-slate-400/20">
                             <div class="grid grid-cols-3 gap-4 pt-4">
                                 <p class="text-center">Monolieta field</p>
-                                <p class="text-center">CSV field</p>
+                                <p class="text-center">External field</p>
                                 <p class="text-center">Import</p>
-                                {#each label.field as field (field.key)}
+                                {#each fields as field (field.key)}
                                     <div class="flex items-center justify-center">{field.name}</div>
                                     <div class="flex items-center justify-center">
                                         <Select
@@ -335,6 +386,7 @@
                                     </div>
                                     <div class="flex items-center justify-center">
                                         <Toggle
+                                            checked={field.checked}
                                             on:change={(event) =>
                                                 onImportSelectField(field.key, event)}
                                         />

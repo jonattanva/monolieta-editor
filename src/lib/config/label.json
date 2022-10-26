@@ -44,24 +44,24 @@
   ],
   "field": [
     {
-      "key": "id",
-      "name": "ID"
-    },
-    {
       "key": "createdAt",
-      "name": "Created at"
+      "name": "Created at",
+      "checked": false
     },
     {
       "key": "updatedAt",
-      "name": "Updated at"
+      "name": "Updated at",
+      "checked": false
     },
     {
       "key": "name",
-      "name": "Name"
+      "name": "Name",
+      "checked": false
     },
     {
       "key": "color",
-      "name": "Color"
+      "name": "Color",
+      "checked": false
     }
   ]
 }
