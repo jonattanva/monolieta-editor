@@ -1,12 +1,12 @@
 name: 'Main action'
 on: push
 
-jobs: 
+jobs:
   prepare:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 16.x ]
+        node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
@@ -27,13 +27,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 16.x ]
+        node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache-dependency-path: "**/package-lock.json"
+          cache-dependency-path: '**/package-lock.json'
       - uses: actions/cache@v3
         with:
           path: ~/.npm
@@ -55,13 +55,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 16.x ]
+        node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache-dependency-path: "**/package-lock.json"
+          cache-dependency-path: '**/package-lock.json'
       - uses: actions/cache@v3
         with:
           path: ~/.npm
@@ -74,8 +74,14 @@ jobs:
           env: true
           install: false
           start: npm run dev -- --host
-          wait-on: "http://localhost:5173"
+          wait-on: 'http://localhost:5173'
           browser: chrome
+      - uses: actions/upload-artifact@v3
+        with:
+          name: video
+          retention-days: 1
+          path: |
+            cypress/videos
 
   report-coverage:
     timeout-minutes: 30
@@ -83,13 +89,13 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        node-version: [ 16.x ]
+        node-version: [16.x]
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache-dependency-path: "**/package-lock.json"
+          cache-dependency-path: '**/package-lock.json'
       - uses: actions/cache@v3
         with:
           path: ~/.npm
