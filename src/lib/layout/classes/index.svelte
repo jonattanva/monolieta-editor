@@ -121,15 +121,15 @@
 <div class="flex w-80 flex-col gap-4 py-2">
     <p class="flex items-center px-2 text-base font-medium text-slate-900">Labels</p>
     <div class="relative flex flex-row items-center justify-between gap-2 px-2">
-        <Search on:search={onSearch} />
-        <Fab on:click={onCreateNewLabel} title="New label">
+        <Search on:search={onSearch} test="search-label" />
+        <Fab on:click={onCreateNewLabel} title="New label" test="new-label">
             <span class="h-5 w-5 text-gray-600">
                 <PlusSmall />
             </span>
         </Fab>
-        <Option />
+        <Option test="menu-label" />
     </div>
-    <div class="flex flex-col gap-2">
+    <ul class="flex flex-col gap-2" aria-label="list-label">
         {#if collection.length === 0}
             {#if message !== null}
                 <div class="flex flex-col items-center justify-center gap-2">
@@ -141,7 +141,6 @@
                 <Empty on:click={onCreateNewLabel} />
             {/if}
         {/if}
-
         {#each collection as item (item.id)}
             <Row
                 {item}
@@ -150,7 +149,7 @@
                 on:change={onLabelChanged}
             />
         {/each}
-    </div>
+    </ul>
 </div>
 
 {#if open && open.color}
@@ -163,17 +162,17 @@
     <div class="absolute" style="left:{position.x}px;top:{position.y}px" use:outside={onCloseMore}>
         <Dropdown>
             <Section>
-                <Item on:click={onRemoveLabel}>
-                    <span class="mr-2 h-5 w-5">
-                        <Trash />
-                    </span>
-                    Delete
-                </Item>
                 <Item on:click={onDuplicateLabel}>
                     <span class="mr-2 h-5 w-5">
                         <DocumentDuplicate />
                     </span>
                     Duplicate
+                </Item>
+                <Item on:click={onRemoveLabel}>
+                    <span class="mr-2 h-5 w-5">
+                        <Trash />
+                    </span>
+                    Delete
                 </Item>
             </Section>
         </Dropdown>

@@ -2,6 +2,7 @@
   "name": "monolieta",
   "version": "0.0.1",
   "private": true,
+  "license": "GPL-3.0",
   "scripts": {
     "build": "vite build",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
@@ -12,9 +13,11 @@
     "preview": "vite preview",
     "storybook": "npm run storybook --prefix ./.storybook",
     "test": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "test:e2e": "cypress open"
   },
   "devDependencies": {
+    "@cypress/code-coverage": "~3.10.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
     "@testing-library/cypress": "~8.0.3",
@@ -25,8 +28,10 @@
     "@vitest/coverage-c8": "~0.24.3",
     "autoprefixer": "~10.4.12",
     "cypress": "~10.11.0",
+    "cypress-file-upload": "~5.0.8",
     "eslint": "~8.26.0",
     "eslint-config-prettier": "~8.5.0",
+    "eslint-plugin-cypress": "~2.12.1",
     "eslint-plugin-svelte3": "~4.0.0",
     "jsdom": "~20.0.1",
     "postcss": "~8.4.18",
@@ -47,5 +52,12 @@
     "@fontsource/roboto-flex": "~4.5.2",
     "monolieta-search": "~1.2.0",
     "nanoid": "~4.0.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/jonattanva/monolieta-editor.git"
+  },
+  "engines": {
+    "node": ">=16.x"
   }
 }

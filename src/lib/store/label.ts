@@ -6,12 +6,6 @@ import { get, writable } from 'svelte/store';
 import { nanoid } from 'nanoid';
 
 const client = new Search();
-
-const jsonTemplate = `{ 
-    "labels": [%content%],
-    "version": 1
-}`;
-
 const values = writable<Monolieta.Labels>([]);
 
 function index(value: Monolieta.Label) {
@@ -130,28 +124,18 @@ export default {
 
     subscribe: (callback: (values: Monolieta.Labels) => void) => values.subscribe(callback),
 
-    // TODO: OPTIMIZAR
     export: (format: string, empty: boolean = true) => {
-        let content = '';
-        let template = jsonTemplate;
-        let type = 'application/json';
-
+        const content = [];
         const whiteList = label.whitelist;
-        if (format === 'csv') {
-            type = 'text/csv';
-            template = '%content%';
-            content = whiteList.join(',').concat('\n');
-        }
 
         const collections = get(values);
-        for (let index = 0; index < collections.length; index++) {
-            const element = collections[index];
-            const item: { [key: string]: string | number } = {};
-
+        for (let i = 0; i < collections.length; i++) {
+            const element = collections[i];
             if (!empty && element.name.trim().length === 0) {
                 continue;
             }
 
+            const item: { [key: string]: string | number } = {};
             Object.keys(element)
                 .filter((key) => whiteList.includes(key))
                 .forEach((key: string) => {
@@ -160,23 +144,41 @@ export default {
 
             switch (format) {
                 case 'csv': {
-                    content += Object.keys(item)
-                        .map((column) => item[column])
-                        .join(',')
-                        .concat('\n');
+                    content.push(
+                        Object.keys(item)
+                            .map((column) => item[column])
+                            .join(',')
+                    );
                     break;
                 }
-                case 'json': {
-                    content += JSON.stringify(item).concat('\n');
+
+                default: {
+                    content.push(item);
                     break;
                 }
             }
         }
 
-        createFile(
-            new Blob([template.replace('%content%', content)], {
-                type: type
-            })
-        );
+        switch (format) {
+            case 'csv': {
+                const body = whiteList.join(',').concat('\n').concat(content.join('\n'));
+                const blob = new Blob([body], {
+                    type: 'text/csv'
+                });
+
+                createFile(blob);
+                break;
+            }
+
+            default: {
+                const body = JSON.stringify({ labels: content });
+                const blob = new Blob([body], {
+                    type: 'application/json'
+                });
+
+                createFile(blob);
+                break;
+            }
+        }
     }
 };

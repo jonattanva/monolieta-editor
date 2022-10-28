@@ -15,8 +15,10 @@
     import label from '$lib/config/label.json';
     import outside from '$lib/action/outside';
     import store, { template } from '$lib/store/label';
+    import { isArray } from '$lib/assert';
     import { reader } from '$lib/file';
 
+    export let test: string = '';
     export let title: string = 'More';
 
     let fields = label.field;
@@ -63,7 +65,7 @@
 
         instance['columns'] = [];
         instance['ref'] = {};
-        instance['rows'] = []
+        instance['rows'] = [];
     };
 
     const onCloseExportManager = () => {
@@ -121,6 +123,14 @@
         }
     };
 
+    const getJson = (value: string) => {
+        try {
+            return JSON.parse(value);
+        } catch (_) {
+            return null;
+        }
+    };
+
     const onFileSelected = async (event: Event) => {
         const target = event.target as HTMLInputElement;
         if (target) {
@@ -129,6 +139,18 @@
                 const result = (await reader(file)) as string;
 
                 switch (file.type) {
+                    case 'application/json': {
+                        const rows = getJson(result);
+                        if (!rows) {
+                            // TODO: EL DOCUMENTO NO ES VALIDO
+                            return;
+                        }
+
+                        console.log(rows);
+
+                        break;
+                    }
+
                     case 'text/csv': {
                         const [columns, ...rows] = result.split('\n');
 
@@ -238,7 +260,7 @@
 </script>
 
 <div use:outside={onCloseMenu}>
-    <Fab on:click={onOpenMenu} {title}>
+    <Fab on:click={onOpenMenu} {title} {test}>
         <span class="h-5 w-5 text-gray-600">
             <EllipsisHorizontal />
         </span>

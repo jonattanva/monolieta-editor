@@ -42,16 +42,16 @@
     };
 </script>
 
-<div class="flex w-full flex-row gap-2 p-1 px-2 hover:bg-gray-200">
+<li class="flex w-full flex-row gap-2 p-1 px-2 hover:bg-gray-200">
     <div>
         <Color on:change={onColorChanged} on:click={onColorAction} value={item.color} />
     </div>
     <div class="flex w-full flex-row justify-between gap-2">
         <Text placeholder="Enter label name" value={item.name} on:change={onNameChanged} />
-        <Fab on:click={onMoreAction}>
+        <Fab on:click={onMoreAction} test="more">
             <span class="h-5 w-5">
                 <EllipsisHorizontal />
             </span>
         </Fab>
     </div>
-</div>
+</li>
