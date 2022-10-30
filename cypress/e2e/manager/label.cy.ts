@@ -6,7 +6,7 @@ describe('Label', () => {
         cy.fixture('selector').then((selector) => {
             this.selector = selector;
         });
-        cy.wait(2000);
+        cy.wait(3000);
     });
 
     it('should sort label (desc)', function () {
