@@ -11,7 +11,9 @@
             A label that gives information about your annotation
         </p>
         <button
-            class="cursor-pointer text-sm text-center text-accent hover:underline focus:underline focus:outline-none"
+            class="cursor-pointer text-center text-sm text-accent hover:underline focus:underline focus:outline-none"
+            type="button"
+            data-testid="new-label-optional"
             on:click
         >
             New label

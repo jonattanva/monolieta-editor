@@ -212,4 +212,14 @@ describe('Label', () => {
 
         cy.get(`${this.selector['List label']} > li`).should('have.length', 1);
     });
+
+    it('should create a new label from empty message', function () {
+        cy.findByText(/labels/i).should('exist');
+
+        cy.findByTestId(this.selector['New label optional'])
+            .should('be.visible')
+            .click();
+
+        cy.get(`${this.selector['List label']} > li`).should('have.length', 1);
+    });
 });

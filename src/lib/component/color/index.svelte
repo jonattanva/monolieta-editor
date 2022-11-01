@@ -19,6 +19,7 @@
         <button
             class="h-[18px] w-[18px] rounded border border-transparent"
             on:click
+            type="button"
             style="background-color: #{value}"
             tabindex="-1"
         />
