@@ -306,4 +306,18 @@ describe('Label', () => {
 
         cy.readFile('./cypress/downloads/Untitled.csv');
     });
+
+    it('should import csv file', function () {
+        cy.findByText(/labels/i).should('exist');
+
+        cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
+
+        cy.findByRole('button', { name: /import/i })
+            .should('be.visible')
+            .click();
+
+        cy.get('input[type="file"]').attachFile('import/label.csv');
+
+        cy.get('[data-key="csv"]').should('exist').click();
+    });
 });
