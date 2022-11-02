@@ -1,9 +1,10 @@
 {
   "Enter label name": "Enter label name",
+  "Export format": "export-format",
   "List label": "[aria-label='list-label']",
   "Menu label": "menu-label",
   "More": "more",
+  "New label optional": "new-label-optional",
   "New label": "new-label",
-  "Search label": "search-label",
-  "New label optional": "new-label-optional"
+  "Search label": "search-label"
 }

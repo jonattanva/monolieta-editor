@@ -6,7 +6,7 @@ describe('Label', () => {
         cy.fixture('selector').then((selector) => {
             this.selector = selector;
         });
-        cy.wait(3000);
+        cy.wait(3000); // svelte-kit!
     });
 
     it('should sort label (desc)', function () {
@@ -216,10 +216,94 @@ describe('Label', () => {
     it('should create a new label from empty message', function () {
         cy.findByText(/labels/i).should('exist');
 
-        cy.findByTestId(this.selector['New label optional'])
+        cy.findByTestId(this.selector['New label optional']).should('be.visible').click();
+
+        cy.get(`${this.selector['List label']} > li`).should('have.length', 1);
+    });
+
+    it('should export json file', function () {
+        cy.findByText(/labels/i).should('exist');
+
+        cy.findByTestId(this.selector['New label']).should('exist').click();
+
+        cy.findByPlaceholderText(this.selector['Enter label name'])
+            .should('be.visible')
+            .click()
+            .type('Cat');
+
+        cy.findByTestId(this.selector['New label']).should('exist').click();
+
+        cy.findAllByPlaceholderText(this.selector['Enter label name'])
+            .then((it) => it[0])
+            .should('be.visible')
+            .click()
+            .type('Dog');
+
+        cy.findByTestId(this.selector['New label']).should('exist').click();
+
+        cy.findAllByPlaceholderText(this.selector['Enter label name'])
+            .then((it) => it[0])
+            .should('be.visible');
+
+        cy.get(`${this.selector['List label']} > li`).should('have.length', 3);
+
+        cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
+
+        cy.findByRole('button', { name: /export/i })
             .should('be.visible')
             .click();
 
-        cy.get(`${this.selector['List label']} > li`).should('have.length', 1);
+        cy.findByTestId(this.selector['Export format']).should('be.visible').click();
+
+        cy.get('[data-value="json"]').should('exist').click();
+
+        cy.findByRole('button', { name: /export/i })
+            .should('be.visible')
+            .click();
+
+        cy.readFile('./cypress/downloads/Untitled.json');
+    });
+
+    it('should export csv file', function () {
+        cy.findByText(/labels/i).should('exist');
+
+        cy.findByTestId(this.selector['New label']).should('exist').click();
+
+        cy.findByPlaceholderText(this.selector['Enter label name'])
+            .should('be.visible')
+            .click()
+            .type('Cat');
+
+        cy.findByTestId(this.selector['New label']).should('exist').click();
+
+        cy.findAllByPlaceholderText(this.selector['Enter label name'])
+            .then((it) => it[0])
+            .should('be.visible')
+            .click()
+            .type('Dog');
+
+        cy.findByTestId(this.selector['New label']).should('exist').click();
+
+        cy.findAllByPlaceholderText(this.selector['Enter label name'])
+            .then((it) => it[0])
+            .should('be.visible');
+
+        cy.get(`${this.selector['List label']} > li`).should('have.length', 3);
+
+        cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
+
+        cy.findByRole('button', { name: /export/i })
+            .should('be.visible')
+            .click();
+
+        cy.findByTestId(this.selector['Export format']).should('be.visible').click();
+
+        cy.get('[data-value="csv"]').should('exist').click();
+
+        cy.findByRole('button', { name: /export/i })
+            .should('be.visible')
+            .click();
+
+        cy.readFile('./cypress/downloads/Untitled.csv');
     });
 });

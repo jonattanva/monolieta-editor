@@ -43,3 +43,11 @@ Cypress.Commands.add('home', () => {
 //     }
 //   }
 // }
+
+declare global {
+    namespace Cypress {
+        interface Chainable {
+            home(): Chainable<void>;
+        }
+    }
+}

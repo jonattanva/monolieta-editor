@@ -320,7 +320,12 @@
             <span class="flex items-center justify-between gap-4">
                 Export format
                 <span class="relative w-2/3">
-                    <Select options={label.format} value={formatFile} on:change={onFormatChanged} />
+                    <Select
+                        on:change={onFormatChanged}
+                        options={label.format}
+                        test="export-format"
+                        value={formatFile}
+                    />
                 </span>
             </span>
             <span class="flex items-center justify-between gap-4">
