@@ -44,16 +44,6 @@
   ],
   "field": [
     {
-      "key": "createdAt",
-      "name": "Created at",
-      "checked": false
-    },
-    {
-      "key": "updatedAt",
-      "name": "Updated at",
-      "checked": false
-    },
-    {
       "key": "name",
       "name": "Name",
       "checked": false

@@ -318,6 +318,24 @@ describe('Label', () => {
 
         cy.get('input[type="file"]').attachFile('import/label.csv');
 
-        cy.get('[data-key="csv"]').should('exist').click();
+        cy.get('[aria-haspopup="listbox"]')
+            .then((item) => item[0])
+            .should('exist')
+            .click();
+
+        cy.get('[data-value="name"]').should('exist').click();
+
+        cy.get('[aria-haspopup="listbox"]')
+            .then((item) => item[1])
+            .should('exist')
+            .click();
+
+        cy.get('[data-value="color"]').should('exist').click();
+
+        cy.findByRole('button', { name: /import/i })
+            .should('be.visible')
+            .click();
+
+        cy.get(`${this.selector['List label']} > li`).should('have.length', 2);
     });
 });
