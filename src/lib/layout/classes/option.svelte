@@ -38,7 +38,8 @@
     const instance: Monolieta.Import = {
         columns: [],
         ref: {},
-        rows: []
+        rows: [],
+        values: {}
     };
 
     let fileInput: HTMLInputElement | null = null;
@@ -133,58 +134,74 @@
 
     const onFileSelected = async (event: Event) => {
         const target = event.target as HTMLInputElement;
-        if (target) {
-            if (target.files) {
-                const [file] = target.files;
-                const result = (await reader(file)) as string;
+        if (target.files) {
+            const [file] = target.files;
+            const result = (await reader(file)) as string;
 
-                switch (file.type) {
-                    case 'application/json': {
-                        const rows = getJson(result);
-                        if (!rows) {
-                            // TODO: EL DOCUMENTO NO ES VALIDO
-                            return;
-                        }
-
-                        console.log(rows);
-
-                        break;
+            switch (file.type) {
+                case 'application/json': {
+                    const rows = getJson(result);
+                    if (!rows) {
+                        // TODO: EL DOCUMENTO NO ES VALIDO
+                        return;
                     }
 
-                    case 'text/csv': {
-                        const [columns, ...rows] = result.split('\n');
-
-                        instance.columns = columns.split(',').map((column) => ({
-                            label: column,
-                            value: column
-                        }));
-
-                        const total = instance.columns.length;
-                        for (let i = 0; i < rows.length; i++) {
-                            const row = rows[i];
-                            const values = row.split(',');
-
-                            if (values.length !== total) {
-                                continue;
-                            }
-
-                            const register = instance.columns.reduce(
-                                (previous, current, index) => ({
-                                    ...previous,
-                                    [current.value]: values[index]
-                                }),
-                                {}
-                            );
-
-                            instance.rows.push(register);
-                        }
-                        break;
-                    }
+                    console.log(rows);
+                    break;
                 }
 
-                isViewImportProject = false;
-                showPositiveButton = true;
+                case 'text/csv': {
+                    const [columns, ...rows] = result.split('\n');
+
+                    instance.columns = columns.split(',').map((column) => ({
+                        label: column,
+                        value: column
+                    }));
+
+                    fields.forEach((field) => {
+                        const current = instance.columns.find((column) => {
+                            return field.key === column.label;
+                        });
+
+                        if (current) {
+                            field.checked = true;
+                            instance.values[field.key] = current;
+
+                            instance.ref[field.key] = {
+                                name: field.key,
+                                enabled: true
+                            };
+                    
+                        }
+                    });
+
+                    const total = instance.columns.length;
+                    for (let i = 0; i < rows.length; i++) {
+                        const row = rows[i];
+                        const values = row.split(',');
+
+                        if (values.length !== total) {
+                            continue;
+                        }
+
+                        const register = instance.columns.reduce(
+                            (previous, current, index) => ({
+                                ...previous,
+                                [current.value]: values[index]
+                            }),
+                            {}
+                        );
+
+                        instance.rows.push(register);
+                    }
+                    break;
+                }
             }
+
+            showPositiveButton = true;
+            isViewImportProject = false;
+
+            disabledPositiveButton = getColumns().length === 0;
         }
     };
 
@@ -406,14 +423,16 @@
                                     <div class="flex items-center justify-center">{field.name}</div>
                                     <div class="flex items-center justify-center">
                                         <Select
+                                            on:change={(event) => onSelectField(field.key, event)}
                                             options={instance.columns}
                                             placeholder="Select a field"
-                                            on:change={(event) => onSelectField(field.key, event)}
+                                            value={instance.values[field.key]}
                                         />
                                     </div>
                                     <div class="flex items-center justify-center">
                                         <Toggle
                                             checked={field.checked}
+                                            test={field.key}
                                             on:change={(event) =>
                                                 onImportSelectField(field.key, event)}
                                         />

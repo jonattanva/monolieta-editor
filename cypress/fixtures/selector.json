@@ -1,6 +1,8 @@
 {
   "Enter label name": "Enter label name",
   "Export format": "export-format",
+  "External field color": "color",
+  "External field name": "name",
   "List label": "[aria-label='list-label']",
   "Menu label": "menu-label",
   "More": "more",

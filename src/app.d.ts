@@ -39,6 +39,7 @@ declare namespace Monolieta {
         columns: Options = [];
         ref: { [key in string]: Ref };
         rows: any[];
+        values: { [key in string]: Option };
     };
 
     type Index = { [key in string]: any };

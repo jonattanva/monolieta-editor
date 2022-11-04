@@ -318,24 +318,30 @@ describe('Label', () => {
 
         cy.get('input[type="file"]').attachFile('import/label.csv');
 
-        cy.get('[aria-haspopup="listbox"]')
-            .then((item) => item[0])
-            .should('exist')
-            .click();
-
-        cy.get('[data-value="name"]').should('exist').click();
-
-        cy.get('[aria-haspopup="listbox"]')
-            .then((item) => item[1])
-            .should('exist')
-            .click();
-
-        cy.get('[data-value="color"]').should('exist').click();
-
         cy.findByRole('button', { name: /import/i })
             .should('be.visible')
             .click();
 
         cy.get(`${this.selector['List label']} > li`).should('have.length', 2);
+    });
+
+    it('should validate the form to import', function () {
+        cy.findByText(/labels/i).should('exist');
+
+        cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
+
+        cy.findByRole('button', { name: /import/i })
+            .should('be.visible')
+            .click();
+
+        cy.get('input[type="file"]').attachFile('import/label.csv');
+
+        cy.findByTestId(this.selector['External field name']).should('be.visible').click();
+
+        cy.findByTestId(this.selector['External field color']).should('be.visible').click();
+
+        cy.findByRole('button', { name: /import/i })
+            .should('be.visible')
+            .should('be.disabled');
     });
 });
