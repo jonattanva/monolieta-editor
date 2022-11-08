@@ -46,7 +46,7 @@ declare namespace Monolieta {
     type Import = {
         columns: Options | Groups = [];
         ref: { [key in string]: Ref };
-        rows: any[];
+        rows: any[] | any;
         values: { [key in string]: Option };
     };
 

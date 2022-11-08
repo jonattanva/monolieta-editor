@@ -67,6 +67,7 @@
         instance['columns'] = [];
         instance['ref'] = {};
         instance['rows'] = [];
+        instance['values'] = {};
     };
 
     const onCloseExportManager = () => {
@@ -170,11 +171,14 @@
                     const content = getJson(result);
                     if (!content) {
                         // TODO: EL DOCUMENTO NO ES VALIDO
-                        return;
+                        break;
                     }
 
                     instance.columns = getColumnsFromJson(content);
-                    console.log(instance.columns);
+
+                    selectedExternalField();
+
+                    instance.rows = content;
                     break;
                 }
 
@@ -186,21 +190,7 @@
                         value: column
                     }));
 
-                    fields.forEach((field) => {
-                        const current = instance.columns.find((column) => {
-                            return field.key === column.label;
-                        });
-
-                        if (current) {
-                            field.checked = true;
-                            instance.values[field.key] = current;
-
-                            instance.ref[field.key] = {
-                                name: field.key,
-                                enabled: true
-                            };
-                        }
-                    });
+                    selectedExternalField();
 
                     const total = instance.columns.length;
                     for (let i = 0; i < rows.length; i++) {
@@ -233,13 +223,15 @@
     };
 
     const onSelectField = (key: string, event: CustomEvent) => {
-        const { value } = event.detail;
+        const selected = event.detail;
 
         const current = instance.ref[key];
         instance.ref[key] = {
             ...current,
-            name: value
+            name: selected.value
         };
+
+        instance.values[key] = selected;
 
         fields = fields.map((field) => {
             if (field.key === key) {
@@ -263,6 +255,46 @@
         });
 
     const isInvalidColumns = () => getColumns().length === 0;
+
+    const selectedExternalField = () => {
+        fields.forEach((field) => {
+            const property = instance.columns.find((column: Monolieta.Option | Monolieta.Group) => {
+                if (field.key === column.label) {
+                    return true;
+                }
+
+                if ('options' in column) {
+                    return column.options.find((it) => {
+                        return field.key === it.label;
+                    });
+                }
+
+                return false;
+            });
+
+            if (property) {
+                let values = property;
+                if ('options' in property) {
+                    const group = property as Monolieta.Group;
+                    const current = group.options.find((it) => {
+                        return field.key === it.label;
+                    });
+
+                    if (current) {
+                        values = current;
+                    }
+                }
+
+                field.checked = true;
+
+                instance.values[field.key] = values;
+                instance.ref[field.key] = {
+                    name: field.key,
+                    enabled: true
+                };
+            }
+        });
+    };
 
     const onImportSelectField = (key: string, event: Event) => {
         const target = event.target as HTMLInputElement;

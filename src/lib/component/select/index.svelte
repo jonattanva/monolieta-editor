@@ -1,5 +1,6 @@
 <script>
     import outside from '$lib/action/outside';
+    import Option from './option.svelte';
     import { createEventDispatcher } from 'svelte';
 
     /** @type {Monolieta.Options|Monolieta.Groups} */
@@ -38,10 +39,7 @@
 
             if (current) {
                 value = current;
-                dispatch('change', {
-                    label: value.label,
-                    value: value.value
-                });
+                dispatch('change', value);
             }
 
             onCloseMenu();
@@ -86,36 +84,6 @@
     </button>
 
     {#if open}
-        <ul
-            class="absolute z-10 mt-1 max-h-56 w-full overflow-auto rounded-md bg-white py-1 text-base shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none sm:text-sm"
-            tabindex="-1"
-            role="listbox"
-            aria-labelledby="listbox-label"
-            aria-activedescendant="listbox-option-3"
-        >
-            {#if options.length === 0}
-                <li class="relative w-full cursor-default select-none py-2 pl-3 pr-9 text-gray-900">
-                    <div class="flex items-center">
-                        <span class="block truncate font-normal">No options</span>
-                    </div>
-                </li>
-            {/if}
-
-            {#each options as option}
-                <li class="relative cursor-default select-none text-gray-900 hover:bg-indigo-100">
-                    <button
-                        class="w-full py-2 pl-3 pr-9"
-                        data-value={option.value}
-                        on:click={onSelected}
-                    >
-                        <div class="flex items-center">
-                            <span class="block truncate font-normal" title={option.label}>
-                                {option.label}
-                            </span>
-                        </div>
-                    </button>
-                </li>
-            {/each}
-        </ul>
+        <Option {options} on:click={onSelected} />
     {/if}
 </div>
