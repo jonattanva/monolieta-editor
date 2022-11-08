@@ -2,10 +2,10 @@
     import outside from '$lib/action/outside';
     import { createEventDispatcher } from 'svelte';
 
-    /** @type {Monolieta.Option[]} */
+    /** @type {Monolieta.Options|Monolieta.Groups} */
     export let options = [];
 
-    /** @type {Monolieta.Option|null} */
+    /** @type {Monolieta.Option|Monolieta.Group|null} */
     export let value = null;
 
     /** @type {string} */

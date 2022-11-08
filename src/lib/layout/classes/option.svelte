@@ -15,7 +15,7 @@
     import label from '$lib/config/label.json';
     import outside from '$lib/action/outside';
     import store, { template } from '$lib/store/label';
-    import { isArray } from '$lib/assert';
+    import { isArray, isObject } from '$lib/assert';
     import { reader } from '$lib/file';
 
     export let test: string = '';
@@ -132,6 +132,33 @@
         }
     };
 
+    const getColumnsFromJson = (value: any): Monolieta.Options | Monolieta.Groups => {
+        let properties = value;
+        if (isArray(properties)) {
+            const property = properties[0];
+            return Object.keys(property).map((name) => ({
+                label: name,
+                value: name
+            }));
+        }
+
+        return Object.keys(properties).map((name) => {
+            let property = properties[name];
+            if (isArray(property)) {
+                property = property[0];
+            }
+
+            return {
+                label: name,
+                value: name,
+                options: Object.keys(property).map((name) => ({
+                    label: name,
+                    value: name
+                }))
+            };
+        });
+    };
+
     const onFileSelected = async (event: Event) => {
         const target = event.target as HTMLInputElement;
         if (target.files) {
@@ -140,13 +167,14 @@
 
             switch (file.type) {
                 case 'application/json': {
-                    const rows = getJson(result);
-                    if (!rows) {
+                    const content = getJson(result);
+                    if (!content) {
                         // TODO: EL DOCUMENTO NO ES VALIDO
                         return;
                     }
 
-                    console.log(rows);
+                    instance.columns = getColumnsFromJson(content);
+                    console.log(instance.columns);
                     break;
                 }
 
@@ -171,7 +199,6 @@
                                 name: field.key,
                                 enabled: true
                             };
-                    
                         }
                     });
 
@@ -201,7 +228,7 @@
             showPositiveButton = true;
             isViewImportProject = false;
 
-            disabledPositiveButton = getColumns().length === 0;
+            disabledPositiveButton = isInvalidColumns();
         }
     };
 
@@ -227,13 +254,15 @@
             return field;
         });
 
-        disabledPositiveButton = getColumns().length === 0;
+        disabledPositiveButton = isInvalidColumns();
     };
 
     const getColumns = () =>
         Object.keys(instance.ref).filter((key) => {
             return instance.ref[key].name && instance.ref[key].enabled;
         });
+
+    const isInvalidColumns = () => getColumns().length === 0;
 
     const onImportSelectField = (key: string, event: Event) => {
         const target = event.target as HTMLInputElement;
@@ -244,7 +273,7 @@
             enabled: target.checked
         };
 
-        disabledPositiveButton = getColumns().length === 0;
+        disabledPositiveButton = isInvalidColumns();
     };
 
     const onImport = async () => {

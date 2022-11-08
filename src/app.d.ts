@@ -30,13 +30,21 @@ declare namespace Monolieta {
 
     type Options = Option[];
 
+    type Group = {
+        label: string;
+        value: string;
+        options: Options;
+    };
+
+    type Groups = Group[];
+
     type Ref = {
         name: string;
         enabled: boolean;
     };
 
     type Import = {
-        columns: Options = [];
+        columns: Options | Groups = [];
         ref: { [key in string]: Ref };
         rows: any[];
         values: { [key in string]: Option };
