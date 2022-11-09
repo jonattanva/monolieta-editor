@@ -314,6 +314,12 @@
             return;
         }
 
+        console.log("columns", columns)
+        console.log("ref", instance.ref)
+        if (1 == 1) {
+            return;
+        }
+
         const labels: Monolieta.Labels = [];
         for (let index = 0; index < instance.rows.length; index++) {
             const element = instance.rows[index];
