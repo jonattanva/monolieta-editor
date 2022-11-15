@@ -19,14 +19,17 @@
     import { reader } from '$lib/file';
 
     export let test: string = '';
-    export let title: string = 'More';
+    export let help: string = 'More';
 
     let fields = label.field;
 
     let isOpenExportManager = false;
     let isOpenImportManager = false;
     let isOpenMenu = false;
+
     let isShowMessage = false;
+    let titleMessage = '';
+    let bodyMessage = '';
 
     let disabledPositiveButton = true;
     let isViewImportProject = true;
@@ -36,13 +39,19 @@
     let formatFile = label.format[0];
 
     const instance: Monolieta.Import = {
-        columns: [],
+        content: [],
+        properties: [],
         ref: {},
-        rows: [],
         values: {}
     };
 
     let fileInput: HTMLInputElement | null = null;
+
+    const showMessage = (title: string, message: string) => {
+        bodyMessage = message;
+        titleMessage = title;
+        isShowMessage = true;
+    };
 
     const onCloseMessage = () => {
         isShowMessage = false;
@@ -64,9 +73,13 @@
             return field;
         });
 
-        instance['columns'] = [];
+        clean();
+    };
+
+    const clean = () => {
+        instance['content'] = [];
+        instance['properties'] = [];
         instance['ref'] = {};
-        instance['rows'] = [];
         instance['values'] = {};
     };
 
@@ -133,6 +146,36 @@
         }
     };
 
+    const getColumnsFromCSV = (columns: string) =>
+        columns.split(',').map((column) => ({
+            label: column,
+            value: column
+        }));
+
+    const getContentFromCSV = (columns: Monolieta.Options, content: any[]) => {
+        const result = [];
+        for (let i = 0; i < content.length; i++) {
+            const row = content[i];
+            const values = row.split(',');
+
+            if (values.length !== columns.length) {
+                continue;
+            }
+
+            const register = columns.reduce(
+                (previous, current, index) => ({
+                    ...previous,
+                    [current.value]: values[index]
+                }),
+                {}
+            );
+
+            result.push(register);
+        }
+
+        return result;
+    };
+
     const getColumnsFromJson = (value: any): Monolieta.Options | Monolieta.Groups => {
         let properties = value;
         if (isArray(properties)) {
@@ -162,73 +205,69 @@
 
     const onFileSelected = async (event: Event) => {
         const target = event.target as HTMLInputElement;
-        if (target.files) {
-            const [file] = target.files;
-            const result = (await reader(file)) as string;
-
-            switch (file.type) {
-                case 'application/json': {
-                    const content = getJson(result);
-                    if (!content) {
-                        // TODO: EL DOCUMENTO NO ES VALIDO
-                        break;
-                    }
-
-                    instance.columns = getColumnsFromJson(content);
-
-                    selectedExternalField();
-
-                    instance.rows = content;
-                    break;
-                }
-
-                case 'text/csv': {
-                    const [columns, ...rows] = result.split('\n');
-
-                    instance.columns = columns.split(',').map((column) => ({
-                        label: column,
-                        value: column
-                    }));
-
-                    selectedExternalField();
-
-                    const total = instance.columns.length;
-                    for (let i = 0; i < rows.length; i++) {
-                        const row = rows[i];
-                        const values = row.split(',');
-
-                        if (values.length !== total) {
-                            continue;
-                        }
-
-                        const register = instance.columns.reduce(
-                            (previous, current, index) => ({
-                                ...previous,
-                                [current.value]: values[index]
-                            }),
-                            {}
-                        );
-
-                        instance.rows.push(register);
-                    }
-                    break;
-                }
-            }
-
-            showPositiveButton = true;
-            isViewImportProject = false;
-
-            disabledPositiveButton = isInvalidColumns();
+        if (!target.files) {
+            return;
         }
+
+        const [file] = target.files;
+        const result = (await reader(file)) as string;
+
+        switch (file.type) {
+            case 'application/json': {
+                const content = getJson(result);
+                if (!content) {
+                    showMessage('Import Failed!', 'It was not possible to import the file');
+                    return;
+                }
+
+                instance.content = content;
+                instance.properties = getColumnsFromJson(content);
+
+                selectExternalField();
+                break;
+            }
+            case 'text/csv': {
+                const [columns, ...content] = result.split('\n');
+
+                instance.properties = getColumnsFromCSV(columns);
+                instance.content = getContentFromCSV(instance.properties, content);
+
+                selectExternalField();
+                break;
+            }
+        }
+
+        showPositiveButton = true;
+        isViewImportProject = false;
+
+        disabledPositiveButton = isInvalidColumns();
+    };
+
+    const getRef = (selected: Monolieta.Option | Monolieta.Group) => {
+        let body = null;
+        let property = selected.value;
+
+        if ('options' in selected) {
+            const [option] = selected.options;
+            body = selected.value;
+            property = option.value;
+        }
+
+        return {
+            body,
+            property
+        };
     };
 
     const onSelectField = (key: string, event: CustomEvent) => {
         const selected = event.detail;
+        const { body, property } = getRef(selected);
 
         const current = instance.ref[key];
         instance.ref[key] = {
             ...current,
-            name: selected.value
+            body,
+            property
         };
 
         instance.values[key] = selected;
@@ -251,49 +290,65 @@
 
     const getColumns = () =>
         Object.keys(instance.ref).filter((key) => {
-            return instance.ref[key].name && instance.ref[key].enabled;
+            return instance.ref[key].enabled;
         });
 
     const isInvalidColumns = () => getColumns().length === 0;
 
-    const selectedExternalField = () => {
-        fields.forEach((field) => {
-            const property = instance.columns.find((column: Monolieta.Option | Monolieta.Group) => {
-                if (field.key === column.label) {
-                    return true;
-                }
-
-                if ('options' in column) {
-                    return column.options.find((it) => {
-                        return field.key === it.label;
-                    });
-                }
-
-                return false;
-            });
-
-            if (property) {
-                let values = property;
-                if ('options' in property) {
-                    const group = property as Monolieta.Group;
-                    const current = group.options.find((it) => {
-                        return field.key === it.label;
-                    });
-
-                    if (current) {
-                        values = current;
-                    }
-                }
-
-                field.checked = true;
-
-                instance.values[field.key] = values;
-                instance.ref[field.key] = {
-                    name: field.key,
-                    enabled: true
-                };
+    const findProperty = (property: string) => {
+        return instance.properties.find((column: Monolieta.Option | Monolieta.Group) => {
+            if (property === column.label) {
+                return true;
             }
+
+            if ('options' in column) {
+                return (
+                    column.options.find((it) => {
+                        return property === it.label;
+                    }) !== undefined
+                );
+            }
+
+            return false;
         });
+    };
+
+    const selectExternalField = () => {
+        for (let i = 0; i < fields.length; i++) {
+            const field = fields[i];
+
+            const current = findProperty(field.key);
+            if (!current) {
+                break;
+            }
+
+            field.checked = true;
+            let selected: Monolieta.Option | Monolieta.Group = current;
+
+            if ('options' in current) {
+                const group = current as Monolieta.Group;
+                const option = group.options.find((it) => {
+                    return field.key === it.label;
+                });
+
+                if (option) {
+                    selected = {
+                        label: group.label,
+                        value: group.value,
+                        options: [option]
+                    };
+                }
+            }
+
+            const { body, property } = getRef(selected);
+
+            instance.values[field.key] = selected;
+            instance.ref[field.key] = {
+                body: body,
+                property: property,
+                enabled: true
+            };
+        }
     };
 
     const onImportSelectField = (key: string, event: Event) => {
@@ -314,37 +369,80 @@
             return;
         }
 
-        console.log("columns", columns)
-        console.log("ref", instance.ref)
-        if (1 == 1) {
+        const groups: {
+            property: string | null | undefined;
+            fields: Monolieta.Options;
+        }[] = [];
+        const index: Monolieta.Index = {};
+
+        for (let i = 0; i < columns.length; i++) {
+            const column = columns[i];
+            const ref = instance.ref[column];
+
+            const key = ref.body || 'monolieta';
+            if (!(key in index)) {
+                index[key] = groups.length;
+                groups.push({
+                    property: ref.body,
+                    fields: []
+                });
+            }
+
+            const { fields } = groups[index[key]];
+
+            fields.push({
+                label: column,
+                value: ref.property
+            });
+        }
+
+        if (groups.length > 1) {
+            showMessage('error', 'errror...');
             return;
         }
 
-        const labels: Monolieta.Labels = [];
-        for (let index = 0; index < instance.rows.length; index++) {
-            const element = instance.rows[index];
+        const labels = [];
+        for (let i = 0; i < groups.length; i++) {
+            const group = groups[i];
 
-            let label = template();
-            columns.forEach((column) => {
-                const ref = instance.ref[column];
-                label = {
-                    ...label,
-                    [column]: element[ref.name]
-                };
-            });
+            let contents = instance.content;
+            if (isObject(contents) && group.property) {
+                // @ts-ignore
+                contents = instance.content[group.property];
+            }
 
-            labels.push(label);
+            if (!isArray(contents)) {
+                break;
+            }
+
+            const body = <Array<any>>contents;
+            for (let k = 0; k < body.length; k++) {
+                const content = body[k];
+
+                let label = template();
+                for (let j = 0; j < columns.length; j++) {
+                    const column = columns[j];
+
+                    const ref = instance.ref[column];
+                    label = {
+                        ...label,
+                        [column]: content[ref.property]
+                    };
+                }
+
+                labels.push(label);
+            }
         }
 
         store.init(labels);
 
-        isShowMessage = true;
+        showMessage('Successfully imported!', 'The import of the labels has been completed');
         onCloseImportManager();
     };
 </script>
 
 <div use:outside={onCloseMenu}>
-    <Fab on:click={onOpenMenu} {title} {test}>
+    <Fab on:click={onOpenMenu} title={help} {test}>
         <span class="h-5 w-5 text-gray-600">
             <EllipsisHorizontal />
         </span>
@@ -387,13 +485,13 @@
 
 {#if isShowMessage}
     <Message
-        message="The import of the labels has been completed"
-        on:positive={onCloseMessage}
+        message={bodyMessage}
         on:negative={onCloseMessage}
+        on:positive={onCloseMessage}
         positiveButton="Undo"
         showNegativeButton={false}
         showPositiveButton={true}
-        title="Successfully imported!"
+        title={titleMessage}
     />
 {/if}
 
@@ -491,7 +589,7 @@
                                     <div class="flex items-center justify-center">
                                         <Select
                                             on:change={(event) => onSelectField(field.key, event)}
-                                            options={instance.columns}
+                                            options={instance.properties}
                                             placeholder="Select a field"
                                             value={instance.values[field.key]}
                                         />

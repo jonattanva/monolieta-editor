@@ -33,16 +33,39 @@
     const onSelected = (/** @type {{ currentTarget: any; }} */ event) => {
         const target = event.currentTarget;
         if (target) {
-            const current = options.find((option) => {
-                return option.value == target.dataset.value;
-            });
+            const key = target.dataset.value;
+            const parent = target.dataset.parent;
 
-            if (current) {
-                value = current;
-                dispatch('change', value);
+            let current = null;
+            for (let i = 0; i < options.length; i++) {
+                const option = options[i];
+                if (!parent && option.value === key) {
+                    value = option;
+                    current = option;
+                    break;
+                }
+
+                if (option.value === parent && 'options' in option) {
+                    for (let k = 0; k < option.options.length; k++) {
+                        const element = option.options[k];
+                        if (element.value === key) {
+                            current = {
+                                label: option.label,
+                                value: option.value,
+                                options: [element]
+                            };
+                            value = current;
+                            break;
+                        }
+                    }
+                }
             }
 
-            onCloseMenu();
+            if (current) {
+                dispatch('change', current);
+
+                onCloseMenu();
+            }
         }
     };
 </script>
@@ -59,7 +82,12 @@
     >
         <span class="flex items-center">
             {#if value && value.label}
-                <span class="block truncate">{value.label}</span>
+                {#if 'options' in value}
+                    {@const [option] = value.options}
+                    <span class="block truncate">{option.label}</span>
+                {:else}
+                    <span class="block truncate">{value.label}</span>
+                {/if}
             {:else}
                 <span class="block truncate text-gray-400">{placeholder}</span>
             {/if}
@@ -84,6 +112,6 @@
     </button>
 
     {#if open}
-        <Option {options} on:click={onSelected} />
+        <Option {options} {value} on:click={onSelected} />
     {/if}
 </div>

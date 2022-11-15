@@ -44,6 +44,11 @@
   ],
   "field": [
     {
+      "key": "id",
+      "name": "ID",
+      "checked": false
+    },
+    {
       "key": "name",
       "name": "Name",
       "checked": false

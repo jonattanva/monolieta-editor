@@ -3,6 +3,9 @@
 
     /** @type {Monolieta.Options|Monolieta.Groups} */
     export let options = [];
+
+    /** @type {Monolieta.Option|Monolieta.Group|null} */
+    export let value = null;
 </script>
 
 <ul
@@ -25,10 +28,16 @@
                 {option.label}
             </li>
             {#each option.options as child}
-                <Row value={child.value} label={child.label} on:click />
+                <Row
+                    label={child.label}
+                    on:click
+                    parent={option.value}
+                    selected={value}
+                    value={child.value}
+                />
             {/each}
         {:else}
-            <Row value={option.value} label={option.label} on:click />
+            <Row value={option.value} label={option.label} selected={value} on:click />
         {/if}
     {/each}
 </ul>

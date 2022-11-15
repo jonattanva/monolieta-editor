@@ -325,6 +325,24 @@ describe('Label', () => {
         cy.get(`${this.selector['List label']} > li`).should('have.length', 2);
     });
 
+    it('should import json file', function () {
+        cy.findByText(/labels/i).should('exist');
+
+        cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
+
+        cy.findByRole('button', { name: /import/i })
+            .should('be.visible')
+            .click();
+
+        cy.get('input[type="file"]').attachFile('import/label.json');
+
+        cy.findByRole('button', { name: /import/i })
+            .should('be.visible')
+            .click();
+
+        cy.get(`${this.selector['List label']} > li`).should('have.length', 2);
+    });
+
     it('should validate the form to import', function () {
         cy.findByText(/labels/i).should('exist');
 
@@ -335,6 +353,8 @@ describe('Label', () => {
             .click();
 
         cy.get('input[type="file"]').attachFile('import/label.csv');
+
+        cy.findByTestId(this.selector['External field id']).should('be.visible').click();
 
         cy.findByTestId(this.selector['External field name']).should('be.visible').click();
 

@@ -39,15 +39,16 @@ declare namespace Monolieta {
     type Groups = Group[];
 
     type Ref = {
-        name: string;
+        body?: string | null;
         enabled: boolean;
+        property: string;
     };
 
     type Import = {
-        columns: Options | Groups = [];
+        content: [] | {};
+        properties: Options | Groups = [];
         ref: { [key in string]: Ref };
-        rows: any[];
-        values: { [key in string]: Option };
+        values: { [key in string]: Option | Group };
     };
 
     type Index = { [key in string]: any };
