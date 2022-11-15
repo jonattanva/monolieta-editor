@@ -397,7 +397,7 @@
         }
 
         if (groups.length > 1) {
-            showMessage('error', 'errror...');
+            showMessage('Import Failed!', 'It was not possible to import the file');
             return;
         }
 
@@ -407,8 +407,8 @@
 
             let contents = instance.content;
             if (isObject(contents) && group.property) {
-                // @ts-ignore
-                contents = instance.content[group.property];
+                const content = instance.content as Monolieta.Index;
+                contents = content[group.property];
             }
 
             if (!isArray(contents)) {
