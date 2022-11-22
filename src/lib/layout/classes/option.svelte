@@ -1,22 +1,19 @@
 <script lang="ts">
     import ArrowDownTray from '$lib/component/icon/arrow-down-tray.svelte';
     import ArrowUpTray from '$lib/component/icon/arrow-up-tray.svelte';
-    import BarsArrowDown from '$lib/component/icon/bars-arrow-down.svelte';
-    import BarsArrowUp from '$lib/component/icon/bars-arrow-up.svelte';
     import Dropdown from '$lib/component/dropdown/index.svelte';
     import EllipsisHorizontal from '$lib/component/icon/ellipsis-horizontal.svelte';
     import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Message from '$lib/component/message/index.svelte';
     import Modal from '$lib/component/modal/index.svelte';
-    import Section from '$lib/component/dropdown/section.svelte';
     import Select from '$lib/component/select/index.svelte';
+    import Sort from './sort.svelte';
     import Toggle from '$lib/component/toggle/index.svelte';
     import label from '$lib/config/label.json';
     import outside from '$lib/action/outside';
-    import store, { template } from '$lib/store/label';
-    import { isArray, isObject } from '$lib/assert';
-    import { reader } from '$lib/file';
+    import store from '$lib/store/label';
+    import { onMount, onDestroy } from 'svelte';
 
     export let test: string = '';
     export let help: string = 'More';
@@ -24,8 +21,11 @@
     let fields = label.field;
 
     let isOpenExportManager = false;
-    let isOpenImportManager = false;
+    let isOpenImportManager = true;
     let isOpenMenu = false;
+
+    let isLoading = true;
+    let isLoadingMessage = '';
 
     let isShowMessage = false;
     let titleMessage = '';
@@ -46,6 +46,48 @@
     };
 
     let fileInput: HTMLInputElement | null = null;
+
+    let labelReaderWorker: Worker | null = null;
+    let labelProcessWorker: Worker | null = null;
+
+    const onReadFile = (event: MessageEvent) => {
+        const { data } = event;
+
+        instance.properties = data.columns;
+        instance.content = data.content;
+
+        selectExternalField();
+
+        showPositiveButton = true;
+        isViewImportProject = false;
+
+        disabledPositiveButton = isInvalidColumns();
+    };
+
+    const onImportComplete = (event: any) => {
+        store.init(event.data.labels);
+
+        showMessage('Successfully imported!', 'The import of the labels has been completed');
+    };
+
+    onMount(async () => {
+        // @ts-ignore
+        const SyncWorker = await import('$lib/worker/label/read.worker?worker');
+        labelReaderWorker = <Worker>new SyncWorker.default();
+        labelReaderWorker.onmessage = onReadFile;
+    });
+
+    onMount(async () => {
+        // @ts-ignore
+        const SyncWorker = await import('$lib/worker/label/import.worker?worker');
+        labelProcessWorker = <Worker>new SyncWorker.default();
+        labelProcessWorker.onmessage = onImportComplete;
+    });
+
+    onDestroy(() => {
+        labelProcessWorker?.terminate();
+        labelReaderWorker?.terminate();
+    });
 
     const showMessage = (title: string, message: string) => {
         bodyMessage = message;
@@ -100,20 +142,6 @@
         isOpenMenu = !isOpenMenu;
     };
 
-    const onAscending = () => {
-        store.sort((a: Monolieta.Label, b: Monolieta.Label) => {
-            return a.name.localeCompare(b.name);
-        });
-        onCloseMenu();
-    };
-
-    const onDescending = () => {
-        store.sort((a: Monolieta.Label, b: Monolieta.Label) => {
-            return b.name.localeCompare(a.name);
-        });
-        onCloseMenu();
-    };
-
     const onIncludeEmptyChanged = (event: Event) => {
         const target = event.target as HTMLInputElement;
         if (target) {
@@ -138,109 +166,18 @@
         }
     };
 
-    const getJson = (value: string) => {
-        try {
-            return JSON.parse(value);
-        } catch (_) {
-            return null;
-        }
-    };
-
-    const getColumnsFromCSV = (columns: string) =>
-        columns.split(',').map((column) => ({
-            label: column,
-            value: column
-        }));
-
-    const getContentFromCSV = (columns: Monolieta.Options, content: any[]) => {
-        const result = [];
-        for (let i = 0; i < content.length; i++) {
-            const row = content[i];
-            const values = row.split(',');
-
-            if (values.length !== columns.length) {
-                continue;
-            }
-
-            const register = columns.reduce(
-                (previous, current, index) => ({
-                    ...previous,
-                    [current.value]: values[index]
-                }),
-                {}
-            );
-
-            result.push(register);
-        }
-
-        return result;
-    };
-
-    const getColumnsFromJson = (value: any): Monolieta.Options | Monolieta.Groups => {
-        let properties = value;
-        if (isArray(properties)) {
-            const property = properties[0];
-            return Object.keys(property).map((name) => ({
-                label: name,
-                value: name
-            }));
-        }
-
-        return Object.keys(properties).map((name) => {
-            let property = properties[name];
-            if (isArray(property)) {
-                property = property[0];
-            }
-
-            return {
-                label: name,
-                value: name,
-                options: Object.keys(property).map((name) => ({
-                    label: name,
-                    value: name
-                }))
-            };
-        });
-    };
-
-    const onFileSelected = async (event: Event) => {
+    const onFileSelected = (event: Event) => {
         const target = event.target as HTMLInputElement;
         if (!target.files) {
             return;
         }
 
         const [file] = target.files;
-        const result = (await reader(file)) as string;
+        labelReaderWorker?.postMessage({
+            file
+        });
 
-        switch (file.type) {
-            case 'application/json': {
-                const content = getJson(result);
-                if (!content) {
-                    showMessage('Import Failed!', 'It was not possible to import the file');
-                    return;
-                }
-
-                instance.content = content;
-                instance.properties = getColumnsFromJson(content);
-
-                selectExternalField();
-                break;
-            }
-            case 'text/csv': {
-                const [columns, ...content] = result.split('\n');
-
-                instance.properties = getColumnsFromCSV(columns);
-                instance.content = getContentFromCSV(instance.properties, content);
-
-                selectExternalField();
-                break;
-            }
-        }
-
-        showPositiveButton = true;
-        isViewImportProject = false;
-
-        disabledPositiveButton = isInvalidColumns();
+        // TODO: SHOW LOADING!!!
     };
 
     const getRef = (selected: Monolieta.Option | Monolieta.Group) => {
@@ -397,46 +334,18 @@
         }
 
         if (groups.length > 1) {
+            // TODO: Change message!
             showMessage('Import Failed!', 'It was not possible to import the file');
             return;
         }
 
-        const labels = [];
-        for (let i = 0; i < groups.length; i++) {
-            const group = groups[i];
+        labelProcessWorker?.postMessage({
+            groups,
+            columns,
+            ref: instance.ref,
+            content: instance.content
+        });
 
-            let contents = instance.content;
-            if (isObject(contents) && group.property) {
-                const content = instance.content as Monolieta.Index;
-                contents = content[group.property];
-            }
-
-            if (!isArray(contents)) {
-                break;
-            }
-
-            const body = <Array<any>>contents;
-            for (let k = 0; k < body.length; k++) {
-                const content = body[k];
-
-                let label = template();
-                for (let j = 0; j < columns.length; j++) {
-                    const column = columns[j];
-
-                    const ref = instance.ref[column];
-                    label = {
-                        ...label,
-                        [column]: content[ref.property]
-                    };
-                }
-
-                labels.push(label);
-            }
-        }
-
-        store.init(labels);
-
-        showMessage('Successfully imported!', 'The import of the labels has been completed');
         onCloseImportManager();
     };
 </script>
@@ -450,20 +359,7 @@
     {#if isOpenMenu}
         <div class="absolute top-9 right-0">
             <Dropdown>
-                <Section>
-                    <Item on:click={onAscending}>
-                        <span class="mr-2 h-5 w-5">
-                            <BarsArrowDown />
-                        </span>
-                        Ascending
-                    </Item>
-                    <Item on:click={onDescending}>
-                        <span class="mr-2 h-5 w-5">
-                            <BarsArrowUp />
-                        </span>
-                        Descending
-                    </Item>
-                </Section>
+                <Sort on:close={onCloseMenu} />
                 <div class="w-full border-t border-slate-400/20 py-3 px-3.5">
                     <Item on:click={onOpenImportManager}>
                         <span class="mr-2 h-5 w-5">
@@ -528,6 +424,11 @@
             {showPositiveButton}
         >
             <div class="flex w-full flex-col">
+                <div class="absolute left-0 top-0 h-full w-full bg-red-500">
+                    <div></div>
+                    <div></div>
+                </div>
+
                 <p class="text-lg text-slate-900">Import</p>
                 {#if isViewImportProject}
                     <span class="flex items-center pb-4 text-gray-500">

@@ -33,6 +33,16 @@ declare namespace Monolieta {
 
     type Groups = Group[];
 
+    type Index = { [key in string]: any };
+
+    type Reader = {
+        content: any;
+    };
+
+    type LabelReader = {
+        columns: Monolieta.Options | Monolieta.Groups;
+    } & Reader;
+
     type Ref = {
         body?: string | null;
         enabled: boolean;
@@ -46,5 +56,6 @@ declare namespace Monolieta {
         values: { [key in string]: Option | Group };
     };
 
-    type Index = { [key in string]: any };
+    type Size = number | 'auto';
+    type Direction = 'horizontal' | 'vertical';
 }

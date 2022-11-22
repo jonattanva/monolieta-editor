@@ -30,9 +30,18 @@ export default {
             let results = [];
             for (let i = 0; i < value.length; i++) {
                 const element = value[i];
-                if (element.token) {
+                if (!element.id) {
+                    element.id = nanoid();
+                }
+
+                if (!element.color) {
+                    element.color = color();
+                }
+
+                if (!element.token) {
                     element.token = nanoid();
                 }
+
                 index(element);
                 results.push(element);
             }
