@@ -5,7 +5,6 @@
     import EllipsisHorizontal from '$lib/component/icon/ellipsis-horizontal.svelte';
     import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
-    import Loading from './loading.svelte';
     import Message from '$lib/component/message/index.svelte';
     import Modal from '$lib/component/modal/index.svelte';
     import Select from '$lib/component/select/index.svelte';
