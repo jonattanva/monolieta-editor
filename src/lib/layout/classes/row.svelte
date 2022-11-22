@@ -42,7 +42,7 @@
     };
 </script>
 
-<li class="flex w-full flex-row gap-2 p-1 px-2 hover:bg-gray-200">
+<div class="flex w-full flex-row gap-2 p-1 px-2 hover:bg-gray-200">
     <div>
         <Color on:change={onColorChanged} on:click={onColorAction} value={item.color} />
     </div>
@@ -54,4 +54,4 @@
             </span>
         </Fab>
     </div>
-</li>
+</div>

@@ -11,6 +11,7 @@
     import Search from '$lib/component/search/index.svelte';
     import Section from '$lib/component/dropdown/section.svelte';
     import Trash from '$lib/component/icon/trash.svelte';
+    import VirtualList from 'svelte-tiny-virtual-list';
     import outside from '$lib/action/outside';
     import store, { template } from '$lib/store/label';
 
@@ -129,7 +130,7 @@
         </Fab>
         <Option test="menu-label" />
     </div>
-    <ul class="flex flex-col gap-2" aria-label="list-label">
+    <div class="flex flex-col gap-2" aria-label="list-label">
         {#if collection.length === 0}
             {#if message !== null}
                 <div class="flex flex-col items-center justify-center gap-2">
@@ -140,16 +141,25 @@
             {:else}
                 <Empty on:click={onCreateNewLabel} />
             {/if}
+        {:else}
+            <VirtualList
+                width="100%"
+                height={600}
+                itemCount={collection.length}
+                itemSize={36}
+                scrollDirection="vertical"
+            >
+                <div slot="item" let:index let:style {style}>
+                    <Row
+                        item={collection[index]}
+                        on:more={onMoreAction}
+                        on:color={onColorAction}
+                        on:change={onLabelChanged}
+                    />
+                </div>
+            </VirtualList>
         {/if}
-        {#each collection as item (item.id)}
-            <Row
-                {item}
-                on:more={onMoreAction}
-                on:color={onColorAction}
-                on:change={onLabelChanged}
-            />
-        {/each}
-    </ul>
+    </div>
 </div>
 
 {#if open && open.color}

@@ -5,6 +5,7 @@
     import EllipsisHorizontal from '$lib/component/icon/ellipsis-horizontal.svelte';
     import Fab from '$lib/component/fab/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
+    import Loading from './loading.svelte';
     import Message from '$lib/component/message/index.svelte';
     import Modal from '$lib/component/modal/index.svelte';
     import Select from '$lib/component/select/index.svelte';
@@ -24,8 +25,8 @@
     let isOpenImportManager = true;
     let isOpenMenu = false;
 
-    let isLoading = true;
-    let isLoadingMessage = '';
+    let isLoading = false;
+    let loadingMessage = 'Reading...';
 
     let isShowMessage = false;
     let titleMessage = '';
@@ -53,21 +54,45 @@
     const onReadFile = (event: MessageEvent) => {
         const { data } = event;
 
-        instance.properties = data.columns;
-        instance.content = data.content;
+        switch (data.state) {
+            case 'processing': {
+                isLoading = true;
+                loadingMessage = 'Processing...';
+                break;
+            }
 
-        selectExternalField();
+            case 'complete': {
+                const body = data.body;
+                instance.properties = body.columns;
+                instance.content = body.content;
 
-        showPositiveButton = true;
-        isViewImportProject = false;
+                selectExternalField();
 
-        disabledPositiveButton = isInvalidColumns();
+                isLoading = false;
+                loadingMessage = '';
+
+                showPositiveButton = true;
+                isViewImportProject = false;
+
+                disabledPositiveButton = isInvalidColumns();
+                break;
+            }
+
+            case 'warning': {
+                showMessage('Import Failed!', data.message);
+                break;
+            }
+        }
     };
 
     const onImportComplete = (event: any) => {
         store.init(event.data.labels);
 
+        isLoading = false;
+        loadingMessage = '';
+
         showMessage('Successfully imported!', 'The import of the labels has been completed');
+        onCloseImportManager();
     };
 
     onMount(async () => {
@@ -177,7 +202,8 @@
             file
         });
 
-        // TODO: SHOW LOADING!!!
+        isLoading = true;
+        loadingMessage = 'Reading...';
     };
 
     const getRef = (selected: Monolieta.Option | Monolieta.Group) => {
@@ -334,10 +360,12 @@
         }
 
         if (groups.length > 1) {
-            // TODO: Change message!
             showMessage('Import Failed!', 'It was not possible to import the file');
             return;
         }
+
+        isLoading = true;
+        loadingMessage = 'Importing...';
 
         labelProcessWorker?.postMessage({
             groups,
@@ -345,8 +373,6 @@
             ref: instance.ref,
             content: instance.content
         });
-
-        onCloseImportManager();
     };
 </script>
 
@@ -424,11 +450,6 @@
             {showPositiveButton}
         >
             <div class="flex w-full flex-col">
-                <div class="absolute left-0 top-0 h-full w-full bg-red-500">
-                    <div></div>
-                    <div></div>
-                </div>
-
                 <p class="text-lg text-slate-900">Import</p>
                 {#if isViewImportProject}
                     <span class="flex items-center pb-4 text-gray-500">

@@ -85,8 +85,6 @@ const getContentFromCSV = (columns: Monolieta.Options, content: any[]) => {
 onmessage = async (event) => {
     const { data } = event;
 
-    // TODO: SHOW LOADING READER FILE!
-
     const file = data.file;
     const result = (await reader(file)) as string;
 
@@ -95,13 +93,19 @@ onmessage = async (event) => {
         content: []
     };
 
-    // TODO: SHOW LOADING PROCESS FILE!
+    postMessage({
+        state: 'processing',
+        body
+    });
 
     switch (file.type) {
         case 'application/json': {
             const content = getJson(result);
             if (!content) {
-                // TODO: SHOW MESSAGE
+                postMessage({
+                    state: 'warning',
+                    message: 'It was not possible to import the file'
+                });
                 return;
             }
 
@@ -118,7 +122,10 @@ onmessage = async (event) => {
         }
     }
 
-    postMessage(body);
+    postMessage({
+        state: 'complete',
+        body
+    });
 };
 
 export {};

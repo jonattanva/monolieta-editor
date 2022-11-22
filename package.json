@@ -26,7 +26,7 @@
     "@typescript-eslint/eslint-plugin": "~5.44.0",
     "@typescript-eslint/parser": "~5.44.0",
     "@types/cookie": "~0.5.1",
-    "@vitest/coverage-c8": "~0.25.2",
+    "@vitest/coverage-c8": "~0.25.3",
     "autoprefixer": "~10.4.13",
     "cypress": "~11.1.0",
     "cypress-file-upload": "~5.0.8",
@@ -46,13 +46,14 @@
     "tslib": "~2.4.1",
     "typescript": "~4.9.3",
     "vite": "~3.2.4",
-    "vitest": "~0.25.2"
+    "vitest": "~0.25.3"
   },
   "type": "module",
   "dependencies": {
     "@fontsource/roboto-flex": "~4.5.2",
     "monolieta-search": "~1.2.0",
-    "nanoid": "~4.0.0"
+    "nanoid": "~4.0.0",
+    "svelte-tiny-virtual-list": "~2.0.5"
   },
   "repository": {
     "type": "git",
