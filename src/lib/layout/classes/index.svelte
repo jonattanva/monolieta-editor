@@ -130,7 +130,7 @@
         </Fab>
         <Option test="menu-label" />
     </div>
-    <div class="flex flex-col gap-2" aria-label="list-label">
+    <div class="flex flex-col gap-2">
         {#if collection.length === 0}
             {#if message !== null}
                 <div class="flex flex-col items-center justify-center gap-2">
@@ -149,7 +149,7 @@
                 itemSize={36}
                 scrollDirection="vertical"
             >
-                <div slot="item" let:index let:style {style}>
+                <div slot="item" let:index let:style {style} role="row" aria-rowindex={index}>
                     <Row
                         item={collection[index]}
                         on:more={onMoreAction}

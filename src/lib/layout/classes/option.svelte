@@ -21,7 +21,7 @@
     let fields = label.field;
 
     let isOpenExportManager = false;
-    let isOpenImportManager = true;
+    let isOpenImportManager = false;
     let isOpenMenu = false;
 
     let isLoading = false;

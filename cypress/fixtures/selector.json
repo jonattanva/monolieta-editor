@@ -4,7 +4,7 @@
   "External field color": "color",
   "External field id": "id",
   "External field name": "name",
-  "List label": "[aria-label='list-label']",
+  "List label": "[role='row']",
   "Menu label": "menu-label",
   "More": "more",
   "New label optional": "new-label-optional",
