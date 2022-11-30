@@ -2,4 +2,6 @@
     import '../app.css';
 </script>
 
-<slot />
+<div class="relative flex h-screen w-screen flex-row flex-nowrap bg-transparent">
+    <slot />
+</div>

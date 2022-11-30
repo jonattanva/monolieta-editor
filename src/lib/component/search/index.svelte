@@ -1,21 +1,15 @@
-<script>
+<script lang="ts">
     import { createEventDispatcher } from 'svelte';
 
-    export /** @type {number} */ let delay = 500;
-    export /** @type {string|null} */ let test = '';
-    export /** @type {string} */ let placeholder = 'Search';
+    export let delay: number = 500;
+    export let test: string | null = '';
+    export let placeholder: string = 'Search';
 
     const dispatch = createEventDispatcher();
 
-    /**
-     * @type {NodeJS.Timeout | null}
-     */
-    let timeout = null;
+    let timeout: NodeJS.Timeout | null = null;
 
-    /**
-     * @param {{ target: any; }} event
-     */
-    function handleInput(event) {
+    function handleInput(event: any) {
         if (timeout) {
             clearTimeout(timeout);
         }

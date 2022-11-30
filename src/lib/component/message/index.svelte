@@ -1,26 +1,13 @@
-<script>
+<script lang="ts">
     import { createEventDispatcher } from 'svelte';
 
-    /** @type {number} */
-    export let delay = 5000;
-
-    /** @type {string} */
-    export let title;
-
-    /** @type {string} */
-    export let message;
-
-    /** @type {string} */
-    export let positiveButton = 'Retry';
-
-    /** @type {boolean} */
-    export let showPositiveButton = true;
-
-    /** @type {string} */
-    export let negativeButton = 'Cancel';
-
-    /** @type {boolean} */
-    export let showNegativeButton = true;
+    export let delay: number = 5000;
+    export let message: string;
+    export let negativeButton: string = 'Cancel';
+    export let positiveButton: string = 'Retry';
+    export let showNegativeButton: boolean = true;
+    export let showPositiveButton: boolean = true;
+    export let title: string;
 
     const dispatch = createEventDispatcher();
 

@@ -8,6 +8,7 @@ export default function resize(node: HTMLElement, callback: (node: HTMLElement) 
     }
 
     onMount(() => {
+        console.log('mount')
         resize();
     });
 

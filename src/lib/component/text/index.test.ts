@@ -1,4 +1,3 @@
-// @ts-ignore
 import Text from './index.svelte';
 import { describe, it } from 'vitest';
 import { render, screen } from '@testing-library/svelte';

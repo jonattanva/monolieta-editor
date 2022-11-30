@@ -1,16 +1,31 @@
-import '@testing-library/cypress/add-commands';
-
 describe('Label', () => {
+    const openClassManager = () => {
+        cy.fixture('selector').then((selector) => {
+            cy.findByTestId(selector['Project']).should('exist').click();
+            cy.findByTestId(selector['Open label']).should('exist').click();
+
+            cy.findByText(/labels/i).should('exist');
+        });
+    };
+
     beforeEach(function () {
         cy.home();
         cy.fixture('selector').then((selector) => {
             this.selector = selector;
         });
-        cy.wait(3000); // svelte-kit!
+        cy.wait(5000); // svelte-kit!
+    });
+
+    it('should close label manager', function () {
+        openClassManager();
+
+        cy.findByTestId(this.selector['Close label']).should('exist').click();
+
+        cy.findByText(/labels/i).should('not.exist');
     });
 
     it('should sort label (desc)', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
 
@@ -60,7 +75,7 @@ describe('Label', () => {
     });
 
     it('should sort label (asc)', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
 
@@ -110,29 +125,24 @@ describe('Label', () => {
     });
 
     it('should search the label', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
 
         cy.findByPlaceholderText(this.selector['Enter label name'])
             .should('be.visible')
             .click()
-            .type('Dog');
+            .type('Cat');
 
-        cy.findByTestId(this.selector['More']).should('be.visible').click();
-
-        cy.findByRole('button', { name: /duplicate/i })
-            .should('be.visible')
-            .click();
-
-        cy.get(this.selector['List label']).should('have.length', 2);
+        cy.findByTestId(this.selector['New label']).should('exist').click();
 
         cy.findAllByPlaceholderText(this.selector['Enter label name'])
             .then((it) => it[0])
             .should('be.visible')
             .click()
-            .clear()
-            .type('Cat');
+            .type('Dog');
+
+        cy.get(this.selector['List label']).should('have.length', 2);
 
         cy.findByTestId(this.selector['Search label']).should('be.visible').click().type('Lion');
 
@@ -150,62 +160,9 @@ describe('Label', () => {
 
         cy.get(this.selector['List label']).should('have.length', 2);
     });
-    
-    it('should duplicate the label', function () {
-        cy.findByText(/labels/i).should('exist');
-
-        cy.findByTestId(this.selector['New label']).should('exist').click();
-
-        cy.findByPlaceholderText(this.selector['Enter label name'])
-            .should('be.visible')
-            .click()
-            .type('Dog');
-
-        cy.get(this.selector['List label']).should('have.length', 1);
-
-        cy.findByTestId(this.selector['More']).should('be.visible').click();
-
-        cy.findByRole('button', { name: /duplicate/i })
-            .should('be.visible')
-            .click();
-
-        cy.get(this.selector['List label']).should('have.length', 2);
-    });
-
-    it('should remove the label', function () {
-        cy.findByText(/labels/i).should('exist');
-
-        cy.findByTestId(this.selector['New label']).should('exist').click();
-
-        cy.findByPlaceholderText(this.selector['Enter label name'])
-            .should('be.visible')
-            .click()
-            .type('Dog');
-
-        cy.findByTestId(this.selector['New label']).should('exist').click();
-
-        cy.findAllByPlaceholderText(this.selector['Enter label name'])
-            .then((it) => it[0])
-            .should('be.visible')
-            .click()
-            .type('Cat');
-
-        cy.get(this.selector['List label']).should('have.length', 2);
-
-        cy.findAllByTestId(this.selector['More'])
-            .then((it) => it[1])
-            .should('be.visible')
-            .click();
-
-        cy.findByRole('button', { name: /delete/i })
-            .should('be.visible')
-            .click();
-
-        cy.get(this.selector['List label']).should('have.length', 1);
-    });
 
     it('should create a new label', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
 
@@ -220,7 +177,7 @@ describe('Label', () => {
     });
 
     it('should create a new label from empty message', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['New label optional']).should('be.visible').click();
 
@@ -228,7 +185,7 @@ describe('Label', () => {
     });
 
     it('should export json file', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
 
@@ -271,7 +228,7 @@ describe('Label', () => {
     });
 
     it('should export csv file', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
 
@@ -314,7 +271,7 @@ describe('Label', () => {
     });
 
     it('should import csv file', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
 
@@ -332,7 +289,7 @@ describe('Label', () => {
     });
 
     it('should import json file', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
 
@@ -350,7 +307,7 @@ describe('Label', () => {
     });
 
     it('should validate the form to import', function () {
-        cy.findByText(/labels/i).should('exist');
+        openClassManager();
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
 
@@ -369,5 +326,58 @@ describe('Label', () => {
         cy.findByRole('button', { name: /import/i })
             .should('be.visible')
             .should('be.disabled');
+    });
+
+    it('should duplicate the label', function () {
+        openClassManager();
+
+        cy.findByTestId(this.selector['New label']).should('exist').click();
+
+        cy.findByPlaceholderText(this.selector['Enter label name'])
+            .should('be.visible')
+            .click()
+            .type('Dog');
+
+        cy.get(this.selector['List label']).should('have.length', 1);
+
+        cy.findByTestId(this.selector['More']).should('be.visible').click();
+
+        cy.findByRole('button', { name: /duplicate/i })
+            .should('be.visible')
+            .click();
+
+        cy.get(this.selector['List label']).should('have.length', 2);
+    });
+
+    it('should remove the label', function () {
+        openClassManager();
+
+        cy.findByTestId(this.selector['New label']).should('exist').click();
+
+        cy.findByPlaceholderText(this.selector['Enter label name'])
+            .should('be.visible')
+            .click()
+            .type('Dog');
+
+        cy.findByTestId(this.selector['New label']).should('exist').click();
+
+        cy.findAllByPlaceholderText(this.selector['Enter label name'])
+            .then((it) => it[0])
+            .should('be.visible')
+            .click()
+            .type('Cat');
+
+        cy.get(this.selector['List label']).should('have.length', 2);
+
+        cy.findAllByTestId(this.selector['More'])
+            .then((it) => it[1])
+            .should('be.visible')
+            .click();
+
+        cy.findByRole('button', { name: /delete/i })
+            .should('be.visible')
+            .click();
+
+        cy.get(this.selector['List label']).should('have.length', 1);
     });
 });

@@ -1,15 +1,8 @@
-<script>
-    /** @type {string|number} */
-    export let value;
-
-    /** @type {string} */
-    export let label;
-
-    /** @type {string} */
-    export let parent = '';
-
-    /** @type {Monolieta.Option|Monolieta.Group|null} */
-    export let selected = null;
+<script lang="ts">
+    export let label: string;
+    export let parent: string = '';
+    export let selected: Monolieta.Option | Monolieta.Group | null = null;
+    export let value: string | number;
 
     let classname = '';
     if (selected) {

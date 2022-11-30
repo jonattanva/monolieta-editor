@@ -10,6 +10,6 @@
 coverage
 node_modules
 
-/cypress/downloads
+/cypress/downloads/*
 /cypress/screenshots
 /cypress/videos

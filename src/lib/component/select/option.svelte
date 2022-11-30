@@ -1,11 +1,8 @@
-<script>
+<script lang="ts">
     import Row from './row.svelte';
 
-    /** @type {Monolieta.Options|Monolieta.Groups} */
-    export let options = [];
-
-    /** @type {Monolieta.Option|Monolieta.Group|null} */
-    export let value = null;
+    export let options: Monolieta.Options | Monolieta.Groups = [];
+    export let value: Monolieta.Option | Monolieta.Group | null = null;
 </script>
 
 <ul

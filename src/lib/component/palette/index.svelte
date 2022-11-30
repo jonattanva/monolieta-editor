@@ -1,4 +1,4 @@
-<script>
+<script lang="ts">
     import outside from '$lib/action/outside';
     import { createEventDispatcher } from 'svelte';
     import { pallete } from '$lib/color';
@@ -7,10 +7,7 @@
 
     const handleClose = () => dispatch('close');
 
-    /**
-     * @param {{ target: any; }} event
-     */
-    const handleColorChanged = (event) => {
+    const handleColorChanged = (event: any) => {
         dispatch('click', {
             value: event.target.dataset.color
         });

@@ -1,15 +1,9 @@
-<script>
-    export /** @type {string} */ let value = 'E5E5E5';
+<script lang="ts">
+    export let value: string = 'E5E5E5';
 
-    /**
-     * @param {string} value
-     */
-    const normalize = (value) => value.replace(/^#/, '');
+    const normalize = (value: string) => value.replace(/^#/, '');
 
-    /**
-     * @param {string} init
-     */
-    const prepare = (init) => (value = normalize(init));
+    const prepare = (init: string) => (value = normalize(init));
 
     $: prepare(value);
 </script>

@@ -1,4 +1,5 @@
 {
+  "Close label": "close-label",
   "Enter label name": "Enter label name",
   "Export format": "export-format",
   "External field color": "color",
@@ -9,5 +10,7 @@
   "More": "more",
   "New label optional": "new-label-optional",
   "New label": "new-label",
+  "Open label": "open-label",
+  "Project": "project",
   "Search label": "search-label"
 }

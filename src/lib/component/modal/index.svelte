@@ -1,32 +1,21 @@
-<script>
+<script lang="ts">
     import Contained from '$lib/component/button/contained/index.svelte';
     import Text from '$lib/component/button/text/index.svelte';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
 
-    /**
-     * @type {string}
-     */
-    export let positiveButton;
+    export let positiveButton: string;
+    export let showPositiveButton: boolean = true;
+    export let disabledPositiveButton: boolean = false;
 
-    /**
-     * @type {boolean}
-     */
-    export let showPositiveButton = true;
-
-    /**
-     * @type {boolean}
-     */
-    export let disabledPositiveButton = false;
-
-    const onCancel = (/** @type {any} */ event) => {
+    const onCancel = (event: any) => {
         dispatch('cancel', {
             event
         });
     };
 
-    const onSubmit = (/** @type {any} */ event) => {
+    const onSubmit = (event: any) => {
         dispatch('submit', {
             event
         });

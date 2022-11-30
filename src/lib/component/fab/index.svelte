@@ -1,7 +1,7 @@
-<script>
-    export /** @type {number} */ let tabindex = 0;
-    export /** @type {string|null} */ let test = '';
-    export /** @type {string} */ let title = '';
+<script lang="ts">
+    export let tabindex: number = 0;
+    export let test: string | null = '';
+    export let title: string = '';
 </script>
 
 <button

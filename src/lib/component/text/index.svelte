@@ -1,7 +1,7 @@
-<script>
-    export /** @type {string} */ let test = '';
-    export /** @type {string|null} */ let placeholder = '';
-    export /** @type {string} */ let value = '';
+<script lang="ts">
+    export let test: string = '';
+    export let placeholder: string | null = '';
+    export let value: string = '';
 </script>
 
 <input

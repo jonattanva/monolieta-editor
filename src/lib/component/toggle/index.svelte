@@ -1,9 +1,6 @@
-<script>
-    /**  @type {boolean} */
-    export let checked = false;
-
-    /** @type {string|null} */
-    export let test = '';
+<script lang="ts">
+    export let checked: boolean = false;
+    export let test: string | null = '';
 </script>
 
 <label class="relative inline-flex cursor-pointer items-center" data-testid={test}>

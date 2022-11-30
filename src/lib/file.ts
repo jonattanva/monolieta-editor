@@ -7,18 +7,3 @@ export default function (blob: Blob, filename: string = 'Untitled') {
     });
     a.click();
 }
-
-export const reader = (input: File) => {
-    return new Promise((resolve, reject) => {
-        const fileReader = new FileReader();
-        fileReader.onloadend = () => {
-            resolve(fileReader.result as string);
-        };
-
-        fileReader.onerror = (error) => {
-            reject(error);
-        };
-
-        fileReader.readAsText(input)
-    });
-};

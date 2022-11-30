@@ -1,19 +1,12 @@
-<script>
+<script lang="ts">
     import outside from '$lib/action/outside';
     import Option from './option.svelte';
     import { createEventDispatcher } from 'svelte';
 
-    /** @type {Monolieta.Options|Monolieta.Groups} */
-    export let options = [];
-
-    /** @type {Monolieta.Option|Monolieta.Group|null} */
-    export let value = null;
-
-    /** @type {string} */
-    export let placeholder = 'Select...';
-
-    /** @type {string|null} */
-    export let test = '';
+    export let options: Monolieta.Options | Monolieta.Groups = [];
+    export let value: Monolieta.Option | Monolieta.Group | null = null;
+    export let placeholder: string = 'Select...';
+    export let test: string | null = '';
 
     const dispatch = createEventDispatcher();
 
@@ -30,7 +23,7 @@
         open = false;
     };
 
-    const onSelected = (/** @type {{ currentTarget: any; }} */ event) => {
+    const onSelected = (event: any) => {
         const target = event.currentTarget;
         if (target) {
             const key = target.dataset.value;
