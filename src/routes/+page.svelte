@@ -1,9 +1,15 @@
-<script>
+<script lang="ts">
     import Explorer from '$lib/layout/explorer/index.svelte';
     import Slide from '$lib/component/slide-over/index.svelte';
     import Classes from '$lib/layout/classes/index.svelte';
+    import store from '$lib/store/label';
 
     let isOpenClassManager = false;
+    let collection: Monolieta.Labels = [];
+
+    store.subscribe((values) => {
+        collection = values;
+    });
 
     const onOpenClassManager = () => {
         isOpenClassManager = !isOpenClassManager;
@@ -24,6 +30,6 @@
 
 {#if isOpenClassManager}
     <Slide>
-        <Classes on:close={onCloseClassManager} />
+        <Classes on:close={onCloseClassManager} items={collection} />
     </Slide>
 {/if}

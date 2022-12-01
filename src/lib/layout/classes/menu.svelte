@@ -6,25 +6,32 @@
     import Dropdown from '$lib/component/dropdown/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Section from '$lib/component/dropdown/section.svelte';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
+
+    const onAscending = (event: Event) => dispatch('ascending', event);
+
+    const onDescending = (event: Event) => dispatch('descending', event);
 </script>
 
 <div class="absolute top-9 right-0">
     <Dropdown>
         <Section>
-            <Item>
+            <Item on:click={onAscending}>
                 <span class="mr-2 h-5 w-5">
                     <BarsArrowDown />
                 </span>
                 Ascending
             </Item>
-            <Item>
+            <Item on:click={onDescending}>
                 <span class="mr-2 h-5 w-5">
                     <BarsArrowUp />
                 </span>
                 Descending
             </Item>
         </Section>
-        <div class="w-full border-t border-slate-400/20 py-3 px-3.5">
+        <div class="hidden w-full border-t border-slate-400/20 py-3 px-3.5">
             <Item>
                 <span class="mr-2 h-5 w-5">
                     <ArrowDownTray />

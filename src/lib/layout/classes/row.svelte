@@ -10,7 +10,7 @@
     const dispatch = createEventDispatcher();
 
     const onMoreAction = (event: Event) =>
-        dispatch('more', {
+        dispatch('menu', {
             event,
             item
         });

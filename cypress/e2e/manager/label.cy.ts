@@ -184,7 +184,7 @@ describe('Label', () => {
         cy.get(this.selector['List label']).should('have.length', 1);
     });
 
-    it('should export json file', function () {
+    it.skip('should export json file', function () {
         openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
@@ -227,7 +227,7 @@ describe('Label', () => {
         cy.readFile('./cypress/downloads/Untitled.json');
     });
 
-    it('should export csv file', function () {
+    it.skip('should export csv file', function () {
         openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
@@ -270,7 +270,7 @@ describe('Label', () => {
         cy.readFile('./cypress/downloads/Untitled.csv');
     });
 
-    it('should import csv file', function () {
+    it.skip('should import csv file', function () {
         openClassManager();
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
@@ -288,7 +288,7 @@ describe('Label', () => {
         cy.get(this.selector['List label']).should('have.length', 2);
     });
 
-    it('should import json file', function () {
+    it.skip('should import json file', function () {
         openClassManager();
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
@@ -306,7 +306,7 @@ describe('Label', () => {
         cy.get(this.selector['List label']).should('have.length', 2);
     });
 
-    it('should validate the form to import', function () {
+    it.skip('should validate the form to import', function () {
         openClassManager();
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
@@ -328,7 +328,7 @@ describe('Label', () => {
             .should('be.disabled');
     });
 
-    it('should duplicate the label', function () {
+    it.skip('should duplicate the label', function () {
         openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
@@ -349,7 +349,7 @@ describe('Label', () => {
         cy.get(this.selector['List label']).should('have.length', 2);
     });
 
-    it('should remove the label', function () {
+    it.skip('should remove the label', function () {
         openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();

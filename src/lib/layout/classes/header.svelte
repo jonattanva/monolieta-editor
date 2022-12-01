@@ -22,6 +22,8 @@
         isOpenMenu = false;
     };
 
+    const onSearch = (event: CustomEvent) => dispatch('search', event.detail);
+
     const onCloseLabelManager = (event: Event) =>
         dispatch('close', {
             event
@@ -43,7 +45,7 @@
 </div>
 
 <div class="relative flex items-center justify-between gap-2 px-4">
-    <Search test="search-label" />
+    <Search on:search={onSearch} test="search-label" />
     <Fab on:click={onCreateNewLabel} title="New label" test="new-label">
         <span class="h-5 w-5 text-gray-600">
             <PlusSmall />
@@ -56,7 +58,7 @@
             </span>
         </Fab>
         {#if isOpenMenu}
-            <Menu />
+            <Menu on:descending on:ascending />
         {/if}
     </div>
 </div>
