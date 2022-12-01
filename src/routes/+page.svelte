@@ -1,7 +1,7 @@
 <script lang="ts">
+    import Classes from '$lib/layout/classes/index.svelte';
     import Explorer from '$lib/layout/explorer/index.svelte';
     import Slide from '$lib/component/slide-over/index.svelte';
-    import Classes from '$lib/layout/classes/index.svelte';
     import store from '$lib/store/label';
 
     let isOpenClassManager = false;

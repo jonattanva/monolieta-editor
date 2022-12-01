@@ -13,7 +13,7 @@ describe('Label', () => {
         cy.fixture('selector').then((selector) => {
             this.selector = selector;
         });
-        cy.wait(5000); // svelte-kit!
+        // cy.wait(5000); // svelte-kit!
     });
 
     it('should close label manager', function () {
