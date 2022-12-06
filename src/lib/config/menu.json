@@ -1,0 +1,18 @@
+{
+  "items": [
+    {
+      "key": "labels",
+      "icon": "tag",
+      "name": "Labels",
+      "shortcut": "",
+      "order": 1
+    },
+    {
+      "key": "resources",
+      "icon": "resource",
+      "name": "Resources",
+      "shortcut": "",
+      "order": 0
+    }
+  ]
+}

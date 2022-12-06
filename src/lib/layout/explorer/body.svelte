@@ -1,0 +1,29 @@
+<script lang="ts">
+    import Message from './message.svelte';
+    import Row from './row.svelte';
+    import VirtualList from 'svelte-tiny-virtual-list';
+
+    export let collection: Monolieta.Resources = [];
+
+    let height = 0;
+
+    const itemCount = Math.ceil(collection.length / 2);
+</script>
+
+{#if collection.length === 0}
+    <Message />
+{:else}
+    <div class="h-screen w-full" bind:clientHeight={height}>
+        <VirtualList width="100%" {itemCount} {height} scrollDirection="vertical" itemSize={130}>
+            <div slot="item" let:index let:style {style} role="row" aria-rowindex={index}>
+                <div class="grid grid-cols-2 gap-4">
+                    {#each Array(2) as _, i}
+                        {#if collection[index * 2 + i] !== undefined}
+                            <Row item={collection[index * 2 + i]} />
+                        {/if}
+                    {/each}
+                </div>
+            </div>
+        </VirtualList>
+    </div>
+{/if}

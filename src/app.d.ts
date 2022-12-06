@@ -18,6 +18,13 @@ declare namespace Monolieta {
 
     type Labels = Label[];
 
+    type Resource = {
+        createdAt: number;
+        updatedAt: number;
+    } & Entity;
+
+    type Resources = Resource[];
+
     type Option = {
         label: string;
         value: string;

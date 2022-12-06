@@ -48,7 +48,7 @@
     </div>
     <div class="flex w-full flex-row justify-between gap-2">
         <Text placeholder="Enter label name" value={item.name} on:change={onNameChanged} />
-        <Fab on:click={onMoreAction} test="more">
+        <Fab on:click={onMoreAction} testid="more">
             <span class="h-5 w-5">
                 <EllipsisHorizontal />
             </span>

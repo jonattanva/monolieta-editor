@@ -106,17 +106,7 @@
 </script>
 
 {#if collection.length === 0}
-    {#if message !== null}
-        <div class="flex flex-col items-center justify-center gap-2">
-            <p class="text-center text-sm font-medium">
-                {message}
-            </p>
-        </div>
-    {:else}
-        <div class="px-4">
-            <Message on:click={onCreateNewLabel} />
-        </div>
-    {/if}
+    <Message on:click={onCreateNewLabel} {message} />
 {:else}
     <div class="h-screen w-full" bind:clientHeight={height}>
         <VirtualList

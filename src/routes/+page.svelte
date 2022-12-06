@@ -21,7 +21,7 @@
 </script>
 
 <div class="flex h-full w-80 flex-col flex-nowrap items-stretch">
-    <Explorer on:class={onOpenClassManager} />
+    <Explorer on:labels={onOpenClassManager} />
 </div>
 
 <div
