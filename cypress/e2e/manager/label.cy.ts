@@ -3,8 +3,6 @@ describe('Label', () => {
         cy.fixture('selector').then((selector) => {
             cy.findByTestId(selector['Project']).should('exist').click();
             cy.findByTestId(selector['Open label']).should('exist').click();
-
-            cy.findByText(/labels/i).should('exist');
         });
     };
 
@@ -13,7 +11,6 @@ describe('Label', () => {
         cy.fixture('selector').then((selector) => {
             this.selector = selector;
         });
-        // cy.wait(5000); // svelte-kit!
     });
 
     it('should close label manager', function () {
@@ -328,7 +325,7 @@ describe('Label', () => {
             .should('be.disabled');
     });
 
-    it.skip('should duplicate the label', function () {
+    it('should duplicate the label', function () {
         openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();
@@ -349,7 +346,7 @@ describe('Label', () => {
         cy.get(this.selector['List label']).should('have.length', 2);
     });
 
-    it.skip('should remove the label', function () {
+    it('should remove the label', function () {
         openClassManager();
 
         cy.findByTestId(this.selector['New label']).should('exist').click();

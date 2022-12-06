@@ -14,13 +14,13 @@
     "storybook": "npm run storybook --prefix ./.storybook",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "test:e2e": "cypress open" 
+    "test:e2e": "cypress open"
   },
   "devDependencies": {
     "@cypress/code-coverage": "~3.10.0",
     "@sveltejs/adapter-auto": "next",
     "@sveltejs/kit": "next",
-    "@testing-library/cypress": "~8.0.7", 
+    "@testing-library/cypress": "~8.0.7",
     "@testing-library/jest-dom": "~5.16.5",
     "@testing-library/svelte": "~3.2.2",
     "@typescript-eslint/eslint-plugin": "~5.45.1",

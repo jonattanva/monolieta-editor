@@ -5,7 +5,9 @@ import 'cypress-file-upload';
 Cypress.Commands.add('home', () => {
     cy.visit('/');
     cy.title().should('equal', 'Monolieta');
-    cy.get('[data-init=true]').should('exist');
+    cy.get('[data-init=true]', {
+        timeout: 10000
+    }).should('exist');
 });
 
 // ***********************************************

@@ -1,7 +1,7 @@
 // @ts-ignore
 import Select from './index.svelte';
 import { describe, it, vi } from 'vitest';
-import { fireEvent, render, screen, waitFor } from '@testing-library/svelte';
+import { fireEvent, render, screen } from '@testing-library/svelte';
 
 describe('<Select />', function () {
     it('should render with change handler', function () {

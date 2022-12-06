@@ -35,13 +35,7 @@
       "visible": false
     }
   ],
-  "whitelist": [
-    "id",
-    "createdAt",
-    "updatedAt",
-    "name",
-    "color"
-  ],
+  "whitelist": ["id", "createdAt", "updatedAt", "name", "color"],
   "field": [
     {
       "key": "id",

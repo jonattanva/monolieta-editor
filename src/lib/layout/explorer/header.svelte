@@ -68,7 +68,7 @@
                     <Dropdown>
                         <div class="w-full border-t border-slate-400/20 py-3 px-3.5">
                             {#each items as item}
-                                <Item on:click={onOpen} value={item.key} testid="open-label">
+                                <Item on:click={onOpen} value={item.key} testid={item.key}>
                                     <span class="mr-2 h-5 w-5">
                                         <svelte:component this={getIcon(item.icon)} />
                                     </span>
