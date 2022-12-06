@@ -13,4 +13,9 @@ describe('<Contained />', function () {
         fireEvent.click(screen.getByRole('button'));
         expect(fn).toHaveBeenCalled();
     });
+
+    it('should render with data-testid', function () {
+        render(Contained, { testid: 'action' });
+        expect(screen.getByTestId('action')).toBeInTheDocument();
+    });
 });

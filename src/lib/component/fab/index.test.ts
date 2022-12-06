@@ -14,8 +14,8 @@ describe('<Fab />', function () {
         expect(fn).toHaveBeenCalled();
     });
 
-    it('should render with data test', function () {
-        render(Fab, { test: 'action' });
+    it('should render with data-testid', function () {
+        render(Fab, { testid: 'action' });
         expect(screen.getByTestId('action')).toBeInTheDocument();
     });
 });

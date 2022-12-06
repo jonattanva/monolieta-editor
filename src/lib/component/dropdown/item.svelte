@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let test: string = '';
+    export let testid: string = '';
     export let value: string = '';
 </script>
 
@@ -7,7 +7,7 @@
     class="flex w-full cursor-pointer items-center rounded p-1 hover:bg-gray-100"
     type="button"
     data-value={value}
-    data-testid={test}
+    data-testid={testid}
     on:click
 >
     <slot />

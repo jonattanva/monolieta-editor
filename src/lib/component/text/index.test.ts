@@ -10,8 +10,8 @@ describe('<Text />', function () {
         expect(input).toHaveAttribute('placeholder', 'placeholder');
     });
 
-    it('should render with data test', function () {
-        render(Text, { test: 'action' });
+    it('should render with data-test', function () {
+        render(Text, { testid: 'action' });
         expect(screen.getByTestId('action')).toBeInTheDocument();
     });
 });
