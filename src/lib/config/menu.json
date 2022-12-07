@@ -1,18 +1,28 @@
 {
   "items": [
     {
-      "key": "labels",
-      "icon": "tag",
-      "name": "Labels",
+      "key": "place-resource",
+      "name": "Place resource...",
       "shortcut": "",
-      "order": 1
+      "order": 0,
+      "visible": true,
+      "separator": true
     },
     {
       "key": "resources",
-      "icon": "resource",
       "name": "Resources",
       "shortcut": "",
-      "order": 0
+      "order": 1,
+      "visible": false,
+      "separator": false
+    },
+    {
+      "key": "labels",
+      "name": "Labels",
+      "shortcut": "",
+      "order": 2,
+      "visible": true,
+      "separator": false
     }
   ]
 }

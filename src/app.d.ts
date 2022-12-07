@@ -21,6 +21,9 @@ declare namespace Monolieta {
     type Resource = {
         createdAt: number;
         updatedAt: number;
+        name: string;
+        size: number;
+        type: string;
     } & Entity;
 
     type Resources = Resource[];

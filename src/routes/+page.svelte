@@ -12,7 +12,7 @@
     });
 
     const onOpenClassManager = () => {
-        isOpenClassManager = !isOpenClassManager;
+        isOpenClassManager = true;
     };
 
     const onCloseClassManager = () => {
