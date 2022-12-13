@@ -103,6 +103,7 @@
         dispatch('create', {
             event
         });
+
 </script>
 
 {#if collection.length === 0}

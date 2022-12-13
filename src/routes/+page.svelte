@@ -2,14 +2,14 @@
     import Classes from '$lib/layout/classes/index.svelte';
     import Explorer from '$lib/layout/explorer/index.svelte';
     import Slide from '$lib/component/slide-over/index.svelte';
-    import store from '$lib/store/label';
+    import labelStore from '$lib/store/label';
+    import resourceStore from '$lib/store/resource';
+    import { onDestroy } from 'svelte';
 
     let isOpenClassManager = false;
-    let collection: Monolieta.Labels = [];
 
-    store.subscribe((values) => {
-        collection = values;
-    });
+    let labels: Monolieta.Labels = [];
+    let resources: Monolieta.Resources = [];
 
     const onOpenClassManager = () => {
         isOpenClassManager = true;
@@ -18,10 +18,23 @@
     const onCloseClassManager = () => {
         isOpenClassManager = false;
     };
+
+    const unsubscribeLabelStore = labelStore.subscribe((values) => {
+        labels = values;
+    });
+
+    const unsubscribeResourceStore = resourceStore.subscribe((values) => {
+        resources = values;
+    });
+
+    onDestroy(() => {
+        unsubscribeLabelStore();
+        unsubscribeResourceStore();
+    });
 </script>
 
 <div class="flex h-full w-80 flex-col flex-nowrap items-stretch">
-    <Explorer on:labels={onOpenClassManager} />
+    <Explorer on:labels={onOpenClassManager} items={resources} />
 </div>
 
 <div
@@ -30,6 +43,6 @@
 
 {#if isOpenClassManager}
     <Slide>
-        <Classes on:close={onCloseClassManager} items={collection} />
+        <Classes on:close={onCloseClassManager} items={labels} />
     </Slide>
 {/if}

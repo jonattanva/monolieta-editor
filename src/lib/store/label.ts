@@ -1,3 +1,5 @@
+import search from './helper/search';
+import remove from './helper/remove';
 import color from '$lib/color';
 import createFile from '$lib/file';
 import label from '$lib/config/label.json';
@@ -68,20 +70,7 @@ export default {
         });
     },
 
-    remove: (value: Monolieta.Label) => {
-        values.update((previous) => {
-            const index = previous.findIndex((row) => {
-                return row.id === value.id;
-            });
-
-            if (index >= 0) {
-                previous.splice(index, 1);
-                return [...previous];
-            }
-
-            return previous;
-        });
-    },
+    remove: (value: Monolieta.Label): void => remove(values, value),
 
     set: (value: Monolieta.Label) => {
         values.update((previous) => {

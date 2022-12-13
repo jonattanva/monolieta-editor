@@ -8,23 +8,31 @@ declare namespace Monolieta {
         id: string;
     };
 
+    type Entities = Entity[];
+
+    type Hash = {
+        token: string;
+    };
+
     type Label = {
         createdAt: number;
         updatedAt: number;
         name: string;
         color: string;
-        token: string;
-    } & Entity;
+    } & Entity &
+        Hash;
 
     type Labels = Label[];
 
     type Resource = {
         createdAt: number;
         updatedAt: number;
+        source: File | string;
         name: string;
         size: number;
         type: string;
-    } & Entity;
+    } & Entity &
+        Hash;
 
     type Resources = Resource[];
 
