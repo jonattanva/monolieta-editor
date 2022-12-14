@@ -5,7 +5,7 @@
     import Folder from '$lib/component/icon/folder.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Search from '$lib/component/search/index.svelte';
-    import config from '$lib/config/menu.json';
+    import config from '$lib/layout/explorer/config/menu';
     import outside from '$lib/action/outside';
     import { createEventDispatcher } from 'svelte';
 

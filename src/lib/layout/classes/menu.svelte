@@ -29,7 +29,7 @@
                     <BarsArrowUp />
                 </span>
                 Descending
-            </Item>
+            </Item> 
         </Section>
         <div class="hidden w-full border-t border-slate-400/20 py-3 px-3.5">
             <Item>

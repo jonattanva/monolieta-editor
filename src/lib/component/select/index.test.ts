@@ -1,4 +1,3 @@
-// @ts-ignore
 import Select from './index.svelte';
 import { describe, it, vi } from 'vitest';
 import { fireEvent, render, screen } from '@testing-library/svelte';

@@ -6,7 +6,7 @@
     export let options: Monolieta.Options | Monolieta.Groups = [];
     export let value: Monolieta.Option | Monolieta.Group | null = null;
     export let placeholder: string = 'Select...';
-    export let test: string | null = '';
+    export let testid: string = '';
 
     const dispatch = createEventDispatcher();
 
@@ -69,7 +69,7 @@
         aria-haspopup="listbox"
         aria-labelledby="listbox-label"
         class="relative h-7 w-full cursor-default rounded border border-gray-300 bg-white pl-3 pr-10 text-left focus:border-gray-300 focus:outline-none focus:ring-1 focus:ring-gray-300 sm:text-sm"
-        data-testid={test}
+        data-testid={testid}
         on:click={onOpenMenu}
         type="button"
     >
