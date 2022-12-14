@@ -12,6 +12,6 @@
     };
 </script>
 
-<div class="h-32 w-32" role="img">
+<div class="mx-auto h-[120px] w-[120px]" role="img">
     <img class="block h-full w-full object-cover p-0" loading="lazy" src={source} alt="" />
 </div>

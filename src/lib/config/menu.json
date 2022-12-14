@@ -1,28 +1,20 @@
 {
-  "items": [
-    {
-      "key": "place-resource",
-      "name": "Place resource...",
-      "shortcut": "",
-      "order": 0,
-      "visible": true,
-      "separator": true
-    },
-    {
-      "key": "resources",
-      "name": "Resources",
-      "shortcut": "",
-      "order": 1,
-      "visible": false,
-      "separator": false
-    },
-    {
-      "key": "labels",
-      "name": "Labels",
-      "shortcut": "",
-      "order": 2,
-      "visible": true,
-      "separator": false
-    }
-  ]
+    "items": [
+        {
+            "key": "resources",
+            "name": "Import images",
+            "shortcut": "",
+            "order": 1,
+            "visible": true,
+            "separator": false
+        },
+        {
+            "key": "labels",
+            "name": "Labels",
+            "shortcut": "",
+            "order": 2,
+            "visible": true,
+            "separator": false
+        }
+    ]
 }

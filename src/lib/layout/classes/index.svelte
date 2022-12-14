@@ -43,8 +43,6 @@
             message = 'No labels found';
         }
     };
-
-    console.log('2-labels', items)
 </script>
 
 <div class="flex w-full flex-col gap-4">

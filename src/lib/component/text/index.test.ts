@@ -10,7 +10,7 @@ describe('<Text />', function () {
         expect(input).toHaveAttribute('placeholder', 'placeholder');
     });
 
-    it('should render with data-test', function () {
+    it('should render with data-testid', function () {
         render(Text, { testid: 'action' });
         expect(screen.getByTestId('action')).toBeInTheDocument();
     });

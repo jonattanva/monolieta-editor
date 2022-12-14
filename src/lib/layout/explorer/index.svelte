@@ -8,7 +8,7 @@
 
     let fileInput: HTMLInputElement | null = null;
 
-    const onPlaceResource = () => {
+    const onResource = () => {
         if (fileInput) {
             fileInput.click();
         }
@@ -38,7 +38,7 @@
     };
 </script>
 
-<Header on:labels on:place-resource={onPlaceResource} itemCount={items.length} />
+<Header on:labels on:resources={onResource} itemCount={items.length} />
 
 <Body collection={items} />
 
@@ -46,6 +46,7 @@
     class="hidden"
     type="file"
     multiple={false}
+    accept="image/*"
     on:change={onFileSelected}
     bind:this={fileInput}
 />

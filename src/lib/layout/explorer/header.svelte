@@ -82,7 +82,7 @@
             </span>
         </Fab>
     </div>
-    <div class="flex items-center justify-end py-2 text-sm text-gray-600">
+    <div class="flex items-center justify-end pt-2 text-sm text-gray-600">
         Viewing {itemCount} resources
     </div>
 </div>

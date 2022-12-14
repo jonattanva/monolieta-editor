@@ -33,12 +33,12 @@
     });
 </script>
 
-<div class="flex h-full w-80 flex-col flex-nowrap items-stretch">
+<div class="flex h-full w-[260px] min-w-[260px] flex-col flex-nowrap items-stretch">
     <Explorer on:labels={onOpenClassManager} items={resources} />
 </div>
 
 <div
-    class="flex h-full w-full flex-row flex-nowrap content-center items-start justify-center self-stretch bg-slate-100"
+    class="flex h-full w-full flex-row flex-nowrap items-start justify-center self-stretch bg-slate-100"
 />
 
 {#if isOpenClassManager}
