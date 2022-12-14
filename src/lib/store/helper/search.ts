@@ -5,13 +5,13 @@ export default function search<T extends Monolieta.Hash[], K>(
     collection: Writable<T>,
     client: Search,
     query: string
-): K {
+): K | T {
+    const values = get(collection);
     const criteria = query.trim();
     if (criteria.length === 0) {
-        return [] as K;
+        return values as T;
     }
 
-    const values = get(collection);
     const tokens = client.search(criteria);
 
     const results = [];

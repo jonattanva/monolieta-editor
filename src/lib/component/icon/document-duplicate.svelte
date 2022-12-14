@@ -1,8 +1,13 @@
+<script lang="ts">
+    export let height: string | number = '100%';
+    export let width: string | number = '100%';
+</script>
+
 <svg
     xmlns="http://www.w3.org/2000/svg"
     fill="none"
-    width="100%"
-    height="100%"
+    {width}
+    {height}
     viewBox="0 0 24 24"
     stroke-width="1.5"
     stroke="currentColor"

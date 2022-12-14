@@ -47,7 +47,7 @@ describe('Label', () => {
             .click()
             .type('Cat');
 
-        cy.get(this.selector['List label']).should('have.length', 3);
+        cy.get(this.selector['List labels']).should('have.length', 3);
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
 
@@ -97,7 +97,7 @@ describe('Label', () => {
             .click()
             .type('Lion');
 
-        cy.get(this.selector['List label']).should('have.length', 3);
+        cy.get(this.selector['List labels']).should('have.length', 3);
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
 
@@ -139,7 +139,7 @@ describe('Label', () => {
             .click()
             .type('Dog');
 
-        cy.get(this.selector['List label']).should('have.length', 2);
+        cy.get(this.selector['List labels']).should('have.length', 2);
 
         cy.findByTestId(this.selector['Search label']).should('be.visible').click().type('Lion');
 
@@ -151,11 +151,11 @@ describe('Label', () => {
             .clear()
             .type('Dog');
 
-        cy.get(this.selector['List label']).should('have.length', 1);
+        cy.get(this.selector['List labels']).should('have.length', 1);
 
         cy.findByTestId(this.selector['Search label']).should('be.visible').click().clear();
 
-        cy.get(this.selector['List label']).should('have.length', 2);
+        cy.get(this.selector['List labels']).should('have.length', 2);
     });
 
     it('should create a new label', function () {
@@ -170,7 +170,7 @@ describe('Label', () => {
 
         cy.findByText(/a label that gives information about your annotation/i).should('not.exist');
 
-        cy.get(this.selector['List label']).should('have.length', 1);
+        cy.get(this.selector['List labels']).should('have.length', 1);
     });
 
     it('should create a new label from empty message', function () {
@@ -178,7 +178,7 @@ describe('Label', () => {
 
         cy.findByTestId(this.selector['New label optional']).should('be.visible').click();
 
-        cy.get(this.selector['List label']).should('have.length', 1);
+        cy.get(this.selector['List labels']).should('have.length', 1);
     });
 
     it.skip('should export json file', function () {
@@ -205,7 +205,7 @@ describe('Label', () => {
             .then((it) => it[0])
             .should('be.visible');
 
-        cy.get(this.selector['List label']).should('have.length', 3);
+        cy.get(this.selector['List labels']).should('have.length', 3);
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
 
@@ -248,7 +248,7 @@ describe('Label', () => {
             .then((it) => it[0])
             .should('be.visible');
 
-        cy.get(this.selector['List label']).should('have.length', 3);
+        cy.get(this.selector['List labels']).should('have.length', 3);
 
         cy.findByTestId(this.selector['Menu label']).should('be.visible').click();
 
@@ -282,7 +282,7 @@ describe('Label', () => {
             .should('be.visible')
             .click();
 
-        cy.get(this.selector['List label']).should('have.length', 2);
+        cy.get(this.selector['List labels']).should('have.length', 2);
     });
 
     it.skip('should import json file', function () {
@@ -300,7 +300,7 @@ describe('Label', () => {
             .should('be.visible')
             .click();
 
-        cy.get(this.selector['List label']).should('have.length', 2);
+        cy.get(this.selector['List labels']).should('have.length', 2);
     });
 
     it.skip('should validate the form to import', function () {
@@ -335,7 +335,7 @@ describe('Label', () => {
             .click()
             .type('Dog');
 
-        cy.get(this.selector['List label']).should('have.length', 1);
+        cy.get(this.selector['List labels']).should('have.length', 1);
 
         cy.findByTestId(this.selector['More']).should('be.visible').click();
 
@@ -343,7 +343,7 @@ describe('Label', () => {
             .should('be.visible')
             .click();
 
-        cy.get(this.selector['List label']).should('have.length', 2);
+        cy.get(this.selector['List labels']).should('have.length', 2);
     });
 
     it('should remove the label', function () {
@@ -364,7 +364,7 @@ describe('Label', () => {
             .click()
             .type('Cat');
 
-        cy.get(this.selector['List label']).should('have.length', 2);
+        cy.get(this.selector['List labels']).should('have.length', 2);
 
         cy.findAllByTestId(this.selector['More'])
             .then((it) => it[1])
@@ -375,6 +375,6 @@ describe('Label', () => {
             .should('be.visible')
             .click();
 
-        cy.get(this.selector['List label']).should('have.length', 1);
+        cy.get(this.selector['List labels']).should('have.length', 1);
     });
 });

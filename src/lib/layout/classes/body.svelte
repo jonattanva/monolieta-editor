@@ -103,7 +103,6 @@
         dispatch('create', {
             event
         });
-
 </script>
 
 {#if collection.length === 0}
@@ -118,7 +117,15 @@
             itemSize={36}
             scrollDirection="vertical"
         >
-            <div slot="item" let:index let:style {style} role="row" aria-rowindex={index}>
+            <div
+                slot="item"
+                let:index
+                let:style
+                {style}
+                role="row"
+                aria-rowindex={index}
+                data-testid="label-row"
+            >
                 <Row
                     item={collection[index]}
                     on:change={onLabelChanged}

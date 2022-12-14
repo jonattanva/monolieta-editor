@@ -1,10 +1,15 @@
+<script lang="ts">
+    export let height: string | number = '100%';
+    export let width: string | number = '100%';
+</script>
+
 <svg
     fill="none"
-    height="100%"
+    {height}
     stroke-width="1.5"
     stroke="currentColor"
     viewBox="0 0 24 24"
-    width="100%"
+    {width}
     xmlns="http://www.w3.org/2000/svg"
 >
     <path

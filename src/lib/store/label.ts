@@ -1,11 +1,10 @@
-import search from './helper/search';
-import remove from './helper/remove';
 import color from '$lib/color';
-import createFile from '$lib/file';
-import label from '$lib/config/label.json';
+import remove from './helper/remove';
+import search from './helper/search';
+import sort from './helper/sort';
 import { Search } from 'monolieta-search';
-import { get, writable } from 'svelte/store';
 import { nanoid } from 'nanoid';
+import { writable } from 'svelte/store';
 
 const client = new Search();
 const values = writable<Monolieta.Labels>([]);
@@ -91,92 +90,9 @@ export default {
         });
     },
 
-    search: (query: string): Monolieta.Labels => {
-        const current = get(values);
-        const criteria = query.trim();
+    search: (query: string): Monolieta.Labels => search(values, client, query),
 
-        if (criteria.length === 0) {
-            return current;
-        }
+    sort: (callback: (a: Monolieta.Label, b: Monolieta.Label) => number) => sort(values, callback),
 
-        const results: Monolieta.Label[] = [];
-        client.search(criteria).forEach((key) => {
-            const item = current.find((label) => {
-                return label.token === key;
-            });
-
-            if (item) {
-                results.push(item);
-            }
-        });
-
-        return results;
-    },
-
-    sort: (callback: (a: Monolieta.Label, b: Monolieta.Label) => number) => {
-        values.update((previous) => {
-            previous.sort(callback);
-            return [...previous];
-        });
-    },
-
-    subscribe: (callback: (values: Monolieta.Labels) => void) => values.subscribe(callback),
-
-    export: (format: string, empty: boolean = true) => {
-        const content = [];
-        const whiteList = label.whitelist;
-
-        const collections = get(values);
-        for (let i = 0; i < collections.length; i++) {
-            const element = collections[i];
-            if (!empty && element.name.trim().length === 0) {
-                continue;
-            }
-
-            const item: { [key: string]: string | number } = {};
-            Object.keys(element)
-                .filter((key) => whiteList.includes(key))
-                .forEach((key: string) => {
-                    item[key] = element[key as keyof Monolieta.Label];
-                });
-
-            switch (format) {
-                case 'csv': {
-                    content.push(
-                        Object.keys(item)
-                            .map((column) => item[column])
-                            .join(',')
-                    );
-                    break;
-                }
-
-                default: {
-                    content.push(item);
-                    break;
-                }
-            }
-        }
-
-        switch (format) {
-            case 'csv': {
-                const body = whiteList.join(',').concat('\n').concat(content.join('\n'));
-                const blob = new Blob([body], {
-                    type: 'text/csv'
-                });
-
-                createFile(blob);
-                break;
-            }
-
-            default: {
-                const body = JSON.stringify({ labels: content });
-                const blob = new Blob([body], {
-                    type: 'application/json'
-                });
-
-                createFile(blob);
-                break;
-            }
-        }
-    }
+    subscribe: (callback: (values: Monolieta.Labels) => void) => values.subscribe(callback)
 };

@@ -1,13 +1,6 @@
-<script>
-    /**
-     * @type {string|number}
-     */
-    export let width = '100%';
-
-    /**
-     * @type {string|number}
-     */
-    export let height = '100%';
+<script lang="ts">
+    export let height: string | number = '100%';
+    export let width: string | number = '100%';
 </script>
 
 <svg
