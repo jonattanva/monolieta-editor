@@ -9,13 +9,13 @@
     export let showPositiveButton: boolean = true;
     export let disabledPositiveButton: boolean = false;
 
-    const onCancel = (event: any) => {
+    const onCancel = (event: Event) => {
         dispatch('cancel', {
             event
         });
     };
 
-    const onSubmit = (event: any) => {
+    const onSubmit = (event: Event) => {
         dispatch('submit', {
             event
         });

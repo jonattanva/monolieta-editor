@@ -1,17 +1,18 @@
 <script lang="ts">
-    import { imageReader } from '$lib/file';
+    import Picture from '$lib/component/picture/index.svelte';
+    import { createEventDispatcher } from 'svelte';
 
     export let item: Monolieta.Resource;
 
-    let source: string;
+    const dispatch = createEventDispatcher();
 
-    $: prepare(item);
-
-    const prepare = async (item: Monolieta.Resource) => {
-        source = await imageReader(item.source);
-    };
+    const onSelected = (event: Event) =>
+        dispatch('click', {
+            event,
+            item
+        });
 </script>
 
-<div class="mx-auto h-[120px] w-[120px]" role="img">
-    <img class="block h-full w-full object-cover p-0" loading="lazy" src={source} alt="" />
+<div class="mx-auto h-[120px] w-[120px]" role="img" on:click={onSelected} on:keydown={onSelected}>
+    <Picture source={item.source} alt="" />
 </div>

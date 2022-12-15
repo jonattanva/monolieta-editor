@@ -40,7 +40,7 @@
 
 <Header on:labels on:resources={onResource} itemCount={items.length} />
 
-<Body collection={items} />
+<Body collection={items} on:click />
 
 <input
     class="hidden"
