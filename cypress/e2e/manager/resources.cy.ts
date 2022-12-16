@@ -35,5 +35,7 @@ describe('Import resources', () => {
             .then((it) => it[0])
             .should('be.visible')
             .click();
+
+        cy.findByTestId(this.selector['Image editor']).should('be.visible');
     });
 });

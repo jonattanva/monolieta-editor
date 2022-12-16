@@ -5,6 +5,7 @@
   "External field color": "color",
   "External field id": "id",
   "External field name": "name",
+  "Image editor": "image-editor",
   "Image": "img",
   "List labels": "[data-testid='label-row']",
   "List resources": "[data-testid='resource-row']",
