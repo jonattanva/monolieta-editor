@@ -43,7 +43,12 @@
 
 <Main>
     <svelte:fragment slot="menu">
-        <Explorer on:labels={onOpenClassManager} items={resources} on:click={onSelected} />
+        <Explorer
+            items={resources}
+            on:click={onSelected}
+            on:labels={onOpenClassManager}
+            {selected}
+        />
     </svelte:fragment>
     <svelte:fragment slot="body">
         <Editor resource={selected} />

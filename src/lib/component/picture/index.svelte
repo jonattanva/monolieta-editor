@@ -9,11 +9,7 @@
     const prepare = async (source: File | string) => {
         src = await imageReader(source);
     };
-
-    const onLoad = () => {
-        console.log('loaddd')
-    }
-
+    
     $: prepare(source);
 </script>
 
@@ -22,7 +18,7 @@
         <img
             class="h-full w-full select-none object-cover p-0"
             {src}
-            on:load={onLoad}
+            on:load
             loading="lazy"
             crossorigin="anonymous"
             {alt}
