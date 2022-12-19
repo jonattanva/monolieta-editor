@@ -74,6 +74,15 @@ declare namespace Monolieta {
         values: { [key in string]: Option | Group };
     };
 
-    type Size = number | 'auto';
-    type Direction = 'horizontal' | 'vertical';
+    export type Size = {
+        height: number;
+        width: number;
+    };
+
+    export type Axis = {
+        x: number;
+        y: number;
+    };
+
+    export type Rect = {} & Axis & Size;
 }

@@ -22,4 +22,20 @@ describe('Import resources', () => {
 
         cy.get(this.selector['List resources']).should('have.length', 1);
     });
+
+    it('should import the image and select it', function () {
+        openResourcesManager();
+
+        cy.get('input[type="file"]').attachFile('resources/001.jpg');
+        cy.get('input[type="file"]').attachFile('resources/002.jpeg');
+
+        cy.findByText(/viewing 2 resources/i).should('exist');
+
+        cy.findAllByRole(this.selector['Image'])
+            .then((it) => it[0])
+            .should('be.visible')
+            .click();
+
+        cy.findByTestId(this.selector['Image editor']).should('be.visible');
+    });
 });

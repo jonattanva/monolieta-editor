@@ -7,6 +7,7 @@ const config: UserConfig = {
         globals: true,
         environment: 'jsdom',
         setupFiles: './setup.js',
+        include: ['src/**/*.{test,spec}.{js,ts}'],
         coverage: {
             reporter: ['lcov', 'json']
         }

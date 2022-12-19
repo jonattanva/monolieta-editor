@@ -4,6 +4,7 @@
     import VirtualList from 'svelte-tiny-virtual-list';
 
     export let collection: Monolieta.Resources = [];
+    export let selected: Monolieta.Resource | null = null;
 
     let height = 0;
 
@@ -32,8 +33,13 @@
             >
                 <div class="grid grid-cols-2 gap-0">
                     {#each Array(2) as _, i}
-                        {#if collection[index * 2 + i] !== undefined}
-                            <Row item={collection[index * 2 + i]} />
+                        {@const item = collection[index * 2 + i]}
+                        {#if item !== undefined}
+                            <Row
+                                {item}
+                                selected={selected !== null && selected.id === item.id}
+                                on:click
+                            />
                         {/if}
                     {/each}
                 </div>

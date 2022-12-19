@@ -5,6 +5,7 @@
     import { nanoid } from 'nanoid';
 
     export let items: Monolieta.Resources = [];
+    export let selected: Monolieta.Resource | null = null;
 
     let fileInput: HTMLInputElement | null = null;
 
@@ -40,7 +41,7 @@
 
 <Header on:labels on:resources={onResource} itemCount={items.length} />
 
-<Body collection={items} />
+<Body collection={items} on:click {selected} />
 
 <input
     class="hidden"
