@@ -35,6 +35,11 @@
         selected = item;
     };
 
+    const onMove = (event: CustomEvent) => {
+        const { resource } = event.detail;
+        resourceStore.set(resource);
+    };
+
     onDestroy(() => {
         unsubscribeLabelStore();
         unsubscribeResourceStore();
@@ -51,7 +56,7 @@
         />
     </svelte:fragment>
     <svelte:fragment slot="body">
-        <Editor resource={selected} />
+        <Editor resource={selected} on:move={onMove} />
     </svelte:fragment>
 </Main>
 

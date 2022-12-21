@@ -15,7 +15,7 @@
 >
     <div class="relative m-0 flex h-full w-full items-stretch overflow-auto bg-transparent">
         <Layer {resource} displayWidth={width} displayHeight={height}>
-            <Viewport />
+            <Viewport annotations={resource?.annotations} />
         </Layer>
     </div>
 </div>

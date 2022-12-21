@@ -31,10 +31,20 @@ declare namespace Monolieta {
         name: string;
         size: number;
         type: string;
+        annotations?: Annotations = [];
     } & Entity &
         Hash;
 
     type Resources = Resource[];
+
+    type Annotation = {
+        createdAt: number;
+        updatedAt: number;
+        position: number[];
+        type: 'rect';
+    } & Entity;
+
+    type Annotations = Annotation[];
 
     type Option = {
         label: string;
@@ -52,6 +62,18 @@ declare namespace Monolieta {
     type Groups = Group[];
 
     type Index = { [key in string]: any };
+
+    type Size = {
+        height: number;
+        width: number;
+    };
+
+    type Axis = {
+        x: number;
+        y: number;
+    };
+
+    type Rect = {} & Axis & Size;
 
     type Reader = {
         content: any;
@@ -73,16 +95,4 @@ declare namespace Monolieta {
         ref: { [key in string]: Ref };
         values: { [key in string]: Option | Group };
     };
-
-    export type Size = {
-        height: number;
-        width: number;
-    };
-
-    export type Axis = {
-        x: number;
-        y: number;
-    };
-
-    export type Rect = {} & Axis & Size;
 }

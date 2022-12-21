@@ -30,7 +30,17 @@
             name: file.name,
             size: file.size,
             type: file.type,
-            token: nanoid()
+            token: nanoid(),
+            // TODO: REMOVE LINE!
+            annotations: [
+                {
+                    id: nanoid(),
+                    createdAt: Date.now(),
+                    updatedAt: Date.now(),
+                    position: [50, 100, 100, 50],
+                    type: 'rect'
+                }
+            ]
         });
 
         if (fileInput) {

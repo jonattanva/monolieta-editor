@@ -9,6 +9,9 @@ module.exports = {
                     DEFAULT: '#6200ee',
                     dark: '#5700d5'
                 }
+            },
+            strokeWidth: {
+                3: '3px'
             }
         }
     },

@@ -4,6 +4,16 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer components {
+    .stroke-round {
+        stroke-linejoin: round;
+    }
+
+    .stroke-opacity-60 {
+        stroke-opacity: 0.6;
+    }
+}
+
 :root {
     --bg-color: #f8f9fa;
     --font-color: #343a40;

@@ -2,7 +2,7 @@
     import Color from '$lib/component/color/index.svelte';
     import EllipsisHorizontal from '$lib/component/icon/ellipsis-horizontal.svelte';
     import Fab from '$lib/component/fab/index.svelte';
-    import Text from '$lib/component/text/index.svelte';
+    import Text from '$lib/component/input/index.svelte';
     import { createEventDispatcher } from 'svelte';
 
     export let item: Monolieta.Label;

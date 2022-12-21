@@ -6,7 +6,7 @@ import { get, writable } from 'svelte/store';
 type Callback = (resources: Monolieta.Resources) => void;
 
 const client = new Search();
-const values = writable<Monolieta.Resources>([]);
+const resources = writable<Monolieta.Resources>([]);
 
 function index(resource: Monolieta.Resource) {
     client.index(resource.token, resource.name);
@@ -14,16 +14,31 @@ function index(resource: Monolieta.Resource) {
 }
 
 export default {
-    subscribe: (callback: Callback) => values.subscribe(callback),
+    subscribe: (callback: Callback) => resources.subscribe(callback),
 
     add: (value: Monolieta.Resource): void => {
-        values.update((previous) => {
+        resources.update((previous) => {
             index(value);
             return [value, ...previous];
         });
     },
 
-    remove: (value: Monolieta.Resource): void => remove(values, value),
+    set: (resource: Monolieta.Resource): void => {
+        console.log('update resource!');
+        /*
+        resources.update((previous) => {
+            let current = previous.find((row) => {
+                return row.id === resource.id;
+            });
 
-    search: (query: string): Monolieta.Resources => search(values, client, query)
+            if (current) {
+                current.annotations = resource.annotations;
+            }
+
+            return previous;
+        });*/
+    },
+
+    remove: (resource: Monolieta.Resource): void => remove(resources, resource),
+    search: (query: string): Monolieta.Resources => search(resources, client, query)
 };
