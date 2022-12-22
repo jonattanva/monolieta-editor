@@ -1,4 +1,4 @@
-export default function outside(node: HTMLElement, callback: () => void) {
+export default function outside(node: HTMLElement | SVGElement, callback: () => void) {
     function outside(event: MouseEvent) {
         if (!node.contains(event.target as Node)) {
             callback();
