@@ -3,6 +3,81 @@ import { describe, it, vi } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/svelte';
 
 describe('<Rect />', function () {
+    it('should render with debug mode', function () {
+        render(Rect, {
+            x: 0,
+            y: 0,
+            width: 10,
+            height: 20,
+            debug: true
+        });
+
+        expect(screen.getByText(/center:/i)).toBeDefined();
+        expect(screen.getByText(/position:/i)).toBeDefined();
+    });
+
+    it('should render with resize handler', function () {
+        const fn = vi.fn();
+        const { container, component } = render(Rect, {
+            x: 0,
+            y: 0,
+            width: 10,
+            height: 20,
+            disabled: false,
+            selected: true
+        });
+
+        component.$on('completed', fn);
+
+        const n = container.querySelector('[data-type=n-resize]');
+        fireEvent.mouseDown(n!, {
+            clientX: 80,
+            clientY: 30
+        });
+
+        fireEvent.mouseMove(n!, {
+            clientX: 80,
+            clientY: 30
+        });
+
+        fireEvent.mouseUp(n!, {
+            clientX: 80,
+            clientY: 30
+        });
+
+        expect(fn).toHaveBeenCalled();
+    });
+
+    it('should render with drag handler', function () {
+        const fn = vi.fn();
+        const { container, component } = render(Rect, {
+            x: 0,
+            y: 0,
+            width: 10,
+            height: 20
+        });
+
+        component.$on('completed', fn);
+
+        const rect = container.querySelector('rect');
+        fireEvent.mouseDown(rect!, {
+            clientX: 80,
+            clientY: 30
+        });
+
+        fireEvent.mouseMove(rect!, {
+            clientX: 80,
+            clientY: 30
+        });
+
+        fireEvent.mouseUp(rect!, {
+            clientX: 80,
+            clientY: 30
+        });
+
+        expect(fn).toHaveBeenCalled();
+    });
+
     it('should render with label', function () {
         render(Rect, {
             x: 0,
@@ -11,6 +86,7 @@ describe('<Rect />', function () {
             height: 20,
             label: 'person'
         });
+
         expect(screen.getByText(/person/i)).toBeDefined();
     });
 

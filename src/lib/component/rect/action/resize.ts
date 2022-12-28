@@ -1,7 +1,8 @@
 type Option = {
     center: Monolieta.Axis;
-    set: (value: Monolieta.Rect) => void;
+    completed: () => void;
     rect: Monolieta.Rect;
+    set: (value: Monolieta.Rect) => void;
 };
 
 export default function Resize(node: SVGElement, option: Option) {
@@ -41,6 +42,8 @@ export default function Resize(node: SVGElement, option: Option) {
 
         startX = Infinity;
         startY = Infinity;
+
+        option.completed()
 
         document.removeEventListener('mouseup', onMouseUp);
         document.removeEventListener('mousemove', onMouseMove);

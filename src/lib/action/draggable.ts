@@ -1,5 +1,6 @@
 type Option = {
     set: (axis: Monolieta.Axis) => void;
+    completed: () => void;
 };
 
 export default function draggable(node: SVGElement, option: Option) {
@@ -25,8 +26,10 @@ export default function draggable(node: SVGElement, option: Option) {
         node.style.cursor = 'all-scroll';
     };
 
-    const onMouseUp = () => { 
+    const onMouseUp = () => {
         node.style.cursor = 'default';
+
+        option.completed();
 
         removeEventListener('mousemove', onMouseMove);
         removeEventListener('mouseup', onMouseUp);

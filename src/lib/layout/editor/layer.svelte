@@ -6,11 +6,14 @@
         calculateImagePosition,
         getScale
     } from '$lib/display';
+    import { createEventDispatcher } from 'svelte';
 
     export let displayHeight: number = 0;
     export let displayWidth: number = 0;
     export let resource: Monolieta.Resource | null = null;
     export let scale: number = 1;
+
+    const dispatch = createEventDispatcher();
 
     let imageWidth: number = 0;
     let imageHeight: number = 0;
@@ -19,6 +22,11 @@
         const target = event.target as HTMLImageElement;
         imageWidth = target.naturalWidth;
         imageHeight = target.naturalHeight;
+
+        dispatch('completed', {
+            width: imageWidth,
+            height: imageHeight
+        });
     };
 
     $: image = {

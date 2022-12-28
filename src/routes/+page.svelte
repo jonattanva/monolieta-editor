@@ -35,9 +35,18 @@
         selected = item;
     };
 
-    const onMove = (event: CustomEvent) => {
-        const { resource } = event.detail;
-        resourceStore.set(resource);
+    const onCompleted = (event: CustomEvent) => {
+        const { key, x, y, width, height } = event.detail;
+
+        if (selected) {
+            const annotation = selected.annotations?.find((annotation) => {
+                return annotation.id === key;
+            });
+
+            if (annotation) {
+                annotation.position = [x, y, width, height];
+            }
+        }
     };
 
     onDestroy(() => {
@@ -56,7 +65,7 @@
         />
     </svelte:fragment>
     <svelte:fragment slot="body">
-        <Editor resource={selected} on:move={onMove} />
+        <Editor resource={selected} on:completed={onCompleted} />
     </svelte:fragment>
 </Main>
 

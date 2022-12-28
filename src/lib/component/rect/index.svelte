@@ -11,6 +11,7 @@
     export let debug: boolean = false;
     export let disabled: boolean = false;
     export let height: number;
+    export let key: string = '';
     export let label: string = '';
     export let opacity: number = 0.1;
     export let selected: boolean = false;
@@ -25,32 +26,66 @@
     $: center = centroid(rect);
 
     const onMove = (axis: Monolieta.Axis) => {
-        x = axis.x;
-        y = axis.y;
+        if (!disabled) {
+            x = axis.x;
+            y = axis.y;
+            selected = true;
+        }
     };
 
     const onResize = (rect: Monolieta.Rect) => {
-        x = rect.x;
-        y = rect.y;
-        width = rect.width;
-        height = rect.height;
+        if (!disabled) {
+            x = rect.x;
+            y = rect.y;
+            width = rect.width;
+            height = rect.height;
+        }
     };
 
-    const handleClose = () => dispatch('deselect');
+    const onOutside = () => {
+        selected = false;
+        dispatch('deselect', {
+            key
+        });
+    };
+
+    const onClick = () => {
+        if (!disabled) {
+            selected = true;
+            dispatch('click', {
+                key
+            });
+        }
+    };
+
+    const onDragEnd = () => onCompleted();
+    const onResizeEnd = () => onCompleted();
+
+    const onCompleted = () => {
+        if (!disabled) {
+            dispatch('completed', {
+                key,
+                x,
+                y,
+                width,
+                height
+            });
+        }
+    };
 </script>
 
 <g
     class="stroke-round stroke-opacity-60 stroke-3"
     fill={background}
     stroke={color}
-    use:outside={handleClose}
+    use:outside={onOutside}
 >
     <rect
         data-testid={testid}
         fill-opacity={opacity}
-        on:click
+        on:click={onClick}
         on:keydown
-        use:draggable={{ set: onMove }}
+        use:draggable={{ set: onMove, completed: onDragEnd }}
         {height}
         {width}
         {x}
@@ -71,7 +106,7 @@
                 class="cursor-nwse-resize"
                 data-type="nw-resize"
                 href="#edge"
-                use:resize={{ center, set: onResize, rect }}
+                use:resize={{ center, set: onResize, rect, completed: onResizeEnd }}
                 {x}
                 {y}
             />
@@ -79,7 +114,7 @@
                 class="cursor-ns-resize"
                 data-type="n-resize"
                 href="#edge"
-                use:resize={{ center, set: onResize, rect }}
+                use:resize={{ center, set: onResize, rect, completed: onResizeEnd }}
                 x={x + width / 2}
                 {y}
             />
@@ -87,7 +122,7 @@
                 class="cursor-nesw-resize"
                 data-type="ne-resize"
                 href="#edge"
-                use:resize={{ center, set: onResize, rect }}
+                use:resize={{ center, set: onResize, rect, completed: onResizeEnd }}
                 x={x + width}
                 {y}
             />
@@ -95,7 +130,7 @@
                 class="cursor-ew-resize"
                 data-type="e-resize"
                 href="#edge"
-                use:resize={{ center, set: onResize, rect }}
+                use:resize={{ center, set: onResize, rect, completed: onResizeEnd }}
                 x={x + width}
                 y={y + height / 2}
             />
@@ -103,7 +138,7 @@
                 class="cursor-nwse-resize"
                 data-type="se-resize"
                 href="#edge"
-                use:resize={{ center, set: onResize, rect }}
+                use:resize={{ center, set: onResize, rect, completed: onResizeEnd }}
                 x={x + width}
                 y={y + height}
             />
@@ -111,7 +146,7 @@
                 class="cursor-ns-resize"
                 data-type="s-resize"
                 href="#edge"
-                use:resize={{ center, set: onResize, rect }}
+                use:resize={{ center, set: onResize, rect, completed: onResizeEnd }}
                 x={x + width / 2}
                 y={y + height}
             />
@@ -119,7 +154,7 @@
                 class="cursor-nesw-resize"
                 data-type="sw-resize"
                 href="#edge"
-                use:resize={{ center, set: onResize, rect }}
+                use:resize={{ center, set: onResize, rect, completed: onResizeEnd }}
                 y={y + height}
                 {x}
             />
@@ -127,7 +162,7 @@
                 class="cursor-ew-resize"
                 data-type="w-resize"
                 href="#edge"
-                use:resize={{ center, set: onResize, rect }}
+                use:resize={{ center, set: onResize, rect, completed: onResizeEnd }}
                 y={y + height / 2}
                 {x}
             />

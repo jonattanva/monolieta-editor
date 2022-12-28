@@ -23,22 +23,6 @@ export default {
         });
     },
 
-    set: (resource: Monolieta.Resource): void => {
-        console.log('update resource!');
-        /*
-        resources.update((previous) => {
-            let current = previous.find((row) => {
-                return row.id === resource.id;
-            });
-
-            if (current) {
-                current.annotations = resource.annotations;
-            }
-
-            return previous;
-        });*/
-    },
-
     remove: (resource: Monolieta.Resource): void => remove(resources, resource),
     search: (query: string): Monolieta.Resources => search(resources, client, query)
 };

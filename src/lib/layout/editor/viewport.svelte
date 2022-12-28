@@ -1,8 +1,8 @@
 <script lang="ts">
     import Rect from '$lib/component/rect/index.svelte';
 
-    export let color: string = '#15ff0d';
     export let annotations: Monolieta.Annotations = [];
+    export let color: string = '#15ff0d';
 </script>
 
 <svg
@@ -18,6 +18,9 @@
         {#if annotation.type === 'rect'}
             <Rect
                 height={annotation.position[3]}
+                key={annotation.id}
+                on:completed
+                debug={true}
                 width={annotation.position[2]}
                 x={annotation.position[0]}
                 y={annotation.position[1]}
