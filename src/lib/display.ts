@@ -1,4 +1,4 @@
-export const getRatio = (width: number, height: number) => width / height;
+export const getRatio = (width: number, height: number): number => width / height;
 
 export const getScale = (size: Monolieta.Size, value: number = 1) => ({
     width: size.width * value,

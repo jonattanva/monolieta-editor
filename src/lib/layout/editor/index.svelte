@@ -6,10 +6,6 @@
 
     let width: number = 0;
     let height: number = 0;
-
-    const onCompleted = () => {
-        
-    };
 </script>
 
 <div
@@ -18,7 +14,7 @@
     bind:offsetHeight={height}
 >
     <div class="relative m-0 flex h-full w-full items-stretch overflow-auto bg-transparent">
-        <Layer {resource} displayWidth={width} displayHeight={height} on:completed={onCompleted}>
+        <Layer {resource} displayWidth={width} displayHeight={height}>
             <Viewport annotations={resource?.annotations} on:completed />
         </Layer>
     </div>
