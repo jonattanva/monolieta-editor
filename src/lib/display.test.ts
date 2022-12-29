@@ -1,4 +1,4 @@
-import { getArea, getRatio, getScale, centroid } from './display';
+import { getArea, getRatio, getScale, centroid, calculateEditorSize } from './display';
 import { describe, it } from 'vitest';
 
 describe('Display', function () {
@@ -32,5 +32,12 @@ describe('Display', function () {
         };
 
         expect(centroid(rect)).toEqual({ x: 60, y: 150 });
+    });
+
+    it('calculate editor size', function () {
+        expect(calculateEditorSize({ width: 100, height: 100 }, { x: 50, y: 50 })).toEqual({
+            width: 200,
+            height: 200
+        });
     });
 });

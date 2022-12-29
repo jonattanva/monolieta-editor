@@ -9,6 +9,7 @@
     class="absolute left-0 top-0 h-full w-full"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMinYMin meet"
+    viewBox="0 0 675 450"
 >
     <defs>
         <circle id="edge" class="stroke-transparent opacity-100" fill={color} r="5" />
