@@ -1,12 +1,12 @@
 <script lang="ts">
     import Picture from '$lib/component/picture/index.svelte';
+    import { createEventDispatcher } from 'svelte';
     import {
         calculateAspectRatio,
         calculateEditorSize,
         calculateImagePosition,
         getScale
     } from '$lib/display';
-    import { createEventDispatcher } from 'svelte';
 
     export let displayHeight: number = 0;
     export let displayWidth: number = 0;
@@ -15,13 +15,15 @@
 
     const dispatch = createEventDispatcher();
 
-    let imageWidth: number = 0;
     let imageHeight: number = 0;
+    let imageWidth: number = 0;
+
+    const onResize = (rect: Monolieta.Rect) => dispatch('resize', rect);
 
     const onLoadResource = (event: Event) => {
         const target = event.target as HTMLImageElement;
-        imageWidth = target.naturalWidth;
         imageHeight = target.naturalHeight;
+        imageWidth = target.naturalWidth;
 
         dispatch('completed', {
             width: imageWidth,
@@ -42,6 +44,8 @@
 
     $: editor = calculateEditorSize(getScale(aspectRatio, scale), aspectRatio);
     $: position = calculateImagePosition(aspectRatio, editor, image);
+
+    $: onResize(position);
 </script>
 
 <div class="absolute" style={`width:${editor.width}px;height:${editor.height}px`}>

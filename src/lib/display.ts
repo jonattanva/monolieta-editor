@@ -1,4 +1,9 @@
-export const getRatio = (width: number, height: number): number => width / height;
+export const getRatio = (width: number, height: number): number => {
+    if (height === 0) {
+        return 0;
+    }
+    return width / height;
+};
 
 export const getScale = (size: Monolieta.Size, value: number = 1) => ({
     width: size.width * value,
@@ -20,6 +25,10 @@ export const calculateEditorSize = (size: Monolieta.Size, axis: Monolieta.Axis) 
 export const calculateAspectRatio = (container: Monolieta.Size, image: Monolieta.Size) => {
     const ratio = getRatio(image.width, image.height);
     const containerRatio = getRatio(container.width, container.height);
+
+    console.log('image', image);
+    console.log("ratio", ratio);
+    console.log('container ratio', containerRatio);
 
     return containerRatio < ratio
         ? calculateImageInVertical(container, ratio)

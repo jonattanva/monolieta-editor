@@ -5,7 +5,7 @@ describe('Display', function () {
     it('ration', function () {
         expect(getRatio(200, 100)).toEqual(2);
         expect(getRatio(100, 100)).toEqual(1);
-        expect(getRatio(100, 0)).toEqual(Infinity);
+        expect(getRatio(100, 0)).toEqual(0);
     });
 
     it('scale', function () {
