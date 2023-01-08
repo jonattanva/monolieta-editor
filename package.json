@@ -50,7 +50,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@fontsource/roboto-flex": "~4.5.2",
+    "@fontsource/roboto-flex": "~4.5.4",
     "monolieta-search": "~1.2.0",
     "nanoid": "~4.0.0",
     "svelte-tiny-virtual-list": "~2.0.5"
