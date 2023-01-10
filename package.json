@@ -16,7 +16,7 @@
     "test:e2e": "cypress open"
   },
   "devDependencies": {
-		"@sveltejs/kit": "~1.0.1",
+		"@sveltejs/kit": "~1.0.7",
     "@cypress/code-coverage": "~3.10.0",
     "@sveltejs/adapter-auto": "~1.0.0",
     "@testing-library/cypress": "~9.0.0",
@@ -34,7 +34,7 @@
     "eslint-plugin-cypress": "~2.12.1",
     "eslint-plugin-svelte3": "~4.0.0",
     "jsdom": "~20.0.3",
-    "postcss": "~8.4.20",
+    "postcss": "~8.4.21",
     "prettier": "~2.8.1",
     "prettier-plugin-svelte": "~2.9.0",
     "prettier-plugin-tailwindcss": "~0.2.1",

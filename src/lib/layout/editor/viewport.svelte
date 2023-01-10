@@ -4,15 +4,15 @@
     export let annotations: Monolieta.Annotations = [];
     export let color: string = '#15ff0d';
     export let debug: boolean = false;
-    export let height: number = 0;
-    export let width: number = 0;
+    export let editorHeight: number = 0;
+    export let editorWidth: number = 0;
 </script>
 
 <svg
     class="absolute left-0 top-0 h-full w-full"
     xmlns="http://www.w3.org/2000/svg"
     preserveAspectRatio="xMinYMin meet"
-    viewBox="0 0 {width} {height}"
+    viewBox="0 0 {editorWidth} {editorHeight}"
 >
     <defs>
         <circle id="edge" class="stroke-transparent opacity-100" fill={color} r="5" />

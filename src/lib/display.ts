@@ -26,10 +26,6 @@ export const calculateAspectRatio = (container: Monolieta.Size, image: Monolieta
     const ratio = getRatio(image.width, image.height);
     const containerRatio = getRatio(container.width, container.height);
 
-    console.log('image', image);
-    console.log("ratio", ratio);
-    console.log('container ratio', containerRatio);
-
     return containerRatio < ratio
         ? calculateImageInVertical(container, ratio)
         : calculateImageInHorizontal(container, ratio);
