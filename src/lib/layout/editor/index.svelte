@@ -17,6 +17,10 @@
         editorWidth = detail.width;
         editorHeight = detail.height;
     };
+
+    const onAction = (event: any) => {
+        console.log(event);
+    };
 </script>
 
 <div class="m-0 flex h-full w-full items-stretch p-0" bind:offsetWidth bind:offsetHeight>
@@ -39,5 +43,5 @@
 </div>
 
 <div class="absolute z-50 p-2">
-    <Toolbar />
+    <Toolbar on:change={onAction} />
 </div>
