@@ -6,7 +6,7 @@
     import Square2Stack from '$lib/component/icon/square-2-stack.svelte';
 </script>
 
-<div class="flex h-11 flex-row items-center gap-2 rounded border border-gray-200 bg-white p-2 ">
+<div class="flex h-11 flex-row items-center gap-2 rounded bg-white p-2">
     <Item checked={true} title="Cursor" on:change>
         <CursorArrowRays />
     </Item>

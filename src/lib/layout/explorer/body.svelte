@@ -7,20 +7,19 @@
     export let selected: Monolieta.Resource | null = null;
 
     let height = 0;
-
     $: itemCount = Math.ceil(collection.length / 2);
 </script>
 
 {#if collection.length === 0}
     <Message />
 {:else}
-    <div class="h-screen w-full" bind:clientHeight={height}>
+    <div class="h-screen w-full px-3" bind:clientHeight={height}>
         <VirtualList
             width="100%"
             {itemCount}
             {height}
             scrollDirection="vertical"
-            itemSize={120 + 4 * 2}
+            itemSize={110 + 4 * 2}
         >
             <div
                 slot="item"

@@ -19,7 +19,7 @@ export default {
     add: (value: Monolieta.Resource): void => {
         resources.update((previous) => {
             index(value);
-            return [value, ...previous];
+            return [...previous, value];
         });
     },
 

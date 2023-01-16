@@ -9,11 +9,13 @@
 
     const dispatch = createEventDispatcher();
 
-    const onSelected = (event: Event) =>
+    const onSelected = (event: Event) => {
+        selected = true;
         dispatch('click', {
             event,
             item
         });
+    };
 
     const onLoad = (event: Event) => {
         completed = true;
@@ -21,16 +23,20 @@
     };
 
     $: background = completed && selected ? 'bg-accent' : '';
+    $: transition = !completed ? 'animate-pulse' : '';
+
+
     $: size = completed && selected ? 'h-[98%] w-[98%] p-0.5' : 'w-full h-full';
+    $: backgroundSelected = !completed ? 'bg-gray-200' : '';
 </script>
 
 <div
-    class={`mx-auto flex h-[120px] w-[120px] items-center justify-center transition-colors ${background}`}
+    class={`mx-auto flex h-[110px] w-[110px] items-center justify-center rounded transition-colors ${background} ${transition}`}
     role="img"
     on:click={onSelected}
     on:keydown={onSelected}
 >
-    <div class={`transition-all	${size}`}>
+    <div class={`transition-all ${size} ${backgroundSelected}`}>
         <Picture source={item.source} on:load={onLoad} alt="" />
     </div>
 </div>

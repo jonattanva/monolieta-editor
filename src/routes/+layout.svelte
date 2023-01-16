@@ -3,7 +3,7 @@
     import { onMount } from 'svelte';
 
     let init = false;
-    onMount(() => {
+    onMount(async () => {
         init = true;
     });
 </script>

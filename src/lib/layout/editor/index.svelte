@@ -19,7 +19,7 @@
     };
 
     const onAction = (event: any) => {
-        console.log(event);
+        
     };
 </script>
 
