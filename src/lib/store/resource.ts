@@ -1,7 +1,7 @@
 import remove from './helper/remove';
 import search from './helper/search';
 import { Search } from 'monolieta-search';
-import { get, writable } from 'svelte/store';
+import { writable } from 'svelte/store';
 
 type Callback = (resources: Monolieta.Resources) => void;
 

@@ -8,6 +8,8 @@
     import resourceStore from '$lib/store/resource';
     import { onDestroy } from 'svelte';
 
+    import Chackbox from '$lib/component/input/checkbox/index.svelte';
+
     let isOpenClassManager = false;
 
     let labels: Monolieta.Labels = [];
@@ -68,6 +70,10 @@
         <Editor resource={selected} on:completed={onCompleted} />
     </svelte:fragment>
 </Main>
+
+<div>
+    <Chackbox />
+</div>
 
 {#if isOpenClassManager}
     <Slide>
