@@ -17,7 +17,7 @@
     "test:e2e": "cypress open"
   },
   "devDependencies": {
-		"@sveltejs/kit": "~1.7.1",
+		"@sveltejs/kit": "~1.8.5",
     "@cypress/code-coverage": "~3.10.0",
     "@sveltejs/adapter-auto": "~1.0.0",
     "@testing-library/cypress": "~9.0.0",
