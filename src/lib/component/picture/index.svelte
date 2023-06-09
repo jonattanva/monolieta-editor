@@ -1,9 +1,9 @@
 <script lang="ts">
     import { imageReader } from '$lib/file';
 
-    export let alt: string = '';
+    export let alt = '';
     export let source: File | string = '';
-    export let testid: string = '';
+    export let testid = '';
 
     let src: string;
 

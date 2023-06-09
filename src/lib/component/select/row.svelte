@@ -1,7 +1,9 @@
 <script lang="ts">
+    import type { Option, Group } from '$lib/type';
+
     export let label: string;
-    export let parent: string = '';
-    export let selected: Monolieta.Option | Monolieta.Group | null = null;
+    export let parent = '';
+    export let selected: Option | Group | null = null;
     export let value: string | number;
 
     let classname = '';

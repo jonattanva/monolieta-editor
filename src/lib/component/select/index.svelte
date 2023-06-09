@@ -1,12 +1,14 @@
 <script lang="ts">
     import outside from '$lib/action/outside';
-    import Option from './option.svelte';
+    import Component from './option.svelte';
     import { createEventDispatcher } from 'svelte';
 
-    export let options: Monolieta.Options | Monolieta.Groups = [];
-    export let value: Monolieta.Option | Monolieta.Group | null = null;
-    export let placeholder: string = 'Select...';
-    export let testid: string = '';
+    import type { Options, Groups, Option, Group } from '$lib/type';
+
+    export let options: Options | Groups = [];
+    export let value: Option | Group | null = null;
+    export let placeholder = 'Select...';
+    export let testid = '';
 
     const dispatch = createEventDispatcher();
 
@@ -23,8 +25,8 @@
         open = false;
     };
 
-    const onSelected = (event: any) => {
-        const target = event.currentTarget;
+    const onSelected = (event: Event) => {
+        const target = event.currentTarget as HTMLButtonElement;
         if (target) {
             const key = target.dataset.value;
             const parent = target.dataset.parent;
@@ -105,6 +107,6 @@
     </button>
 
     {#if open}
-        <Option {options} {value} on:click={onSelected} />
+        <Component {options} {value} on:click={onSelected} />
     {/if}
 </div>

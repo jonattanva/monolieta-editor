@@ -14,7 +14,7 @@ function index(value: Monolieta.Label) {
     client.index(value.token, value.color);
 }
 
-export function template(name: string = '') {
+export function template(name = '') {
     return {
         id: nanoid(),
         createdAt: Date.now(),
@@ -28,7 +28,7 @@ export function template(name: string = '') {
 export default {
     init: (value: Monolieta.Labels) => {
         values.update(() => {
-            let results = [];
+            const results = [];
             for (let i = 0; i < value.length; i++) {
                 const element = value[i];
                 if (!element.id) {

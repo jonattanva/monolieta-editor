@@ -35,34 +35,34 @@
         });
 </script>
 
-<div class="flex items-center justify-between px-4 pt-4">
-    <h2 class="text-base font-medium text-slate-900">{title}</h2>
-    <Fab on:click={onCloseLabelManager} title="Close" testid="close-label">
-        <span class="h-5 w-5 text-gray-600">
-            <X />
-        </span>
-    </Fab>
-</div>
-
-<div class="relative flex items-center justify-between gap-2 px-4">
-    <Search on:search={onSearch} test="search-label" />
-    <Fab on:click={onCreateNewLabel} title="New label" testid="new-label">
-        <span class="h-5 w-5 text-gray-600">
-            <PlusSmall />
-        </span>
-    </Fab>
-    <div use:outside={onCloseMenu}>
-        <Fab on:click={onOpenMenu} title="More" testid="menu-label">
+<div class="flex w-full flex-col gap-4 text-base">
+    <div class="flex items-center justify-between px-6 pt-6">
+        <h2 class="text-xl font-medium text-slate-900">{title}</h2>
+        <Fab on:click={onCloseLabelManager} title="Close" testid="close-label">
             <span class="h-5 w-5 text-gray-600">
-                <EllipsisHorizontal />
+                <X />
             </span>
         </Fab>
-        {#if isOpenMenu}
-            <Menu on:descending on:ascending />
-        {/if}
+    </div>
+    <div class="relative flex items-center justify-between gap-2 px-6">
+        <Search on:search={onSearch} test="search-label" />
+        <Fab on:click={onCreateNewLabel} title="New label" testid="new-label">
+            <span class="h-5 w-5 text-gray-600">
+                <PlusSmall />
+            </span>
+        </Fab>
+        <div use:outside={onCloseMenu}>
+            <Fab on:click={onOpenMenu} title="More" testid="menu-label">
+                <span class="h-5 w-5 text-gray-600">
+                    <EllipsisHorizontal />
+                </span>
+            </Fab>
+            {#if isOpenMenu}
+                <Menu on:descending on:ascending />
+            {/if}
+        </div>
     </div>
 </div>
-
 <div class="flex flex-col gap-2">
     <slot />
 </div>

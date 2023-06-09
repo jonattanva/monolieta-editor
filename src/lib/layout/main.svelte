@@ -1,4 +1,4 @@
-<div class="flex h-full w-[260px] min-w-[260px] flex-col flex-nowrap items-stretch">
+<div class="flex h-full w-[280px] min-w-[280px] flex-col flex-nowrap items-stretch">
     <slot name="menu" />
 </div>
 

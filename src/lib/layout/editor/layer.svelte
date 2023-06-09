@@ -1,5 +1,6 @@
 <script lang="ts">
     import Picture from '$lib/component/picture/index.svelte';
+
     import {
         calculateAspectRatio,
         calculateEditorSize,
@@ -7,13 +8,15 @@
         getScale
     } from '$lib/display';
 
-    export let displayHeight: number = 0;
-    export let displayWidth: number = 0;
-    export let resource: Monolieta.Resource | null = null;
-    export let scale: number = 1;
+    import type { Resource } from '$lib/type';
 
-    let imageWidth: number = 0;
-    let imageHeight: number = 0;
+    export let displayHeight = 0;
+    export let displayWidth = 0;
+    export let resource: Resource | null = null;
+    export let scale = 1;
+
+    let imageWidth = 0;
+    let imageHeight = 0;
 
     const onLoadResource = (event: Event) => {
         const target = event.target as HTMLImageElement;

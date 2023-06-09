@@ -1,14 +1,14 @@
 <script lang="ts">
-    export let disabled: boolean = false;
-    export let testid: string = '';
+    export let disabled = false;
+    export let testid = '';
 </script>
 
 <button
+    class="inline-flex h-10 w-full items-center justify-center rounded-md border border-transparent bg-accent px-4 py-2 text-base font-medium outline-offset-2 outline-accent-dark hover:bg-accent-dark"
+    data-testid={testid}
     on:click
     type="button"
     {disabled}
-    data-testid={testid}
-    class="inline-flex h-7 w-full items-center justify-center rounded border border-transparent bg-transparent bg-gray-100 px-4 text-base font-medium hover:bg-gray-300 sm:w-auto sm:text-sm"
 >
     <slot />
 </button>

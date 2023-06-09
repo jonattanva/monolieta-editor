@@ -1,6 +1,6 @@
 <script lang="ts">
-    export let testid: string = '';
-    export let value: string = '';
+    export let testid = '';
+    export let value = '';
 </script>
 
 <button

@@ -15,7 +15,7 @@
     const onDescending = (event: Event) => dispatch('descending', event);
 </script>
 
-<div class="absolute top-9 right-0">
+<div class="absolute right-0 top-9">
     <Dropdown>
         <Section>
             <Item on:click={onAscending}>
@@ -29,9 +29,9 @@
                     <BarsArrowUp />
                 </span>
                 Descending
-            </Item> 
+            </Item>
         </Section>
-        <div class="hidden w-full border-t border-slate-400/20 py-3 px-3.5">
+        <div class="hidden w-full border-t border-slate-400/20 px-3.5 py-3">
             <Item>
                 <span class="mr-2 h-5 w-5">
                     <ArrowDownTray />

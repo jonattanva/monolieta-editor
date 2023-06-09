@@ -7,9 +7,10 @@
 
     const handleClose = () => dispatch('close');
 
-    const handleColorChanged = (event: any) => {
+    const handleColorChanged = (event: Event) => {
+        const target = event.target as HTMLButtonElement;
         dispatch('click', {
-            value: event.target.dataset.color
+            value: target.dataset.color
         });
     };
 </script>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    export let value: string = 'E5E5E5';
+    export let value = 'E5E5E5';
 
     const normalize = (value: string) => value.replace(/^#/, '');
 
@@ -13,14 +13,14 @@
         <button
             class="h-[18px] w-[18px] rounded border border-transparent"
             on:click
-            type="button"
             style="background-color: #{value}"
             tabindex="-1"
+            type="button"
         />
     </div>
     <input
         autocomplete="off"
-        class="h-7 w-full rounded border bg-gray-100 pr-2 pl-8 uppercase transition-colors hover:border-gray-300 focus:border-gray-300 focus:outline-none"
+        class="h-7 w-full rounded border bg-gray-50 pl-8 pr-2 uppercase transition-colors hover:border-gray-300 focus:border-gray-300 focus:outline-none"
         on:change
         type="text"
         {value}

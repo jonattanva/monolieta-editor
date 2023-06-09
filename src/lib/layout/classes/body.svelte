@@ -6,22 +6,26 @@
     import Palette from '$lib/component/palette/index.svelte';
     import Row from '$lib/layout/classes/row.svelte';
     import Section from '$lib/component/dropdown/section.svelte';
+    import Summary from '$lib/component/summary/index.svelte';
     import Trash from '$lib/component/icon/trash.svelte';
     import VirtualList from 'svelte-tiny-virtual-list';
     import outside from '$lib/action/outside';
     import { createEventDispatcher } from 'svelte';
 
+    import type { Labels, Label } from '$lib/type';
+
     const dispatch = createEventDispatcher();
 
+    export let offset = 144;
     export let message: string | null = null;
-    export let collection: Monolieta.Labels = [];
+    export let collection: Labels = [];
 
     const position = {
         x: 0,
         y: 0
     };
 
-    let selected: Monolieta.Label | null = null;
+    let selected: Label | null = null;
 
     let height = 0;
     let isOpenMenu = false;
@@ -108,11 +112,16 @@
 {#if collection.length === 0}
     <Message on:click={onCreateNewLabel} {message} />
 {:else}
+    <div class="px-6">
+        <Summary>
+            {collection.length} labels
+        </Summary>
+    </div>
     <div class="h-screen w-full" bind:clientHeight={height}>
         <VirtualList
             on:afterScroll={onAfterScroll}
             width="100%"
-            {height}
+            height={height - offset}
             itemCount={collection.length}
             itemSize={36}
             scrollDirection="vertical"

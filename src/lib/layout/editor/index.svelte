@@ -2,10 +2,12 @@
     import Layer from './layer.svelte';
     import Viewport from './viewport.svelte';
 
-    export let resource: Monolieta.Resource | null = null;
+    import type { Resource } from '$lib/type';
 
-    let width: number = 0;
-    let height: number = 0;
+    export let resource: Resource | null = null;
+
+    let width = 0;
+    let height = 0;
 </script>
 
 <div

@@ -6,6 +6,7 @@
 /.svelte-kit
 /build
 /package
+app.d.ts
 coverage
 node_modules
 

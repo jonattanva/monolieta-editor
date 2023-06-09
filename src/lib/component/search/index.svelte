@@ -1,22 +1,23 @@
 <script lang="ts">
     import { createEventDispatcher } from 'svelte';
 
-    export let delay: number = 500;
+    export let delay = 500;
     export let test: string | null = '';
-    export let placeholder: string = 'Search';
+    export let placeholder = 'Search';
 
     const dispatch = createEventDispatcher();
 
     let timeout: NodeJS.Timeout | null = null;
 
-    function handleInput(event: any) {
+    function handleInput(event: Event) {
         if (timeout) {
             clearTimeout(timeout);
         }
 
+        const target = event.target as HTMLInputElement;
         timeout = setTimeout(() => {
             dispatch('search', {
-                value: event.target?.value
+                value: target.value
             });
         }, delay);
     }
@@ -40,7 +41,7 @@
         </svg>
     </div>
     <input
-        class="h-7 w-full rounded border bg-gray-100 pl-8 pr-2 transition-colors hover:border-gray-300 focus:border-gray-300 focus:outline-none"
+        class="h-7 w-full rounded border bg-gray-50 pl-8 pr-2 transition-colors hover:border-gray-300 focus:border-gray-300 focus:outline-none"
         type="search"
         autocomplete="off"
         data-testid={test}

@@ -1,4 +1,4 @@
-@import '@fontsource/roboto-flex';
+@import '@fontsource/lato/300.css';
 
 @tailwind base;
 @tailwind components;
@@ -7,12 +7,12 @@
 :root {
     --bg-color: #f8f9fa;
     --font-color: #343a40;
-    --font-roboto: 'Roboto Flex', sans-serif;
+    --font-family: 'Lato', sans-serif;
 }
 
 body {
     background-color: var(--bg-color);
     color: var(--font-color);
-    font-family: var(--font-roboto);
+    font-family: var(--font-family);
     font-size: 14px;
 }

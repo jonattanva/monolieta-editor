@@ -9,7 +9,7 @@ describe('<Picture />', function () {
         });
 
         render(Picture, { testid: 'image', source: file });
-        
+
         // prettier-ignore
         await waitFor(() => {
             expect(screen.getByTestId('image')).toBeInTheDocument();

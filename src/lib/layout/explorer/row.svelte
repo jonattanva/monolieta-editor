@@ -2,10 +2,12 @@
     import Picture from '$lib/component/picture/index.svelte';
     import { createEventDispatcher } from 'svelte';
 
-    export let item: Monolieta.Resource;
-    export let selected: boolean = false;
+    import type { Resource } from '$lib/type';
 
-    let completed: boolean = false;
+    export let item: Resource;
+    export let selected = false;
+
+    let completed = false;
 
     const dispatch = createEventDispatcher();
 

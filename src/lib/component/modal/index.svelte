@@ -5,9 +5,8 @@
 
     const dispatch = createEventDispatcher();
 
-    export let positiveButton: string;
-    export let showPositiveButton: boolean = true;
-    export let disabledPositiveButton: boolean = false;
+    export let positive = '';
+    export let negative = 'Cancel';
 
     const onCancel = (event: Event) => {
         dispatch('cancel', {
@@ -31,20 +30,22 @@
             <div
                 class="relative transform rounded-lg bg-white text-left shadow-xl transition-all sm:my-8 sm:w-full sm:max-w-lg"
             >
-                <div class="px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
+                <div class="px-4 pb-4 pt-5 sm:p-6 sm:pb-4">
                     <div class="sm:flex sm:items-start">
                         <slot />
                     </div>
                 </div>
                 <div class="rounded-b-lg bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    {#if showPositiveButton}
-                        <span class="sm:ml-3">
-                            <Contained on:click={onSubmit} disabled={disabledPositiveButton}>
-                                {positiveButton}
+                    {#if positive}
+                        <div class="sm:ml-3">
+                            <Contained on:click={onSubmit}>
+                                {positive}
                             </Contained>
-                        </span>
+                        </div>
                     {/if}
-                    <Text on:click={onCancel}>Cancel</Text>
+                    <div>
+                        <Text on:click={onCancel}>{negative}</Text>
+                    </div>
                 </div>
             </div>
         </div>

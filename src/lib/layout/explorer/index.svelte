@@ -4,8 +4,10 @@
     import store from '$lib/store/resource';
     import { nanoid } from 'nanoid';
 
-    export let items: Monolieta.Resources = [];
-    export let selected: Monolieta.Resource | null = null;
+    import type { Resource, Resources } from '$lib/type';
+
+    export let items: Resources = [];
+    export let selected: Resource | null = null;
 
     let fileInput: HTMLInputElement | null = null;
 

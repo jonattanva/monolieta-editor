@@ -5,13 +5,14 @@
     import Folder from '$lib/component/icon/folder.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Search from '$lib/component/search/index.svelte';
+    import Summary from '$lib/component/summary/index.svelte';
     import config from '$lib/layout/explorer/config/menu';
     import outside from '$lib/action/outside';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
 
-    export let itemCount: number = 0;
+    export let itemCount = 0;
 
     let isOpenMenu = false;
 
@@ -39,9 +40,9 @@
         });
 </script>
 
-<div class="h-20 w-full p-4">
+<div class="h-20 w-full px-6 pt-6">
     <div class="flex w-full flex-nowrap items-center justify-between">
-        <h1 class="select-none text-xl">Monolieta</h1>
+        <h1 class="select-none text-2xl">Monolieta</h1>
         <div class="relative" use:outside={onCloseMenu}>
             <Fab on:click={onOpenMenu} testid="project" label="Project">
                 <span class="h-5 w-5 text-gray-600">
@@ -51,7 +52,7 @@
             {#if isOpenMenu}
                 <div class="absolute">
                     <Dropdown>
-                        <div class="w-full border-t border-slate-400/20 py-3 px-3.5">
+                        <div class="w-full border-t border-slate-400/20 px-3.5 py-3">
                             {#each items as item}
                                 <Item on:click={onOpen} value={item.key} testid={item.key}>
                                     <div class="flex w-full items-center justify-between">
@@ -73,7 +74,7 @@
     </div>
 </div>
 
-<div class="w-full p-4">
+<div class="w-full px-6 py-4">
     <div class="flex w-full flex-nowrap items-center gap-2">
         <Search />
         <Fab testid="filter" label="Filter">
@@ -82,7 +83,7 @@
             </span>
         </Fab>
     </div>
-    <div class="flex items-center justify-end pt-2 text-sm text-gray-600">
+    <Summary>
         Viewing {itemCount} resources
-    </div>
+    </Summary>
 </div>

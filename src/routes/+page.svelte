@@ -3,16 +3,17 @@
     import Editor from '$lib/layout/editor/index.svelte';
     import Explorer from '$lib/layout/explorer/index.svelte';
     import Main from '$lib/layout/main.svelte';
-    import Slide from '$lib/component/slide-over/index.svelte';
     import labelStore from '$lib/store/label';
     import resourceStore from '$lib/store/resource';
     import { onDestroy } from 'svelte';
 
+    import type { Labels, Resource, Resources } from '$lib/type';
+
     let isOpenClassManager = false;
 
-    let labels: Monolieta.Labels = [];
-    let resources: Monolieta.Resources = [];
-    let selected: Monolieta.Resource | null = null;
+    let labels: Labels = [];
+    let resources: Resources = [];
+    let selected: Resource | null = null;
 
     const onOpenClassManager = () => {
         isOpenClassManager = true;
@@ -56,7 +57,5 @@
 </Main>
 
 {#if isOpenClassManager}
-    <Slide>
-        <Classes on:close={onCloseClassManager} items={labels} />
-    </Slide>
+    <Classes on:close={onCloseClassManager} items={labels} />
 {/if}

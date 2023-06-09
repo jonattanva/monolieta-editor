@@ -1,7 +1,7 @@
-export const isArray = (value: any) => {
+export const isArray = (value: unknown) => {
     return Object.prototype.toString.call(value) === '[object Array]';
 };
 
-export const isObject = (value: any) => {
+export const isObject = (value: unknown) => {
     return Object.prototype.toString.call(value) === '[object Object]';
 };

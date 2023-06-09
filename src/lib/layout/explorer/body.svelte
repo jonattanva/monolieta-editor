@@ -3,8 +3,10 @@
     import Row from './row.svelte';
     import VirtualList from 'svelte-tiny-virtual-list';
 
-    export let collection: Monolieta.Resources = [];
-    export let selected: Monolieta.Resource | null = null;
+    import type { Resource, Resources } from '$lib/type';
+
+    export let collection: Resources = [];
+    export let selected: Resource | null = null;
 
     let height = 0;
 

@@ -5,7 +5,9 @@
     import Text from '$lib/component/text/index.svelte';
     import { createEventDispatcher } from 'svelte';
 
-    export let item: Monolieta.Label;
+    import type { Label } from '$lib/type';
+
+    export let item: Label;
 
     const dispatch = createEventDispatcher();
 
@@ -42,13 +44,13 @@
     };
 </script>
 
-<div class="flex w-full flex-row gap-2 p-1 px-4 hover:bg-gray-200">
+<div class="flex w-full flex-row gap-2 p-1 px-6">
     <div>
         <Color on:change={onColorChanged} on:click={onColorAction} value={item.color} />
     </div>
     <div class="flex w-full flex-row justify-between gap-2">
         <Text placeholder="Enter label name" value={item.name} on:change={onNameChanged} />
-        <Fab on:click={onMoreAction} testid="more">
+        <Fab on:click={onMoreAction} testid="more" tabindex={-1}>
             <span class="h-5 w-5">
                 <EllipsisHorizontal />
             </span>

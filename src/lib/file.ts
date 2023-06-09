@@ -1,4 +1,4 @@
-export default function (blob: Blob, filename: string = 'Untitled') {
+export default function (blob: Blob, filename = 'Untitled') {
     const a = document.createElement('a');
     a.download = filename;
     a.href = URL.createObjectURL(blob);
