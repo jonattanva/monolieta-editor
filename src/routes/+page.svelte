@@ -48,6 +48,7 @@
             items={resources}
             on:click={onSelected}
             on:labels={onOpenClassManager}
+            {labels}
             {selected}
         />
     </svelte:fragment>

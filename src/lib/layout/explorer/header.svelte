@@ -1,18 +1,21 @@
 <script lang="ts">
     import Dropdown from '$lib/component/dropdown/index.svelte';
     import Fab from '$lib/component/fab/index.svelte';
-    import Filter from '$lib/component/icon/filter.svelte';
     import Folder from '$lib/component/icon/folder.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Search from '$lib/component/search/index.svelte';
     import Summary from '$lib/component/summary/index.svelte';
-    import config from '$lib/layout/explorer/config/menu';
+    import config from '$lib/layout/explorer/resources/menu';
     import outside from '$lib/action/outside';
+    import Filter from './filte.svelte';
     import { createEventDispatcher } from 'svelte';
+
+    import type { Labels } from '$lib/type';
 
     const dispatch = createEventDispatcher();
 
     export let itemCount = 0;
+    export let labels: Labels = [];
 
     let isOpenMenu = false;
 
@@ -38,6 +41,8 @@
         .sort((a, b) => {
             return a.order - b.order;
         });
+
+    $: classes = labels.filter((it) => it.name);
 </script>
 
 <div class="h-20 w-full px-6 pt-6">
@@ -77,11 +82,7 @@
 <div class="w-full px-6 py-4">
     <div class="flex w-full flex-nowrap items-center gap-2">
         <Search />
-        <Fab testid="filter" label="Filter">
-            <span class="h-5 w-5 text-gray-600">
-                <Filter />
-            </span>
-        </Fab>
+        <Filter items={classes} />
     </div>
     <Summary>
         Viewing {itemCount} resources

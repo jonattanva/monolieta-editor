@@ -6,10 +6,12 @@ import { Search } from 'monolieta-search';
 import { nanoid } from 'nanoid';
 import { writable } from 'svelte/store';
 
-const client = new Search();
-const values = writable<Monolieta.Labels>([]);
+import type { Labels, Label } from '$lib/type';
 
-function index(value: Monolieta.Label) {
+const client = new Search();
+const values = writable<Labels>([]);
+
+function index(value: Label) {
     client.index(value.token, value.name);
     client.index(value.token, value.color);
 }
@@ -26,7 +28,7 @@ export function template(name = '') {
 }
 
 export default {
-    init: (value: Monolieta.Labels) => {
+    init: (value: Labels) => {
         values.update(() => {
             const results = [];
             for (let i = 0; i < value.length; i++) {
@@ -50,11 +52,11 @@ export default {
         });
     },
 
-    add: (value: Monolieta.Label) => {
+    add: (value: Label) => {
         values.update((previous) => [value, ...previous]);
     },
 
-    duplicate: (value: Monolieta.Label) => {
+    duplicate: (value: Label) => {
         const current = {
             ...value,
             id: nanoid(),
@@ -69,9 +71,9 @@ export default {
         });
     },
 
-    remove: (value: Monolieta.Label): void => remove(values, value),
+    remove: (value: Label): void => remove(values, value),
 
-    set: (value: Monolieta.Label) => {
+    set: (value: Label) => {
         values.update((previous) => {
             const current = previous.find((row) => {
                 return row.id === value.id;
@@ -90,9 +92,9 @@ export default {
         });
     },
 
-    search: (query: string): Monolieta.Labels => search(values, client, query),
+    search: (query: string): Labels => search(values, client, query),
 
-    sort: (callback: (a: Monolieta.Label, b: Monolieta.Label) => number) => sort(values, callback),
+    sort: (callback: (a: Label, b: Label) => number) => sort(values, callback),
 
-    subscribe: (callback: (values: Monolieta.Labels) => void) => values.subscribe(callback)
+    subscribe: (callback: (values: Labels) => void) => values.subscribe(callback)
 };

@@ -4,9 +4,11 @@
     import store from '$lib/store/resource';
     import { nanoid } from 'nanoid';
 
-    import type { Resource, Resources } from '$lib/type';
+    import type { Labels, Resource, Resources } from '$lib/type';
 
+    export let labels: Labels = [];
     export let items: Resources = [];
+
     export let selected: Resource | null = null;
 
     let fileInput: HTMLInputElement | null = null;
@@ -41,7 +43,7 @@
     };
 </script>
 
-<Header on:labels on:resources={onResource} itemCount={items.length} />
+<Header on:labels on:resources={onResource} itemCount={items.length} {labels} />
 
 <Body collection={items} on:click {selected} />
 
