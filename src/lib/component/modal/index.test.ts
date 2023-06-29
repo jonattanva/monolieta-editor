@@ -6,7 +6,7 @@ describe('<Modal />', function () {
     it('should render with cancel handler', function () {
         const fn = vi.fn();
         const { component } = render(Modal, {
-            positiveButton: 'Submit'
+            positive: 'Submit'
         });
 
         component.$on('cancel', fn);
@@ -22,7 +22,7 @@ describe('<Modal />', function () {
     it('should render with submit handler', function () {
         const fn = vi.fn();
         const { component } = render(Modal, {
-            positiveButton: 'Submit'
+            positive: 'Submit'
         });
 
         component.$on('submit', fn);
