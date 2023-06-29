@@ -21,9 +21,31 @@ jobs:
             ${{ runner.os }}-node-
       - run: npm install
 
+  static-check:
+    timeout-minutes: 30
+    needs: prepare
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        node-version: [16.x]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache-dependency-path: '**/package-lock.json'
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm install
+      - run: npm run lint
+
   test-assets:
     timeout-minutes: 60
-    needs: prepare
+    needs: static-check
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -51,7 +73,7 @@ jobs:
 
   test-e2e:
     timeout-minutes: 60
-    needs: prepare
+    needs: static-check
     runs-on: ubuntu-latest
     strategy:
       matrix:

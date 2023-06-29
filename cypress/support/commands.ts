@@ -48,6 +48,7 @@ Cypress.Commands.add('home', () => {
 // }
 
 declare global {
+    // eslint-disable-next-line @typescript-eslint/no-namespace
     namespace Cypress {
         interface Chainable {
             home(): Chainable<void>;

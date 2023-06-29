@@ -26,5 +26,11 @@ module.exports = {
                 parser: '@typescript-eslint/parser'
             }
         }
-    ]
+    ],
+    globals: {
+        NodeJS: true
+    },
+    rules: {
+        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
+    }
 };
