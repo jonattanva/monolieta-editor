@@ -4,7 +4,7 @@
     import Item from '$lib/component/dropdown/item.svelte';
     import Message from './message.svelte';
     import Palette from '$lib/component/palette/index.svelte';
-    import Row from '$lib/layout/classes/row.svelte';
+    import Row from '$lib/layout/label/row.svelte';
     import Section from '$lib/component/dropdown/section.svelte';
     import Summary from '$lib/component/summary/index.svelte';
     import Trash from '$lib/component/icon/trash.svelte';

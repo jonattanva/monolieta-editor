@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Classes from '$lib/layout/classes/index.svelte';
+    import Label from '$lib/layout/label/index.svelte';
     import Editor from '$lib/layout/editor/index.svelte';
     import Explorer from '$lib/layout/explorer/index.svelte';
     import Main from '$lib/layout/main.svelte';
@@ -48,7 +48,6 @@
             items={resources}
             on:click={onSelected}
             on:labels={onOpenClassManager}
-            {labels}
             {selected}
         />
     </svelte:fragment>
@@ -58,5 +57,5 @@
 </Main>
 
 {#if isOpenClassManager}
-    <Classes on:close={onCloseClassManager} items={labels} />
+    <Label on:close={onCloseClassManager} items={labels} />
 {/if}

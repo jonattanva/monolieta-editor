@@ -22,17 +22,16 @@
         dispatch('load', event);
     };
 
-    $: background = completed && selected ? 'bg-accent' : '';
+    $: background = completed && selected ? 'bg-primary' : '';
     $: size = completed && selected ? 'h-[98%] w-[98%] p-0.5' : 'w-full h-full';
 </script>
 
-<div
+<button
     class={`mx-auto flex h-[120px] w-[120px] items-center justify-center transition-colors ${background}`}
-    role="img"
+    type="button"
     on:click={onSelected}
-    on:keydown={onSelected}
 >
     <div class={`transition-all	${size}`}>
         <Picture source={item.source} on:load={onLoad} alt="" />
     </div>
-</div>
+</button>
