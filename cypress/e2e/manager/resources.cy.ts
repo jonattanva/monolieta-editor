@@ -1,8 +1,13 @@
 describe('Import resources', () => {
     const openResourcesManager = () => {
         cy.fixture('selector').then((selector) => {
-            cy.findByTestId(selector['Project']).should('exist').click();
-            cy.findByTestId(selector['Open import resources']).should('exist').click();
+            cy.findByTestId(selector['Project']).as('project');
+            cy.get('@project').should('exist');
+            cy.get('@project').click();
+
+            cy.findByTestId(selector['Open import resources']).as('manager');
+            cy.get('@manager').should('exist');
+            cy.get('@manager').click();
         });
     };
 
@@ -33,8 +38,10 @@ describe('Import resources', () => {
 
         cy.findAllByRole(this.selector['Image'])
             .then((it) => it[0])
-            .should('be.visible')
-            .click();
+            .as('row');
+
+        cy.get('@row').should('be.visible');
+        cy.get('@row').click();
 
         cy.findByTestId(this.selector['Image editor']).should('be.visible');
     });
