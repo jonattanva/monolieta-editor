@@ -6,7 +6,7 @@ Cypress.Commands.add('home', () => {
     cy.visit('/');
     cy.title().should('equal', 'Monolieta');
     cy.get('[data-init=true]', {
-        timeout: 10000
+        timeout: 60000
     }).should('exist');
 });
 

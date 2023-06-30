@@ -91,7 +91,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
       - run: npm install
-      - uses: cypress-io/github-action@v4
+      - uses: cypress-io/github-action@v5
         with:
           env: true
           install: false
