@@ -1,0 +1,21 @@
+{
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "storybook dev -p 6006 -c ./config --debug",
+    "build": "storybook build -c ./config -o public"
+  },
+  "devDependencies": {
+    "@storybook/addon-a11y": "~7.0.26",
+    "@storybook/addon-essentials": "~7.0.26",
+    "@storybook/addon-interactions": "~7.0.26",
+    "@storybook/addon-links": "~7.0.26",
+    "@storybook/blocks": "~7.0.26",
+    "@storybook/svelte": "~7.0.26",
+    "@storybook/sveltekit": "~7.0.26",
+    "@storybook/testing-library": "~0.2.0",
+    "react": "~18.2.0",
+    "react-dom": "~18.2.0",
+    "storybook": "~7.0.26"
+  }
+}

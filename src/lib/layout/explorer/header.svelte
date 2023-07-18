@@ -1,13 +1,13 @@
 <script lang="ts">
     import Dropdown from '$lib/component/dropdown/index.svelte';
-    import Fab from '$lib/component/fab/index.svelte';
-    import Filter from './filte.svelte';
-    import Folder from '$lib/component/icon/folder.svelte';
+    import Fab from '$lib/component/button/fab/Fab.svelte';
+    import Filter from './filter.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Search from '$lib/component/search/index.svelte';
     import Summary from '$lib/component/summary/index.svelte';
     import config from '$lib/layout/explorer/resources/menu';
     import outside from '$lib/action/outside';
+    import folder from '$lib/assets/folder.svg';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
@@ -44,11 +44,7 @@
     <div class="flex w-full flex-nowrap items-center justify-between">
         <h1 class="select-none text-2xl">Monolieta</h1>
         <div class="relative" use:outside={onCloseMenu}>
-            <Fab on:click={onOpenMenu} testid="project" label="Project">
-                <span class="h-5 w-5 text-gray-600">
-                    <Folder />
-                </span>
-            </Fab>
+            <Fab on:click={onOpenMenu} testid="project" alt="Project icon" image={folder} />
             {#if isOpenMenu}
                 <div class="absolute">
                     <Dropdown>

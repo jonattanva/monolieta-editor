@@ -1,5 +1,4 @@
 <script lang="ts">
-    import DocumentDuplicate from '$lib/component/icon/document-duplicate.svelte';
     import Dropdown from '$lib/component/dropdown/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
     import Message from './message.svelte';
@@ -7,9 +6,10 @@
     import Row from '$lib/layout/label/row.svelte';
     import Section from '$lib/component/dropdown/section.svelte';
     import Summary from '$lib/component/summary/index.svelte';
-    import Trash from '$lib/component/icon/trash.svelte';
     import VirtualList from 'svelte-tiny-virtual-list';
     import outside from '$lib/action/outside';
+    import trash from '$lib/assets/trash.svg';
+    import documentDuplicate from '$lib/assets/document-duplicate.svg';
     import { createEventDispatcher } from 'svelte';
 
     import type { Labels, Label } from '$lib/type';
@@ -157,15 +157,11 @@
         <Dropdown>
             <Section>
                 <Item on:click={onDuplicateLabel}>
-                    <span class="mr-2 h-5 w-5">
-                        <DocumentDuplicate />
-                    </span>
+                    <img class="mr-2 h-5 w-5" alt="Duplicate icon" src={documentDuplicate} />
                     Duplicate
                 </Item>
                 <Item on:click={onRemoveLabel}>
-                    <span class="mr-2 h-5 w-5">
-                        <Trash />
-                    </span>
+                    <img class="mr-2 h-5 w-5" alt="Remove icon" src={trash} />
                     Delete
                 </Item>
             </Section>

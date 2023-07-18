@@ -1,11 +1,11 @@
-import Contained from './index.svelte';
+import Button from './Contained.svelte';
 import { describe, it, vi } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/svelte';
 
 describe('<Contained />', function () {
     it('should render with click handler', function () {
         const fn = vi.fn();
-        const { component } = render(Contained);
+        const { component } = render(Button);
 
         component.$on('click', fn);
 
@@ -14,7 +14,12 @@ describe('<Contained />', function () {
     });
 
     it('should render with data-testid', function () {
-        render(Contained, { testid: 'action' });
+        render(Button, {
+            props: {
+                testid: 'action',
+                label: 'Button'
+            }
+        });
         expect(screen.getByTestId('action')).toBeInTheDocument();
     });
 });

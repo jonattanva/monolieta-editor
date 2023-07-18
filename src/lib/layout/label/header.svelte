@@ -1,11 +1,11 @@
 <script lang="ts">
-    import EllipsisHorizontal from '$lib/component/icon/ellipsis-horizontal.svelte';
-    import Fab from '$lib/component/fab/index.svelte';
+    import Fab from '$lib/component/button/fab/Fab.svelte';
     import Menu from './menu.svelte';
-    import PlusSmall from '$lib/component/icon/plus-small.svelte';
     import Search from '$lib/component/search/index.svelte';
-    import X from '$lib/component/icon/x.svelte';
+    import ellipsis from '$lib/assets/ellipsis-horizontal.svg';
     import outside from '$lib/action/outside';
+    import plus from '$lib/assets/plus-small.svg';
+    import x from '$lib/assets/x-mark.svg';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
@@ -38,25 +38,31 @@
 <div class="flex w-full flex-col gap-4 text-base">
     <div class="flex items-center justify-between px-6 pt-6">
         <h2 class="text-xl font-medium text-slate-900">{title}</h2>
-        <Fab on:click={onCloseLabelManager} title="Close" testid="close-label">
-            <span class="h-5 w-5 text-gray-600">
-                <X />
-            </span>
-        </Fab>
+        <Fab
+            alt="Close icon"
+            image={x}
+            on:click={onCloseLabelManager}
+            testid="close-label"
+            title="Close"
+        />
     </div>
     <div class="relative flex items-center justify-between gap-2 px-6">
         <Search on:search={onSearch} test="search-label" />
-        <Fab on:click={onCreateNewLabel} title="New label" testid="new-label">
-            <span class="h-5 w-5 text-gray-600">
-                <PlusSmall />
-            </span>
-        </Fab>
+        <Fab
+            alt="New label icon"
+            image={plus}
+            on:click={onCreateNewLabel}
+            testid="new-label"
+            title="New label"
+        />
         <div use:outside={onCloseMenu}>
-            <Fab on:click={onOpenMenu} title="More" testid="menu-label">
-                <span class="h-5 w-5 text-gray-600">
-                    <EllipsisHorizontal />
-                </span>
-            </Fab>
+            <Fab
+                alt="More icon"
+                image={ellipsis}
+                on:click={onOpenMenu}
+                testid="menu-label"
+                title="More"
+            />
             {#if isOpenMenu}
                 <Menu on:descending on:ascending />
             {/if}

@@ -1,8 +1,8 @@
 <script lang="ts">
     import Color from '$lib/component/color/index.svelte';
-    import EllipsisHorizontal from '$lib/component/icon/ellipsis-horizontal.svelte';
-    import Fab from '$lib/component/fab/index.svelte';
+    import Fab from '$lib/component/button/fab/Fab.svelte';
     import Text from '$lib/component/text/index.svelte';
+    import image from '$lib/assets/ellipsis-horizontal.svg';
     import { createEventDispatcher } from 'svelte';
 
     import type { Label } from '$lib/type';
@@ -50,10 +50,6 @@
     </div>
     <div class="flex w-full flex-row justify-between gap-2">
         <Text placeholder="Enter label name" value={item.name} on:change={onNameChanged} />
-        <Fab on:click={onMoreAction} testid="more" tabindex={-1}>
-            <span class="h-5 w-5">
-                <EllipsisHorizontal />
-            </span>
-        </Fab>
+        <Fab alt="more icon" {image} on:click={onMoreAction} tabindex={-1} testid="more" />
     </div>
 </div>

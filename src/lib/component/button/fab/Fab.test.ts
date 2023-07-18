@@ -1,4 +1,4 @@
-import Fab from './index.svelte';
+import Fab from './Fab.svelte';
 import { describe, it, vi } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/svelte';
 
@@ -14,7 +14,12 @@ describe('<Fab />', function () {
     });
 
     it('should render with data-testid', function () {
-        render(Fab, { testid: 'action' });
+        render(Fab, {
+            props: {
+                testid: 'action',
+                label: 'B'
+            }
+        });
         expect(screen.getByTestId('action')).toBeInTheDocument();
     });
 });

@@ -22,7 +22,7 @@
                 <span class="mr-2 h-5 w-5">
                     <BarsArrowDown />
                 </span>
-                Ascending
+                Ascending 
             </Item>
             <Item on:click={onDescending}>
                 <span class="mr-2 h-5 w-5">
@@ -31,7 +31,7 @@
                 Descending
             </Item>
         </Section>
-        <div class="hidden w-full border-t border-slate-400/20 px-3.5 py-3">
+        <div class=" w-full border-t border-slate-400/20 px-3.5 py-3">
             <Item>
                 <span class="mr-2 h-5 w-5">
                     <ArrowDownTray />

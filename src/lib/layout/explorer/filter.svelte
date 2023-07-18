@@ -1,24 +1,23 @@
 <script lang="ts">
     import BarsArrowDown from '$lib/component/icon/bars-arrow-down.svelte';
     import BarsArrowUp from '$lib/component/icon/bars-arrow-up.svelte';
-    import Button from '$lib/component/button/contained/index.svelte';
+    import Button from '$lib/component/button/contained/Contained.svelte';
     import Checkbox from '$lib/component/checkbox/index.svelte';
     import Dropdown from '$lib/component/dropdown/index.svelte';
     import Item from '$lib/component/dropdown/item.svelte';
-    import Fab from '$lib/component/fab/index.svelte';
-    import Filter from '$lib/component/icon/filter.svelte';
+    import Fab from '$lib/component/button/fab/Fab.svelte';
     import Search from '$lib/component/search/index.svelte';
     import outside from '$lib/action/outside';
     import labelStore from '$lib/store/label';
     import { onDestroy } from 'svelte';
+    import filter from '$lib/assets/filter.svg';
 
     import type { Labels } from '$lib/type';
 
     const MESSAGE_DEFAULT = 'You have no labels';
 
-    let labels: Labels = [];
     let isOpenMenu = false;
-
+    let labels: Labels = [];
     let message = MESSAGE_DEFAULT;
 
     const onOpenMenu = () => {
@@ -49,11 +48,7 @@
 </script>
 
 <div class="relative" use:outside={onCloseMenu}>
-    <Fab on:click={onOpenMenu} testid="filter" label="Filter">
-        <span class="h-5 w-5 text-gray-600">
-            <Filter />
-        </span>
-    </Fab>
+    <Fab on:click={onOpenMenu} testid="filter" alt="Filter icon" image={filter} />
     {#if isOpenMenu}
         <div class="absolute">
             <Dropdown>
@@ -73,9 +68,7 @@
                         {/each}
                     </div>
                     <div class="flex items-start justify-end">
-                        <div>
-                            <Button size="small">Filter</Button>
-                        </div>
+                        <Button size="small" label={'Filter'} />
                     </div>
                 </div>
                 <div class="w-full border-t border-slate-400/20 px-3.5 py-3">

@@ -7,7 +7,6 @@
     import type { Resource, Resources } from '$lib/type';
 
     export let items: Resources = [];
-
     export let selected: Resource | null = null;
 
     let fileInput: HTMLInputElement | null = null;

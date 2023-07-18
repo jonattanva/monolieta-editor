@@ -1,6 +1,6 @@
 <script lang="ts">
-    import Contained from '$lib/component/button/contained/index.svelte';
-    import Text from '$lib/component/button/text/index.svelte';
+    import Contained from '$lib/component/button/contained/Contained.svelte';
+    import Text from '$lib/component/button/text/Text.svelte';
     import { createEventDispatcher } from 'svelte';
 
     const dispatch = createEventDispatcher();
@@ -38,13 +38,11 @@
                 <div class="rounded-b-lg bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                     {#if positive}
                         <div class="sm:ml-3">
-                            <Contained on:click={onSubmit}>
-                                {positive}
-                            </Contained>
+                            <Contained on:click={onSubmit} label={positive} />
                         </div>
                     {/if}
                     <div>
-                        <Text on:click={onCancel}>{negative}</Text>
+                        <Text on:click={onCancel} label={negative} />
                     </div>
                 </div>
             </div>
