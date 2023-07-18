@@ -1,0 +1,49 @@
+import Search from './Search.svelte';
+import { describe, it, vi } from 'vitest';
+import { render, fireEvent, screen, waitFor } from '@testing-library/svelte';
+
+describe('<Search />', function () {
+    it('should render with placeholder', function () {
+        render(Search, {
+            placeholder: 'placeholder'
+        });
+        const input = screen.getByRole('searchbox');
+
+        expect(input).toHaveAttribute('placeholder', 'placeholder');
+    });
+
+    it('should render with data test', function () {
+        render(Search, { testid: 'action' });
+        expect(screen.getByTestId('action')).toBeInTheDocument();
+    });
+
+    it('should render with on search', async function () {
+        const fn = vi.fn();
+        const { component } = render(Search, {
+            props: {
+                delay: 500,
+                testid: 'search'
+            }
+        });
+
+        component.$on('change', fn);
+
+        const input = screen.getByTestId('search');
+        fireEvent.change(input, {
+            target: {
+                value: 'comple'
+            }
+        });
+
+        fireEvent.input(input, {
+            target: {
+                value: 'complete'
+            }
+        });
+
+        // prettier-ignore
+        await waitFor(() => {
+            expect(fn).toHaveBeenCalledTimes(1);
+        }, { timeout: 1000 });
+    });
+});

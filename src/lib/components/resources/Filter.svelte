@@ -1,0 +1,62 @@
+<script lang="ts">
+    import Checkbox from '../Checkbox.svelte';
+    import Dropdown from '../dropdown/Dropdown.svelte';
+    import Filled from '../buttons/Filled.svelte';
+    import Search from '../inputs/Search.svelte';
+    import Section from '../dropdown/Section.svelte';
+    import Separator from '../dropdown/Separator.svelte';
+    import { createEventDispatcher } from 'svelte';
+
+    import type { Labels } from '$lib/type';
+
+    export let labels: Labels = [];
+
+    /**
+     * Specifies a text string shown when the filter does not display any data.
+     */
+    export let message = '';
+
+    /**
+     * Specifies a short hint
+     */
+    export let placeholder = '';
+
+    /**
+     * Specifies the name of the main action
+     */
+    export let action = '';
+
+    const dispatch = createEventDispatcher();
+
+    const onSearch = (event: CustomEvent) => {
+        dispatch('search', event.detail);
+    };
+</script>
+
+<Dropdown>
+    <Section>
+        <Search on:change={onSearch} {placeholder} />
+        <div class="mb-2 mt-4">
+            {#if labels.length === 0}
+                <div class="text-center">{message}</div>
+            {:else}
+                <div>
+                    {#each labels as label (label.id)}
+                        <Checkbox>
+                            <div class="flex w-full items-center justify-between">
+                                <div class="truncate">{label.name}</div>
+                                <div>{label.resources.length}</div>
+                            </div>
+                        </Checkbox>
+                    {/each}
+                    <div class="flex items-start justify-end">
+                        <Filled label={action} />
+                    </div>
+                </div>
+            {/if}
+        </div>
+    </Section>
+    <Separator>
+        <slot />
+    </Separator>
+</Dropdown>
