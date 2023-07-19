@@ -18,3 +18,13 @@ body {
     font-family: var(--font-family);
     font-size: 14px;
 }
+
+@layer components {
+    .title-primary {
+        @apply text-xl font-medium text-slate-900;
+    }
+
+    .title-accent {
+        @apply text-sm font-normal text-slate-500;
+    }
+}

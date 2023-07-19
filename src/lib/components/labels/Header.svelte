@@ -41,7 +41,7 @@
     <div class="shrink" use:outside={onCloseMenu}>
         <Fab image={ellipsisHorizontal} alt="More icon" on:click={onOpenMenu} />
         {#if open}
-            <div class="absolute right-0 top-9 text-gray-600">
+            <div class="absolute right-0 top-9">
                 <Dropdown>
                     <slot />
                 </Dropdown>

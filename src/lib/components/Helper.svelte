@@ -9,7 +9,7 @@
             <slot />
         </div>
         <div class="flex flex-col items-center justify-center gap-2">
-            <p class="text-center font-medium text-gray-600">
+            <p class="title-accent">
                 {message}
             </p>
             {#if action}

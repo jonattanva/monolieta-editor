@@ -99,10 +99,10 @@
 
 <div class="flex w-full flex-col gap-4 text-base">
     <div class="px-6">
-        <h2 class="text-xl font-medium text-slate-900">
+        <h2 class="title-primary">
             {$translate('Label')}
         </h2>
-        <div class="text-sm font-normal text-slate-600">
+        <div class="title-accent">
             {$translate('The label names you use to describe the objects in the resources')}
         </div>
     </div>
@@ -115,7 +115,7 @@
         {#if labels.length === 0}
             {#if message}
                 <div class="flex flex-col items-center justify-center gap-2 text-base">
-                    <p class="text-center font-medium">
+                    <p class="title-accent">
                         {message}
                     </p>
                 </div>

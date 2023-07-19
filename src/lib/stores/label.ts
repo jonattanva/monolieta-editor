@@ -13,7 +13,8 @@ export const insert = () => {
         {
             id: nanoid(),
             name: '',
-            color: random()
+            color: random(),
+            resources: []
         },
         ...previous
     ]);
