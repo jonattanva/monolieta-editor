@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Item from '../dropdown/Item.svelte';
+    import Item from '$lib/components/dropdown/Item.svelte';
     import barsArrowDown from '$lib/assets/image/bars-arrow-down.svg';
     import barsArrowUp from '$lib/assets/image/bars-arrow-up.svg';
     import { createEventDispatcher } from 'svelte';

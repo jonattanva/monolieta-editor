@@ -1,13 +1,12 @@
 <script lang="ts">
     import Collection from './Labels.svelte';
-    import Dropdown from '../dropdown/Dropdown.svelte';
+    import Dropdown from '$lib/components/dropdown/Dropdown.svelte';
     import Header from './Header.svelte';
-    import Helper from '../Helper.svelte';
-    import Item from '../dropdown/Item.svelte';
-    import Pallete from '../Pallete.svelte';
-    import Section from '../dropdown/Section.svelte';
-    import Sort from '../common/Sort.svelte';
-    import labelEmpty from '$lib/assets/image/label-empty.svg';
+    import Helper from './Helper.svelte';
+    import Item from '$lib/components/dropdown/Item.svelte';
+    import Pallete from '$lib/components/Pallete.svelte';
+    import Section from '$lib/components/dropdown/Section.svelte';
+    import Sort from '$lib/template/common/Sort.svelte';
     import trash from '$lib/assets/image/trash.svg';
     import { createEventDispatcher } from 'svelte';
     import { insert, update, values, search, sort } from '$lib/stores/label';
@@ -113,21 +112,7 @@
     </Header>
     <div class="px-6">
         {#if labels.length === 0}
-            {#if message}
-                <div class="flex flex-col items-center justify-center gap-2 text-base">
-                    <p class="title-accent">
-                        {message}
-                    </p>
-                </div>
-            {:else}
-                <Helper
-                    action={$translate('New label')}
-                    message={$translate('A label that gives information about your annotation')}
-                    on:click={insert}
-                >
-                    <img src={labelEmpty} alt="Empty icon" />
-                </Helper>
-            {/if}
+            <Helper {message} on:click={insert} />
         {:else}
             <Collection
                 on:change={onChange}

@@ -1,16 +1,16 @@
 {
-  "A label that gives information about your annotation": "A label that gives information about your annotation",
-  "Ascending": "Ascending",
-  "Delete": "Delete",
-  "Descending": "Descending",
-  "Enter label name": "Nombre de la etiqueta",
-  "Filter": "Filter",
-  "Label": "Etiquetas",
+  "A label that gives information about your annotation": "Una etiqueta que brinda información sobre tu anotación",
+  "Ascending": "Ascendente",
+  "Delete": "Eliminar",
+  "Descending": "Descendente",
+  "Enter label name": "Ingresa el nombre de la etiqueta",
+  "Filter": "Filtrar",
+  "Label": "Etiqueta",
   "Monolieta": "Monolieta",
-  "New label": "New label",
-  "You have no labels": "You have no labels",
-  "No labels found": "No labels found",
+  "New label": "Nueva etiqueta",
+  "You have no labels": "No tienes etiquetas",
+  "No labels found": "No se encontraron etiquetas",
   "Search": "Buscar",
-  "The label names you use to describe the objects in the resources": "Los nombres de las etiquetas que usa para describir los objetos en los recursos",
-  "You have not yet started a project": "You have not yet started a project"
+  "The label names you use to describe the objects in the resources": "Los nombres de las etiquetas que usas para describir los objetos en los recursos",
+  "You have not yet started a project": "Aún no has iniciado un proyecto"
 }

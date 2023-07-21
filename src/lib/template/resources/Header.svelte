@@ -1,10 +1,12 @@
 <script lang="ts">
-    import Fab from '../buttons/Fab.svelte';
+    import Fab from '$lib/components/buttons/Fab.svelte';
     import Filter from './Filter.svelte';
-    import Search from '../inputs/Search.svelte';
+    import Search from '$lib/components/inputs/Search.svelte';
     import filter from '$lib/assets/image/filter.svg';
     import outside from '$lib/outside';
     import { createEventDispatcher } from 'svelte';
+
+    import type { Labels } from '$lib/type';
 
     /**
      * Specifies a short hint
@@ -20,6 +22,8 @@
      * Specifies the name of the main action
      */
     export let action = '';
+
+    export let labels: Labels = [];
 
     const dispatch = createEventDispatcher();
 
@@ -44,7 +48,7 @@
         <Fab image={filter} alt="Filter icon" on:click={onOpenMenu} />
         {#if open}
             <div class="absolute right-0 top-9 text-gray-600">
-                <Filter {placeholder} {message} {action}>
+                <Filter {placeholder} {message} {action} {labels}>
                     <slot />
                 </Filter>
             </div>

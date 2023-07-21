@@ -1,9 +1,9 @@
-import Manager from '$lib/components/labels/Manager.svelte';
+import Manager from '$lib/template/labels/Manager.svelte';
 
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 const meta = {
-    title: 'Component/Labels/Manager',
+    title: 'Template/Labels/Manager',
     component: Manager,
     tags: ['autodocs']
 } satisfies Meta<Manager>;

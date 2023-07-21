@@ -1,7 +1,7 @@
 <script lang="ts">
-    import Dropdown from '../dropdown/Dropdown.svelte';
-    import Fab from '../buttons/Fab.svelte';
-    import Search from '../inputs/Search.svelte';
+    import Dropdown from '$lib/components/dropdown/Dropdown.svelte';
+    import Fab from '$lib/components/buttons/Fab.svelte';
+    import Search from '$lib/components/inputs/Search.svelte';
     import ellipsisHorizontal from '$lib/assets/image/ellipsis-horizontal.svg';
     import outside from '$lib/outside';
     import plus from '$lib/assets/image/plus.svg';

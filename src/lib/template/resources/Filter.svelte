@@ -1,10 +1,10 @@
 <script lang="ts">
-    import Checkbox from '../Checkbox.svelte';
-    import Dropdown from '../dropdown/Dropdown.svelte';
-    import Filled from '../buttons/Filled.svelte';
-    import Search from '../inputs/Search.svelte';
-    import Section from '../dropdown/Section.svelte';
-    import Separator from '../dropdown/Separator.svelte';
+    import Checkbox from '$lib/components/Checkbox.svelte';
+    import Dropdown from '$lib/components/dropdown/Dropdown.svelte';
+    import Filled from '$lib/components/buttons/Filled.svelte';
+    import Search from '$lib/components/inputs/Search.svelte';
+    import Section from '$lib/components/dropdown/Section.svelte';
+    import Separator from '$lib/components/dropdown/Separator.svelte';
     import { createEventDispatcher } from 'svelte';
 
     import type { Labels } from '$lib/type';

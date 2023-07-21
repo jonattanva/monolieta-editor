@@ -1,7 +1,7 @@
 <script lang="ts">
-    import Color from '../Color.svelte';
-    import Fab from '../buttons/Fab.svelte';
-    import Text from '../inputs/Text.svelte';
+    import Color from '$lib/components/Color.svelte';
+    import Fab from '$lib/components/buttons/Fab.svelte';
+    import Text from '$lib/components/inputs/Text.svelte';
     import ellipsisVertical from '$lib/assets/image/ellipsis-vertical.svg';
     import { createEventDispatcher } from 'svelte';
     import type { Label } from '$lib/type';
