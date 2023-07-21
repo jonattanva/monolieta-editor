@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Dropdown from '$lib/components/dropdown/Dropdown.svelte';
+    import Dropdown from '$lib/components/dropdown';
     import Fab from '$lib/components/buttons/Fab.svelte';
     import Search from '$lib/components/inputs/Search.svelte';
     import ellipsisHorizontal from '$lib/assets/image/ellipsis-horizontal.svg';
@@ -42,9 +42,9 @@
         <Fab image={ellipsisHorizontal} alt="More icon" on:click={onOpenMenu} />
         {#if open}
             <div class="absolute right-0 top-9">
-                <Dropdown>
+                <Dropdown.Main>
                     <slot />
-                </Dropdown>
+                </Dropdown.Main>
             </div>
         {/if}
     </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Item from '$lib/components/dropdown/Item.svelte';
+    import Dropdown from '$lib/components/dropdown';
     import barsArrowDown from '$lib/assets/image/bars-arrow-down.svg';
     import barsArrowUp from '$lib/assets/image/bars-arrow-up.svg';
     import { createEventDispatcher } from 'svelte';
@@ -11,15 +11,15 @@
     const onDescending = () => dispatch('desc');
 </script>
 
-<Item on:click={onAscending}>
-    <span class="mx-1 flex h-5 w-5 items-center justify-center">
-        <img src={barsArrowDown} alt="Ascending icon" />
-    </span>
-    {$translate('Ascending')}
-</Item>
-<Item on:click={onDescending}>
-    <span class="mx-1 flex h-5 w-5 items-center justify-center">
-        <img src={barsArrowUp} alt="Descending icon" />
-    </span>
-    {$translate('Descending')}
-</Item>
+<Dropdown.Item on:click={onAscending}>
+    <Dropdown.Icon src={barsArrowDown} alt="Ascending icon" />
+    <Dropdown.Label>
+        {$translate('Ascending')}
+    </Dropdown.Label>
+</Dropdown.Item>
+<Dropdown.Item on:click={onDescending}>
+    <Dropdown.Icon src={barsArrowUp} alt="Descending icon" />
+    <Dropdown.Label>
+        {$translate('Descending')}
+    </Dropdown.Label>
+</Dropdown.Item>

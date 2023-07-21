@@ -1,9 +1,8 @@
 <script lang="ts">
     import Collection from './Labels.svelte';
-    import Dropdown from '$lib/components/dropdown/Dropdown.svelte';
+    import Dropdown from '$lib/components/dropdown';
     import Header from './Header.svelte';
     import Helper from './Helper.svelte';
-    import Item from '$lib/components/dropdown/Item.svelte';
     import Pallete from '$lib/components/Pallete.svelte';
     import Section from '$lib/components/dropdown/Section.svelte';
     import Sort from '$lib/template/common/Sort.svelte';
@@ -101,7 +100,7 @@
         <h2 class="title-primary">
             {$translate('Label')}
         </h2>
-        <div class="title-accent">
+        <div class="title-secondary">
             {$translate('The label names you use to describe the objects in the resources')}
         </div>
     </div>
@@ -133,15 +132,13 @@
 
 {#if isOpenRowMenu}
     <div class="absolute right-0" style="top:{position.y}px">
-        <Dropdown>
-            <Section>
-                <Item on:click={onRemove}>
-                    <span class="mx-1 flex h-5 w-5 items-center justify-center">
-                        <img src={trash} alt="Trash icon" />
-                    </span>
+        <Dropdown.Main>
+            <Dropdown.Section>
+                <Dropdown.Item on:click={onRemove}>
+                    <Dropdown.Icon src={trash} alt="Trash icon" />
                     {$translate('Delete')}
-                </Item>
-            </Section>
-        </Dropdown>
+                </Dropdown.Item>
+            </Dropdown.Section>
+        </Dropdown.Main>
     </div>
 {/if}

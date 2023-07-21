@@ -1,10 +1,8 @@
 <script lang="ts">
     import Checkbox from '$lib/components/Checkbox.svelte';
-    import Dropdown from '$lib/components/dropdown/Dropdown.svelte';
+    import Dropdown from '$lib/components/dropdown';
     import Filled from '$lib/components/buttons/Filled.svelte';
     import Search from '$lib/components/inputs/Search.svelte';
-    import Section from '$lib/components/dropdown/Section.svelte';
-    import Separator from '$lib/components/dropdown/Separator.svelte';
     import { createEventDispatcher } from 'svelte';
 
     import type { Labels } from '$lib/type';
@@ -33,30 +31,32 @@
     };
 </script>
 
-<Dropdown>
-    <Section>
-        <Search on:change={onSearch} {placeholder} />
-        <div class="mb-2 mt-4">
-            {#if labels.length === 0}
-                <div class="text-center">{message}</div>
-            {:else}
-                <div>
-                    {#each labels as label (label.id)}
-                        <Checkbox>
-                            <div class="flex w-full items-center justify-between">
-                                <div class="truncate">{label.name}</div>
-                                <div>{label.resources.length}</div>
-                            </div>
-                        </Checkbox>
-                    {/each}
-                    <div class="flex items-start justify-end">
-                        <Filled label={action} />
-                    </div>
-                </div>
-            {/if}
+<Dropdown.Main>
+    <Dropdown.Section>
+        <div class="px-3">
+            <Search on:change={onSearch} {placeholder} />
+            <div class="mb-2 mt-4">
+                {#if labels.length === 0}
+                    <div class="text-center">{message}</div>
+                {:else}
+                    <svelte.fragment>
+                        {#each labels as label (label.id)}
+                            <Checkbox>
+                                <div class="flex w-full items-center justify-between">
+                                    <div class="truncate">{label.name}</div>
+                                    <div>{label.resources.length}</div>
+                                </div>
+                            </Checkbox>
+                        {/each}
+                        <div class="flex items-start justify-end">
+                            <Filled label={action} />
+                        </div>
+                    </svelte.fragment>
+                {/if}
+            </div>
         </div>
-    </Section>
-    <Separator>
+    </Dropdown.Section>
+    <Dropdown.Separator>
         <slot />
-    </Separator>
-</Dropdown>
+    </Dropdown.Separator>
+</Dropdown.Main>

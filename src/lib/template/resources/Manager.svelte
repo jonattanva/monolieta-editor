@@ -1,7 +1,7 @@
 <script lang="ts">
-    import Helper from '$lib/components/Helper.svelte';
     import Collection from './Resources.svelte';
     import Header from './Header.svelte';
+    import Helper from '$lib/components/Helper.svelte';
     import Sort from '$lib/template/common/Sort.svelte';
     import type { Resources } from '$lib/type';
     import { translate } from '$lib/stores/locale';
@@ -29,7 +29,7 @@
         {#if resources.length === 0}
             {#if message}
                 <div class="flex flex-col items-center justify-center gap-2 text-base">
-                    <p class="title-accent">
+                    <p class="title-secondary">
                         {message}
                     </p>
                 </div>
@@ -37,7 +37,7 @@
                 <Helper message={$translate('You have not yet started a project')} />
             {/if}
         {:else}
-            <Collection {resources} />
+            <Collection {resources} selectable={true} />
         {/if}
     </div>
 </div>

@@ -1,0 +1,86 @@
+<script lang="ts">
+    import Dropdown from '$lib/components/dropdown';
+    import Fab from '$lib/components/buttons/Fab.svelte';
+    import bars from '$lib/assets/image/bars-3.svg';
+    import changeTheme, { isDark } from '$lib/stores/theme';
+    import folder from '$lib/assets/image/folder.svg';
+    import moon from '$lib/assets/image/moon.svg';
+    import outside from '$lib/outside';
+    import photo from '$lib/assets/image/photo.svg';
+    import sun from '$lib/assets/image/sun.svg';
+    import tag from '$lib/assets/image/tag.svg';
+    import { fade } from 'svelte/transition';
+    import { translate } from '$lib/stores/locale';
+
+    let isOpenMenu = false;
+
+    const onCloseMenu = () => {
+        isOpenMenu = false;
+    };
+
+    const onOpenMenu = () => {
+        isOpenMenu = !isOpenMenu;
+    };
+</script>
+
+<div class="w-full">
+    <div class="flex w-full flex-nowrap items-center justify-between">
+        <h1 class="title-primary select-none text-2xl">{$translate('Monolieta')}</h1>
+        <div class="relative">
+            <Fab image={bars} alt="Folder icon" on:click={onOpenMenu} />
+            {#if isOpenMenu}
+                <div
+                    class="absolute right-0"
+                    transition:fade={{ delay: 30, duration: 60 }}
+                    use:outside={onCloseMenu}
+                >
+                    <Dropdown.Main>
+                        <Dropdown.Section>
+                            <Dropdown.Item>
+                                <Dropdown.Icon src={folder} alt="Folder icon" />
+                                <Dropdown.Label>
+                                    {$translate('Open...')}
+                                    <Dropdown.Shortcut>⌘ + O</Dropdown.Shortcut>
+                                </Dropdown.Label>
+                            </Dropdown.Item>
+                            <Dropdown.Item>
+                                <Dropdown.Icon src={photo} alt="Import icon" />
+                                <Dropdown.Label>
+                                    {$translate('Import image')}
+                                </Dropdown.Label>
+                            </Dropdown.Item>
+                        </Dropdown.Section>
+                        <Dropdown.Separator>
+                            <Dropdown.Header>{$translate('Manager')}</Dropdown.Header>
+                            <Dropdown.Item>
+                                <Dropdown.Icon src={tag} alt="Label icon" />
+                                <Dropdown.Label>
+                                    {$translate('Label')}
+                                    <Dropdown.Shortcut>⌘ + L</Dropdown.Shortcut>
+                                </Dropdown.Label>
+                            </Dropdown.Item>
+                        </Dropdown.Separator>
+                        <Dropdown.Separator>
+                            <Dropdown.Header>{$translate('Setting')}</Dropdown.Header>
+                            <Dropdown.Item on:click={changeTheme}>
+                                {#if $isDark}
+                                    <Dropdown.Icon src={moon} alt="Dark mode icon" />
+                                    <Dropdown.Label>
+                                        {$translate('Dark mode')}
+                                        <Dropdown.Shortcut>⇧ + ⌥ + D</Dropdown.Shortcut>
+                                    </Dropdown.Label>
+                                {:else}
+                                    <Dropdown.Icon src={sun} alt="Light mode icon" />
+                                    <Dropdown.Label>
+                                        {$translate('Light mode')}
+                                        <Dropdown.Shortcut>⇧ + ⌥ + D</Dropdown.Shortcut>
+                                    </Dropdown.Label>
+                                {/if}
+                            </Dropdown.Item>
+                        </Dropdown.Separator>
+                    </Dropdown.Main>
+                </div>
+            {/if}
+        </div>
+    </div>
+</div>
