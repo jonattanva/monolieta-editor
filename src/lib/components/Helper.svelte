@@ -14,7 +14,7 @@
             </p>
             {#if action}
                 <button
-                    class="text-primary-light dark:text-primary-dark cursor-pointer text-center hover:underline focus:underline focus:outline-none"
+                    class="cursor-pointer text-center text-primary-light hover:underline focus:underline focus:outline-none dark:text-primary-dark"
                     type="button"
                     on:click
                 >
