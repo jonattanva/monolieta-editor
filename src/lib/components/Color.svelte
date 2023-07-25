@@ -25,7 +25,7 @@
     </div>
     <input
         autocomplete="off"
-        class="h-7 w-full rounded border bg-accent pl-8 pr-2 uppercase transition-colors hover:border-accent-dark focus:border-accent-dark focus:outline-none"
+        class="bg-accent h-7 w-full rounded border pl-8 pr-2 uppercase transition-colors hover:border-accent-dark focus:border-accent-dark focus:outline-none"
         on:change
         type="text"
         aria-label="Color"

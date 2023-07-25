@@ -5,13 +5,13 @@
 @tailwind utilities;
 
 :root {
-    --bg-accent-dark: #e5e7eb;
-    --bg-accent-light: #e8eaee;
-    --bg-accent: #f3f4f6;
-    --bg-primary-dark: #5700d5;
-    --bg-primary-light: #d2b3ff;
-    --bg-primary: #6200ee;
-    --bg-black: #333;
+    --bg-accent-dark: #2a2c2e;
+    --bg-accent-light: #e8e9ee;
+    --bg-primary-dark: #d3b5ff;
+    --bg-primary-light: #6200ee;
+    --bg-shape-dark: #2a2c2e;
+    --bg-shape-light: #e8e9ee;
+    --bg-black: #222425;
     --bg-white: #fff;
     --font-family: 'Lato', sans-serif;
 }
@@ -23,7 +23,7 @@ body {
 
 @layer components {
     .title-primary {
-        @apply text-xl font-medium text-slate-900;
+        @apply text-xl font-medium text-slate-900 dark:text-slate-200;
     }
 
     .title-secondary {

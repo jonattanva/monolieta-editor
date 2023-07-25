@@ -18,7 +18,7 @@
 </script>
 
 <button
-    class="{style} rounded-3xl bg-primary px-4 text-white transition hover:bg-primary-dark active:scale-95"
+    class="{style} rounded-3xl bg-primary-light px-4 text-white transition hover:bg-primary-dark active:scale-95 dark:bg-primary-dark"
     data-testid={testid}
     on:click
     type="button"

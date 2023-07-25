@@ -16,7 +16,7 @@
 </script>
 
 <input
-    class="h-7 w-full rounded border bg-accent px-2 transition-colors hover:border-accent-dark focus:border-accent-dark focus:outline-none"
+    class="border-border-dark h-7 w-full rounded border bg-transparent px-2 transition-colors focus:outline-none"
     data-testid={testid}
     on:change
     type="text"

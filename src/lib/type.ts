@@ -20,3 +20,5 @@ export type Resource = {
 } & Entity;
 
 export type Resources = Resource[];
+
+export type Theme = 'dark' | 'light';

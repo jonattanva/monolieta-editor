@@ -2,7 +2,7 @@
     import Dropdown from '$lib/components/dropdown';
     import Fab from '$lib/components/buttons/Fab.svelte';
     import bars from '$lib/assets/image/bars-3.svg';
-    import changeTheme, { isDark } from '$lib/stores/theme';
+    import change, { init, isLight } from '$lib/stores/theme';
     import folder from '$lib/assets/image/folder.svg';
     import moon from '$lib/assets/image/moon.svg';
     import outside from '$lib/outside';
@@ -10,7 +10,12 @@
     import sun from '$lib/assets/image/sun.svg';
     import tag from '$lib/assets/image/tag.svg';
     import { fade } from 'svelte/transition';
+    import { onMount } from 'svelte';
     import { translate } from '$lib/stores/locale';
+
+    onMount(() => {
+        init();
+    });
 
     let isOpenMenu = false;
 
@@ -27,11 +32,11 @@
     <div class="flex w-full flex-nowrap items-center justify-between">
         <h1 class="title-primary select-none text-2xl">{$translate('Monolieta')}</h1>
         <div class="relative">
-            <Fab image={bars} alt="Folder icon" on:click={onOpenMenu} />
+            <Fab src={bars} testid="menu" alt="Folder icon" on:click={onOpenMenu} />
             {#if isOpenMenu}
                 <div
                     class="absolute right-0"
-                    transition:fade={{ delay: 30, duration: 60 }}
+                    transition:fade={{ delay: 30, duration: 90 }}
                     use:outside={onCloseMenu}
                 >
                     <Dropdown.Main>
@@ -62,8 +67,8 @@
                         </Dropdown.Separator>
                         <Dropdown.Separator>
                             <Dropdown.Header>{$translate('Setting')}</Dropdown.Header>
-                            <Dropdown.Item on:click={changeTheme}>
-                                {#if $isDark}
+                            <Dropdown.Item on:click={change}>
+                                {#if $isLight}
                                     <Dropdown.Icon src={moon} alt="Dark mode icon" />
                                     <Dropdown.Label>
                                         {$translate('Dark mode')}

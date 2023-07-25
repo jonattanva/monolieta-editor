@@ -36,10 +36,10 @@
 <div class="relative flex items-center justify-between gap-2 px-6">
     <Search {placeholder} on:change={onSearch} />
     <div class="shrink">
-        <Fab image={plus} on:click={onCreateNewLabel} alt="New label icon" />
+        <Fab src={plus} on:click={onCreateNewLabel} alt="New label icon" />
     </div>
     <div class="shrink" use:outside={onCloseMenu}>
-        <Fab image={ellipsisHorizontal} alt="More icon" on:click={onOpenMenu} />
+        <Fab src={ellipsisHorizontal} alt="More icon" on:click={onOpenMenu} />
         {#if open}
             <div class="absolute right-0 top-9">
                 <Dropdown.Main>

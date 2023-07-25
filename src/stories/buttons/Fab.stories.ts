@@ -15,14 +15,6 @@ type Story = StoryObj<typeof meta>;
 
 export const Primary: Story = {
     args: {
-        primary: true,
-        image: image
-    }
-};
-
-export const Secondary: Story = {
-    args: {
-        primary: false,
-        image: image
+        src: image
     }
 };

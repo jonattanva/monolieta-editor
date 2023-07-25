@@ -8,7 +8,9 @@
     import Sort from '$lib/template/common/Sort.svelte';
     import trash from '$lib/assets/image/trash.svg';
     import { createEventDispatcher } from 'svelte';
+    import outside from '$lib/outside';
     import { insert, update, values, search, sort } from '$lib/stores/label';
+    import { fade } from 'svelte/transition';
     import { translate } from '$lib/stores/locale';
 
     import type { Label } from '$lib/type';
@@ -131,12 +133,17 @@
 {/if}
 
 {#if isOpenRowMenu}
-    <div class="absolute right-0" style="top:{position.y}px">
+    <div
+        class="absolute right-0"
+        style="top:{position.y}px"
+        transition:fade={{ delay: 30, duration: 90 }}
+        use:outside={onCloseRowMenu}
+    >
         <Dropdown.Main>
             <Dropdown.Section>
                 <Dropdown.Item on:click={onRemove}>
                     <Dropdown.Icon src={trash} alt="Trash icon" />
-                    {$translate('Delete')}
+                    <Dropdown.Label>{$translate('Delete')}</Dropdown.Label>
                 </Dropdown.Item>
             </Dropdown.Section>
         </Dropdown.Main>

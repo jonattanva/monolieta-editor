@@ -5,19 +5,21 @@ export default {
     theme: {
         extend: {
             colors: {
-                primary: {
-                    DEFAULT: 'var(--bg-primary, #6200ee)',
-                    dark: 'var(--bg-primary-dark, #5700d5)',
-                    light: 'var(--bg-primary-light, #d2b3ff)'
-                },
                 accent: {
-                    DEFAULT: 'var(--bg-accent, #f3f4f6)',
-                    dark: 'var(--bg-accent-dark, #e5e7eb)',
-                    light: 'var(--bg-accent-light, #e8eaee)'
+                    dark: 'var(--bg-accent-dark, #2a2c2e)',
+                    light: 'var(--bg-accent-light, #e8e9ee)'
+                },
+                primary: {
+                    dark: 'var(--bg-primary-dark, #d3b5ff)',
+                    light: 'var(--bg-primary-light, #6200ee)'
                 },
                 theme: {
-                    dark: 'var(--bg-black, #333)',
+                    dark: 'var(--bg-black, #222425)',
                     light: 'var(--bg-white, #fff)'
+                },
+                shape: {
+                    dark: 'var(--bg-shape-dark, #2a2c2e)',
+                    light: 'var(--bg-shape-light, #e8e9ee)'
                 }
             }
         }

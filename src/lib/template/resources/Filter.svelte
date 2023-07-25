@@ -26,6 +26,10 @@
 
     const dispatch = createEventDispatcher();
 
+    $: collections = labels.filter((it) => {
+        return it.name !== '';
+    });
+
     const onSearch = (event: CustomEvent) => {
         dispatch('search', event.detail);
     };
@@ -33,14 +37,14 @@
 
 <Dropdown.Main>
     <Dropdown.Section>
-        <div class="px-3">
+        <div class="px-4">
             <Search on:change={onSearch} {placeholder} />
             <div class="mb-2 mt-4">
-                {#if labels.length === 0}
+                {#if collections.length === 0}
                     <div class="text-center">{message}</div>
                 {:else}
                     <svelte.fragment>
-                        {#each labels as label (label.id)}
+                        {#each collections as label (label.id)}
                             <Checkbox>
                                 <div class="flex w-full items-center justify-between">
                                     <div class="truncate">{label.name}</div>
@@ -48,7 +52,7 @@
                                 </div>
                             </Checkbox>
                         {/each}
-                        <div class="flex items-start justify-end">
+                        <div class="mt-4 flex items-start justify-end">
                             <Filled label={action} />
                         </div>
                     </svelte.fragment>

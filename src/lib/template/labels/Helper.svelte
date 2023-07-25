@@ -18,6 +18,6 @@
         message={$translate('A label that gives information about your annotation')}
         on:click
     >
-        <img src={labelEmpty} alt="Empty icon" />
+        <img class="dark:invert" src={labelEmpty} alt="Empty icon" />
     </Helper>
 {/if}

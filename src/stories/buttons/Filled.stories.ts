@@ -1,5 +1,4 @@
 import Filled from '$lib/components/buttons/Filled.svelte';
-
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 const meta = {

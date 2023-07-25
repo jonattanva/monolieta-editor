@@ -56,7 +56,7 @@
     <div class="shrink">
         <Fab
             alt="More icon"
-            image={ellipsisVertical}
+            src={ellipsisVertical}
             on:click={onMoreAction}
             tabindex={-1}
             testid="more"

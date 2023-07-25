@@ -4,6 +4,7 @@
     import Search from '$lib/components/inputs/Search.svelte';
     import filter from '$lib/assets/image/filter.svg';
     import outside from '$lib/outside';
+    import { fade } from 'svelte/transition';
     import { createEventDispatcher } from 'svelte';
 
     import type { Labels } from '$lib/type';
@@ -27,14 +28,14 @@
 
     const dispatch = createEventDispatcher();
 
-    let open = false;
+    let isOpenMenu = false;
 
     const onOpenMenu = () => {
-        open = !open;
+        isOpenMenu = !isOpenMenu;
     };
 
     const onCloseMenu = () => {
-        open = false;
+        isOpenMenu = false;
     };
 
     const onSearch = (event: CustomEvent) => {
@@ -44,10 +45,14 @@
 
 <div class="relative flex flex-nowrap items-center gap-2">
     <Search {placeholder} on:change={onSearch} />
-    <div class="shrink" use:outside={onCloseMenu}>
+    <div class="shrink">
         <Fab image={filter} alt="Filter icon" on:click={onOpenMenu} />
-        {#if open}
-            <div class="absolute right-0 top-9 text-gray-600">
+        {#if isOpenMenu}
+            <div
+                class="absolute right-0 top-9 text-gray-600"
+                transition:fade={{ delay: 30, duration: 90 }}
+                use:outside={onCloseMenu}
+            >
                 <Filter {placeholder} {message} {action} {labels}>
                     <slot />
                 </Filter>
