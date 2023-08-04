@@ -16,7 +16,7 @@
 </script>
 
 <div
-    class="absolute z-10 flex w-56 flex-row flex-wrap content-around justify-start gap-1 rounded bg-white p-4 shadow-md"
+    class="absolute z-10 flex w-56 flex-row flex-wrap content-around justify-start gap-1 rounded bg-theme-light p-4 shadow-md dark:bg-theme-dark"
     use:outside={onClose}
 >
     {#each colors as color (color)}

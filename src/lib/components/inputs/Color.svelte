@@ -10,10 +10,15 @@
     };
 
     $: prepare(value);
+
+    const format = (event: Event) => {
+        const target = event.target as HTMLInputElement;
+        value = target?.value?.substring(0, 6);
+    };
 </script>
 
 <div class="relative flex w-full items-center justify-start">
-    <div class="absolute flex h-7 w-7 items-center justify-center bg-transparent">
+    <div class="absolute ml-2 flex h-7 w-7 items-center justify-center bg-transparent">
         <button
             class="h-[18px] w-[18px] rounded border border-transparent active:scale-95"
             on:click|stopPropagation|preventDefault
@@ -25,10 +30,11 @@
     </div>
     <input
         autocomplete="off"
-        class="bg-accent h-7 w-full rounded border pl-8 pr-2 uppercase transition-colors hover:border-accent-dark focus:border-accent-dark focus:outline-none"
+        class="h-7 w-full rounded border bg-transparent pl-10 pr-2 uppercase text-font-light transition-colors focus:border-2 focus:outline-none dark:border-shape-dark dark:text-font-dark"
         on:change
         type="text"
-        aria-label="Color"
+        on:blur={format}
+        aria-label="Input color"
         {value}
     />
 </div>

@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Color from '$lib/components/Color.svelte';
+    import Color from '$lib/components/inputs/Color.svelte';
     import Fab from '$lib/components/buttons/Fab.svelte';
     import Text from '$lib/components/inputs/Text.svelte';
     import ellipsisVertical from '$lib/assets/image/ellipsis-vertical.svg';

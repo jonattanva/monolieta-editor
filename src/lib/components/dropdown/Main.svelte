@@ -8,7 +8,7 @@
 </script>
 
 <div
-    class="relative flex flex-row flex-wrap content-around justify-start rounded-lg bg-theme-light shadow-md dark:bg-theme-dark {style}"
+    class="relative z-10 flex flex-row flex-wrap content-around justify-start rounded-lg bg-theme-light shadow-md dark:bg-theme-dark {style}"
 >
     <slot />
 </div>

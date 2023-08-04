@@ -9,10 +9,12 @@
     --bg-accent-light: #e8e9ee;
     --bg-primary-dark: #d3b5ff;
     --bg-primary-light: #6200ee;
-    --bg-shape-dark: #2a2c2e;
+    --bg-shape-dark: #46494d;
     --bg-shape-light: #e8e9ee;
     --bg-black: #222425;
     --bg-white: #fff;
+    --bg-font-dark: #94a3b8;
+    --bg-font-light: #1e293b;
     --font-family: 'Lato', sans-serif;
 }
 

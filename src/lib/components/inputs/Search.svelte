@@ -52,7 +52,7 @@
         </svg>
     </div>
     <input
-        class="h-7 w-full rounded border border-shape-dark bg-transparent pl-10 pr-2 transition-colors hover:border-accent-dark focus:border-accent-dark focus:outline-none"
+        class="h-7 w-full rounded border bg-transparent pl-10 pr-2 text-font-light transition-colors focus:border-2 focus:outline-none dark:border-shape-dark dark:text-font-dark"
         type="search"
         autocomplete="off"
         data-testid={testid}

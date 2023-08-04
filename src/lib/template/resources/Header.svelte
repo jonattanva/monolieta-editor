@@ -46,7 +46,7 @@
 <div class="relative flex flex-nowrap items-center gap-2">
     <Search {placeholder} on:change={onSearch} />
     <div class="shrink">
-        <Fab image={filter} alt="Filter icon" on:click={onOpenMenu} />
+        <Fab src={filter} alt="Filter icon" on:click={onOpenMenu} />
         {#if isOpenMenu}
             <div
                 class="absolute right-0 top-9 text-gray-600"
