@@ -1,12 +1,12 @@
 import '@testing-library/jest-dom';
-import Filled from './Filled.svelte';
+import Text from './Text.svelte';
 import { describe, it, vi, expect } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/svelte';
 
 describe('<Filled />', function () {
     it('should render with click handler', function () {
         const fn = vi.fn();
-        const { component } = render(Filled);
+        const { component } = render(Text);
 
         component.$on('click', fn);
 
@@ -15,7 +15,7 @@ describe('<Filled />', function () {
     });
 
     it('should render with data-testid', function () {
-        render(Filled, {
+        render(Text, {
             props: {
                 testid: 'action',
                 label: 'Button'

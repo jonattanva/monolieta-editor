@@ -1,5 +1,6 @@
+import '@testing-library/jest-dom';
 import Helper from './Helper.svelte';
-import { describe, it, vi } from 'vitest';
+import { describe, it, vi, expect } from 'vitest';
 import { render, fireEvent, screen, waitFor } from '@testing-library/svelte';
 
 describe('<Helper />', function () {

@@ -1,9 +1,9 @@
-import Text from '$lib/components/buttons/Text.svelte';
+import Filled from '$lib/components/buttons/Filled.svelte';
 import type { Meta, StoryObj } from '@storybook/svelte';
 
 const meta = {
-    title: 'Component/Button/Text',
-    component: Text,
+    title: 'Component/Button/Filled',
+    component: Filled,
     tags: ['autodocs'],
     argTypes: {
         size: {
@@ -11,7 +11,7 @@ const meta = {
             options: ['small', 'medium']
         }
     }
-} satisfies Meta<Text>;
+} satisfies Meta<Filled>;
 
 export default meta;
 type Story = StoryObj<typeof meta>;

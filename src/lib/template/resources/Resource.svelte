@@ -42,6 +42,6 @@
     type="button"
 >
     <div class="{size} transition-transform">
-        <Picture source={resource.source} on:load={onLoad} />
+        <Picture src={resource.source} on:load={onLoad} />
     </div>
 </button>

@@ -1,5 +1,6 @@
+import '@testing-library/jest-dom';
 import Picture from './Picture.svelte';
-import { describe, it } from 'vitest';
+import { describe, it, expect } from 'vitest';
 import { render, waitFor, screen } from '@testing-library/svelte';
 
 describe('<Picture />', function () {
@@ -10,7 +11,7 @@ describe('<Picture />', function () {
 
         render(Picture, {
             testid: 'image',
-            source: file
+            src: file
         });
 
         // prettier-ignore

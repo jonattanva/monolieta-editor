@@ -4,7 +4,7 @@
     /**
      * Picture contents
      */
-    export let source: File | string = '';
+    export let src: File | string = '';
 
     /**
      * Attribute used for testing purposes
@@ -18,7 +18,7 @@
 
     let image: string;
 
-    $: reader(source).then((result) => (image = result));
+    $: reader(src).then((result) => (image = result));
 </script>
 
 <div class="h-full w-full">
