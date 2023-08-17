@@ -17,10 +17,10 @@ describe('<Project />', function () {
 
         // prettier-ignore
         await waitFor(() => {
-            expect(screen.getByText('Open...')).toBeInTheDocument();
-            expect(screen.getByText('Import image')).toBeInTheDocument();
-            expect(screen.getByText('Label')).toBeInTheDocument();
-            expect(screen.getByText('Light mode')).toBeInTheDocument();
-        }, { timeout: 500 });
+      expect(screen.getByText('Open...')).toBeInTheDocument();
+      expect(screen.getByText('Import resource')).toBeInTheDocument();
+      expect(screen.getByText('Label')).toBeInTheDocument();
+      expect(screen.getByText('Dark mode')).toBeInTheDocument();
+    }, { timeout: 500 });
     });
 });
