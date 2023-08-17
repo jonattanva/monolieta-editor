@@ -3,17 +3,31 @@
     import Header from './Header.svelte';
     import Helper from '$lib/components/Helper.svelte';
     import Sort from '$lib/template/common/Sort.svelte';
-    import type { Resources } from '$lib/type';
+    import { values, sort, search } from '$lib/stores/resource';
     import { translate } from '$lib/stores/locale';
     import { values as labels } from '$lib/stores/label';
 
-    export let resources: Resources = [];
+    $: resources = $values;
 
     let message: string | null = null;
 
-    const onAscending = () => {};
+    const onSearch = (event: CustomEvent) => {
+        const value = event.detail.value;
+        resources = $search(event.detail.value);
 
-    const onDescending = () => {};
+        // prettier-ignore
+        message = value.length > 0 && resources.length == 0
+            ? $translate('No labels found')
+            : null;
+    };
+
+    const onAscending = () => {
+        resources = $sort('asc');
+    };
+
+    const onDescending = () => {
+        resources = $sort('desc');
+    };
 </script>
 
 <div class="flex flex-col gap-4">
@@ -21,6 +35,7 @@
         action={$translate('Filter')}
         labels={$labels}
         message={$translate('You have no labels')}
+        on:search={onSearch}
         placeholder={$translate('Search')}
     >
         <Sort on:asc={onAscending} on:desc={onDescending} />

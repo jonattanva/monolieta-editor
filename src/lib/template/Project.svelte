@@ -10,6 +10,7 @@
     import sun from '$lib/assets/image/sun.svg';
     import tag from '$lib/assets/image/tag.svg';
     import { fade } from 'svelte/transition';
+    import { insert } from '$lib/stores/resource';
     import { onMount } from 'svelte';
     import { translate } from '$lib/stores/locale';
 
@@ -18,6 +19,7 @@
     });
 
     let isOpenMenu = false;
+    let fileInput: HTMLInputElement | null = null;
 
     const onCloseMenu = () => {
         isOpenMenu = false;
@@ -26,19 +28,35 @@
     const onOpenMenu = () => {
         isOpenMenu = !isOpenMenu;
     };
+
+    const onFileSelected = (event: Event) => {
+        const target = event.target as HTMLInputElement;
+        if (!target.files) {
+            return;
+        }
+
+        const [file] = target.files;
+        insert(file);
+
+        if (fileInput) {
+            fileInput.value = '';
+        }
+    };
+
+    const onImportResource = () => {
+        if (fileInput) {
+            fileInput.click();
+        }
+    };
 </script>
 
 <div class="w-full">
     <div class="flex w-full flex-nowrap items-center justify-between">
         <h1 class="title-primary select-none text-2xl">{$translate('Monolieta')}</h1>
-        <div class="relative">
+        <div class="relative" use:outside={onCloseMenu}>
             <Fab src={bars} testid="menu" alt="Folder icon" on:click={onOpenMenu} />
             {#if isOpenMenu}
-                <div
-                    class="absolute right-0"
-                    transition:fade={{ delay: 30, duration: 90 }}
-                    use:outside={onCloseMenu}
-                >
+                <div class="absolute left-8" transition:fade={{ delay: 30, duration: 90 }}>
                     <Dropdown.Main>
                         <Dropdown.Section>
                             <Dropdown.Item>
@@ -48,10 +66,10 @@
                                     <Dropdown.Shortcut>⌘ + O</Dropdown.Shortcut>
                                 </Dropdown.Label>
                             </Dropdown.Item>
-                            <Dropdown.Item>
+                            <Dropdown.Item on:click={onImportResource} testid="import resource">
                                 <Dropdown.Icon src={photo} alt="Import icon" />
                                 <Dropdown.Label>
-                                    {$translate('Import image')}
+                                    {$translate('Import resource')}
                                 </Dropdown.Label>
                             </Dropdown.Item>
                         </Dropdown.Section>
@@ -89,3 +107,12 @@
         </div>
     </div>
 </div>
+
+<input
+    class="hidden"
+    type="file"
+    multiple={false}
+    accept="image/*"
+    on:change={onFileSelected}
+    bind:this={fileInput}
+/>

@@ -43,15 +43,14 @@
     };
 </script>
 
-<div class="relative flex flex-nowrap items-center gap-2">
+<div class="flex flex-nowrap items-center gap-2">
     <Search {placeholder} on:change={onSearch} />
-    <div class="shrink">
+    <div class="relative shrink" use:outside={onCloseMenu}>
         <Fab src={filter} alt="Filter icon" on:click={onOpenMenu} />
         {#if isOpenMenu}
             <div
-                class="absolute right-0 top-9 text-gray-600"
+                class="absolute left-0 top-9 text-gray-600"
                 transition:fade={{ delay: 30, duration: 90 }}
-                use:outside={onCloseMenu}
             >
                 <Filter {placeholder} {message} {action} {labels}>
                     <slot />

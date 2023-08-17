@@ -15,7 +15,9 @@ const apply = (theme: Theme): void => {
 };
 
 const save = (theme: Theme): Theme => {
-    localStorage.setItem('theme', theme);
+    if (localStorage) {
+        localStorage.setItem('theme', theme);
+    }
     apply(theme);
     return theme;
 };

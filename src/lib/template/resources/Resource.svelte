@@ -38,6 +38,7 @@
 
 <button
     class="{cursor} {background} flex h-[120px] w-[120px] items-center justify-center transition-colors"
+    data-testid="resource-row"
     on:click={onClick}
     type="button"
 >

@@ -1,0 +1,6 @@
+{
+  "title": "Monolieta",
+  "menu": "menu",
+  "import resource": "import resource",
+  "list resources": "[data-testid='resource-row']"
+}

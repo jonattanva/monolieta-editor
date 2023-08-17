@@ -1,2 +1,10 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<script lang="ts">
+    import Main from '$lib/layouts/Main.svelte';
+    import Explorer from '$lib/template/Explorer.svelte';
+</script>
+
+<Main>
+    <svelte:fragment slot="main">
+        <Explorer />
+    </svelte:fragment>
+</Main>

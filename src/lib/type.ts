@@ -15,7 +15,7 @@ export type Label = {
 export type Labels = Label[];
 
 export type Resource = {
-    source: File | string;
+    source: File;
     labels: Labels;
 } & Entity;
 

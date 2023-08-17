@@ -23,7 +23,7 @@
 <button
     class="flex h-7 w-7 items-center justify-center rounded-lg border border-shape-light bg-accent-light active:scale-95 dark:border-shape-dark dark:bg-accent-dark"
     data-testid={testid}
-    on:click|preventDefault|stopPropagation
+    on:click
     {tabindex}
     type="button"
 >

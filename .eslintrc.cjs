@@ -5,16 +5,18 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:svelte/recommended',
         'prettier',
-        'plugin:storybook/recommended'
+        'plugin:storybook/recommended',
+        'plugin:cypress/recommended'
     ],
     parser: '@typescript-eslint/parser',
-    plugins: ['@typescript-eslint'],
+    plugins: ['@typescript-eslint', 'cypress'],
     parserOptions: {
         sourceType: 'module',
         ecmaVersion: 2020,
         extraFileExtensions: ['.svelte']
     },
     env: {
+        'cypress/globals': true,
         browser: true,
         es2017: true,
         node: true
@@ -30,5 +32,8 @@ module.exports = {
     ],
     globals: {
         NodeJS: true
+    },
+    rules: {
+        '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }]
     }
 };
