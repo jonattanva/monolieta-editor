@@ -44,7 +44,7 @@
 </script>
 
 <div class="flex flex-nowrap items-center gap-2">
-    <Search {placeholder} on:change={onSearch} />
+    <Search {placeholder} on:change={onSearch} testid="search" />
     <div class="relative shrink" use:outside={onCloseMenu}>
         <Fab src={filter} alt="Filter icon" on:click={onOpenMenu} />
         {#if isOpenMenu}

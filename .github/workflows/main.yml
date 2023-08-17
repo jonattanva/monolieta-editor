@@ -73,9 +73,46 @@ jobs:
           path: |
             coverage
 
+  test-e2e:
+    timeout-minutes: 30
+    needs: static-check
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        node-version: [20.x]
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache-dependency-path: '**/package-lock.json'
+      - uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-node-${{ hashFiles('**/package-lock.json') }}
+          restore-keys: |
+            ${{ runner.os }}-node-
+      - run: npm install
+      - uses: cypress-io/github-action@v5
+        with:
+          env: true
+          install: false
+          start: npm run dev -- --host
+          wait-on: 'http://localhost:5173'
+          browser: chrome
+      - uses: actions/upload-artifact@v3
+        if: failure()
+        with:
+          name: cypress
+          retention-days: 1
+          path: |
+            cypress/videos
+            cypress/screenshots
+
   report-coverage:
     timeout-minutes: 30
-    needs: test-assets
+    needs: [test-assets, test-e2e]
     runs-on: ubuntu-latest
     strategy:
       fail-fast: true
