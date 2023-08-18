@@ -9,7 +9,7 @@
 
 <div class="container mx-auto">
     <div class="flex flex-row flex-wrap gap-2">
-        {#each resources as resource}
+        {#each resources as resource} 
             <Resource {entity} {resource} {selectable} on:click />
         {/each}
     </div>

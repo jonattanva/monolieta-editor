@@ -1,6 +1,6 @@
 export const reader = (source: File | string): Promise<string> => {
     return new Promise((resolve, reject) => {
-        if ('string' === typeof source) {
+        if (typeof source === 'string') {
             resolve(source);
             return;
         }

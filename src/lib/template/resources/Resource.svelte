@@ -1,6 +1,7 @@
 <script lang="ts">
     import Picture from '$lib/components/Picture.svelte';
     import { createEventDispatcher } from 'svelte';
+
     import type { Resource } from '$lib/type';
 
     const dispatch = createEventDispatcher();

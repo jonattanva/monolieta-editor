@@ -1,10 +1,11 @@
 <script lang="ts">
-    import { reader } from '$lib/image';
+    import { reader as image } from '$lib/image';
+    import { reader as video } from '$lib/video';
 
     /**
      * Picture contents
      */
-    export let src: File | string = '';
+    export let src: File;
 
     /**
      * Attribute used for testing purposes
@@ -16,20 +17,26 @@
      */
     export let alt = '';
 
-    let image: string;
+    const reader = (file: File) =>
+        file.type.startsWith('image')
+            ? image(src)
+            : video(src, { width: 360, height: 360 });
 
-    $: reader(src).then((result) => (image = result));
+    let source: string;
+    $: reader(src).then((result) => {
+        source = result;
+    });
 </script>
 
 <div class="h-full w-full">
-    {#if image}
+    {#if source}
         <img
             class="h-full w-full select-none object-cover p-0"
             crossorigin="anonymous"
             data-testid={testid}
             loading="lazy"
             on:load
-            src={image}
+            src={source}
             {alt}
         />
     {/if}

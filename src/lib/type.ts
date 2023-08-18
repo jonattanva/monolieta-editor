@@ -22,3 +22,9 @@ export type Resource = {
 export type Resources = Resource[];
 
 export type Theme = 'dark' | 'light';
+
+export type Option = {
+    height: number;
+    interval?: number;
+    width: number;
+};

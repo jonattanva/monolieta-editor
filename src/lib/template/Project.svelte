@@ -112,7 +112,7 @@
     class="hidden"
     type="file"
     multiple={false}
-    accept="image/*"
+    accept="image/*,video/*"
     on:change={onFileSelected}
     bind:this={fileInput}
 />

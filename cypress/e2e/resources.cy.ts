@@ -6,6 +6,26 @@ describe('Resources', () => {
         });
     });
 
+    it('should import video', function () {
+        cy.findByTestId(this.selector['menu']).as('menu');
+        cy.get('@menu').should('be.visible');
+        cy.get('@menu').click();
+
+        cy.findByTestId(this.selector['import resource']).as('import-resource');
+        cy.get('@import-resource').should('be.visible');
+        cy.get('@import-resource').click();
+
+        cy.get('input[type=file]').selectFile(
+            './cypress/fixtures/resources/003.mp4',
+            {
+                force: true
+            }
+        );
+
+        cy.get(this.selector['list resources']).as('list');
+        cy.get('@list').should('have.length', 1);
+    });
+
     it('should import image', function () {
         cy.findByTestId(this.selector['menu']).as('menu');
         cy.get('@menu').should('be.visible');
@@ -15,15 +35,18 @@ describe('Resources', () => {
         cy.get('@import-resource').should('be.visible');
         cy.get('@import-resource').click();
 
-        cy.get('input[type=file]').selectFile('./cypress/fixtures/resources/001.jpg', {
-            force: true
-        });
+        cy.get('input[type=file]').selectFile(
+            './cypress/fixtures/resources/001.jpg',
+            {
+                force: true
+            }
+        );
 
         cy.get(this.selector['list resources']).as('list');
         cy.get('@list').should('have.length', 1);
     });
 
-    it('should import image and seach', function () {
+    it('should import resource and seach', function () {
         cy.findByTestId(this.selector['menu']).as('menu');
         cy.get('@menu').should('be.visible');
         cy.get('@menu').click();
@@ -32,15 +55,21 @@ describe('Resources', () => {
         cy.get('@import-resource').should('be.visible');
         cy.get('@import-resource').click();
 
-        cy.get('input[type=file]').selectFile('./cypress/fixtures/resources/001.jpg', {
-            force: true,
-            action: 'select'
-        });
+        cy.get('input[type=file]').selectFile(
+            './cypress/fixtures/resources/001.jpg',
+            {
+                force: true,
+                action: 'select'
+            }
+        );
 
-        cy.get('input[type=file]').selectFile('./cypress/fixtures/resources/002.jpeg', {
-            force: true,
-            action: 'select'
-        });
+        cy.get('input[type=file]').selectFile(
+            './cypress/fixtures/resources/002.jpeg',
+            {
+                force: true,
+                action: 'select'
+            }
+        );
 
         cy.get(this.selector['list resources']).as('list');
         cy.get('@list').should('have.length', 2);
