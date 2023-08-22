@@ -1,3 +1,4 @@
+import support from './support';
 import { Search } from 'monolieta-search';
 import { derived, writable } from 'svelte/store';
 import { nanoid } from 'nanoid';
@@ -27,37 +28,23 @@ export const values = derived(resources, ($labels) => {
     return $labels;
 });
 
-export const search = derived(resources, ($labels) => {
+export const search = derived(resources, ($resources) => {
     return (query: string) => {
-        const criteria = query.trim();
-        if (criteria.length === 0) {
-            return $labels;
-        }
-
-        const results = [];
-        const keys = document.search(query);
-        for (let index = 0; index < keys.length; index++) {
-            const key = keys[index];
-            const item = $labels.find((it) => it.id === key);
-            if (item) {
-                results.push(item);
-            }
-        }
-        return results;
+        return support.search($resources, document, query);
     };
 });
 
-export const sort = derived(resources, ($labels) => {
+export const sort = derived(resources, ($resources) => {
     return (sortable: Sortable) => {
         if (sortable === 'asc') {
-            $labels.sort((before, after) => {
+            $resources.sort((before, after) => {
                 return before.source.name.localeCompare(after.source.name);
             });
         } else {
-            $labels.sort((before, after) => {
+            $resources.sort((before, after) => {
                 return after.source.name.localeCompare(before.source.name);
             });
         }
-        return $labels;
+        return $resources;
     };
 });

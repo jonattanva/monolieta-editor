@@ -1,4 +1,5 @@
 import random from '$lib/color';
+import support from './support';
 import { Search } from 'monolieta-search';
 import { derived, writable } from 'svelte/store';
 import { nanoid } from 'nanoid';
@@ -44,28 +45,14 @@ export const update = (label: Label) => {
     });
 };
 
-export const search = derived(labels, ($labels) => {
-    return (query: string) => {
-        const criteria = query.trim();
-        if (criteria.length === 0) {
-            return $labels;
-        }
-
-        const results = [];
-        const keys = document.search(query);
-        for (let index = 0; index < keys.length; index++) {
-            const key = keys[index];
-            const item = $labels.find((it) => it.id === key);
-            if (item) {
-                results.push(item);
-            }
-        }
-        return results;
-    };
-});
-
 export const values = derived(labels, ($labels) => {
     return $labels;
+});
+
+export const search = derived(labels, ($labels) => {
+    return (query: string) => {
+        return support.search($labels, document, query);
+    };
 });
 
 export const sort = derived(labels, ($labels) => {
