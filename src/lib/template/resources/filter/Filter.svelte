@@ -46,7 +46,9 @@
                     <svelte.fragment>
                         {#each collections as label (label.id)}
                             <Checkbox>
-                                <div class="flex w-full items-center justify-between">
+                                <div
+                                    class="flex w-full items-center justify-between"
+                                >
                                     <div class="truncate">{label.name}</div>
                                     <div>{label.resources.length}</div>
                                 </div>
@@ -60,7 +62,5 @@
             </div>
         </div>
     </Dropdown.Section>
-    <Dropdown.Separator>
-        <slot />
-    </Dropdown.Separator>
+    <slot />
 </Dropdown.Main>

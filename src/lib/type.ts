@@ -28,3 +28,8 @@ export type Option = {
     interval?: number;
     width: number;
 };
+
+export type Query = {
+    groupBy: string;
+    sort: Sortable;
+};

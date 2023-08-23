@@ -29,7 +29,7 @@ export const values = derived(resources, ($labels) => {
 });
 
 export const search = derived(resources, ($resources) => {
-    return (query: string) => {
+    return (query: string): Resources => {
         return support.search($resources, document, query);
     };
 });

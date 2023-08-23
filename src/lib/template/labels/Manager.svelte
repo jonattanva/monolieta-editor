@@ -108,7 +108,9 @@
     </div>
     <Header on:create={insert} on:search={onSearch} placeholder={$translate('Search')}>
         <Section>
-            <Sort on:asc={onAscending} on:desc={onDescending} />
+            <Dropdown.Separator>
+                <Sort on:asc={onAscending} on:desc={onDescending} />
+            </Dropdown.Separator>
         </Section>
     </Header>
     <div class="px-6">

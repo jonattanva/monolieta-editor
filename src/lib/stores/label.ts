@@ -50,7 +50,7 @@ export const values = derived(labels, ($labels) => {
 });
 
 export const search = derived(labels, ($labels) => {
-    return (query: string) => {
+    return (query: string): Labels => {
         return support.search($labels, document, query);
     };
 });
