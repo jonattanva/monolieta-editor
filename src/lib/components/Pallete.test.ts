@@ -1,5 +1,5 @@
 import Palette from './Pallete.svelte';
-import { describe, it, vi } from 'vitest';
+import { describe, it, vi, expect } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/svelte';
 
 describe('<Palette />', function () {

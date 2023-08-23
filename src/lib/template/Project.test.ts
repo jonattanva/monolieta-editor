@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import Project from './Project.svelte';
 import { describe, it, expect } from 'vitest';
 import { render, fireEvent, screen, waitFor } from '@testing-library/svelte';

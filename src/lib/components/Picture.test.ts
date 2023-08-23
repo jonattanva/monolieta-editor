@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import Picture from './Picture.svelte';
 import { describe, it, expect } from 'vitest';
 import { render, waitFor, screen } from '@testing-library/svelte';

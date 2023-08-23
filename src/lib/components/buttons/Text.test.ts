@@ -1,4 +1,3 @@
-import '@testing-library/jest-dom';
 import Text from './Text.svelte';
 import { describe, it, vi, expect } from 'vitest';
 import { render, fireEvent, screen } from '@testing-library/svelte';
