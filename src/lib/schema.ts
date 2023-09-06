@@ -1,15 +1,21 @@
 import type { Theme } from './type';
 
 export default function (): Theme {
-    return 'light';
     /*
-  if (!window || !window.localStorage || !window.matchMedia) {
-    return 'dark';
-  }
+    if (!window || !window.localStorage || !window.matchMedia) {
+        return 'dark';
+    }
 
-  return localStorage.theme === 'dark' ||
-    (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)
-    ? 'dark'
-    : 'light';
-    */
+    if (localStorage.theme === 'dark') {
+        return 'dark';
+    }
+
+    if (
+        !('theme' in localStorage) &&
+        window.matchMedia('(prefers-color-scheme: dark)').matches
+    ) {
+        return 'dark';
+    }
+*/
+    return 'light';
 }
