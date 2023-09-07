@@ -20,12 +20,12 @@
     <div class="flex flex-col gap-4">
         <Information {resources} />
         <div>
-            {#if resources.length === 0}
+            {#if resources.length > 0}
+                <Collection {resources} selectable={true} />
+            {:else}
                 <Helper
                     message={$translate('You have not yet started a project')}
                 />
-            {:else}
-                <Collection {resources} selectable={true} />
             {/if}
         </div>
     </div>

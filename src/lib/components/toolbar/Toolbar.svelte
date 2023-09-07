@@ -1,16 +1,26 @@
 <script lang="ts">
     import Cursor from './Cursor.svelte';
-    import square2Stack from '$lib/assets/image/square-2-stack.svg';
-    import Action from './Action.svelte';
+    import Hand from './Hand.svelte';
+    import Rect from './Rect.svelte';
     import Separator from './Separator.svelte';
-    import handRaised from '$lib/assets/image/hand-raised.svg';
+    import { createEventDispatcher } from 'svelte';
+
+    const dispatch = createEventDispatcher();
+
+    const onClick = (event: MouseEvent) => {
+        const target = event.currentTarget as HTMLButtonElement;
+        const action = target.dataset.action;
+        if (action) {
+            dispatch('click', action);
+        }
+    };
 </script>
 
 <div
-    class="flex w-full drop-shadow flex-row items-center gap-2 rounded-md border bg-white px-3 py-1.5"
+    class="flex w-full flex-row items-center gap-2 rounded-md border bg-white px-3 py-1.5 drop-shadow"
 >
-    <Action src={handRaised} alt="Hand (panning tool)" />
-    <Cursor active={true} />
+    <Hand on:click={onClick} />
+    <Cursor on:click={onClick} active={true} />
     <Separator />
-    <Action src={square2Stack} alt="Rect action" />
+    <Rect on:click={onClick} />
 </div>

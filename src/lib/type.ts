@@ -1,4 +1,18 @@
-export type Sortable = 'asc' | 'desc';
+export enum Tool {
+    Cursor = 'cursor',
+    Hand = 'hand',
+    Rect = 'rect'
+}
+
+export enum Theme {
+    Dark = 'dark',
+    Light = 'light'
+}
+
+export enum Sortable {
+    asc = 'asc',
+    desc = 'desc'
+}
 
 export type Entity = {
     id: string;
@@ -20,8 +34,6 @@ export type Resource = {
 } & Entity;
 
 export type Resources = Resource[];
-
-export type Theme = 'dark' | 'light';
 
 export type Option = {
     height: number;
