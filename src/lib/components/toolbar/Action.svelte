@@ -8,15 +8,19 @@
      * Specifies an alternate text for an image
      */
     export let alt = '';
+
+    export let active = false;
+
+    $: select = active ? 'bg-gray-100' : 'bg-transparent';
 </script>
 
 <button
-    class="flex h-8 w-8 items-center justify-center rounded-lg bg-transparent hover:bg-gray-100 active:scale-95"
+    class="flex h-7 w-7 items-center justify-center rounded-lg {select} hover:bg-gray-100 active:scale-95"
     on:click|preventDefault|stopPropagation
     type="button"
     title={alt}
 >
-    <span class="flex h-5 w-5 items-center justify-center">
+    <span class="flex h-[17.45px] w-[17.45px] items-center justify-center">
         {#if src}
             <img {src} {alt} />
         {/if}
