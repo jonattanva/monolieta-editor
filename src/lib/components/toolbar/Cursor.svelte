@@ -3,7 +3,13 @@
     import src from '$lib/assets/image/cursor-arrow-rays.svg';
     import { Tool } from '$lib/type';
 
-    export let active = false;
+    export let action: Tool | null = null;
 </script>
 
-<Action {src} {active} alt="Cursor default" on:click action={Tool.Rect} />
+<Action
+    action={Tool.Cursor}
+    active={action === Tool.Cursor}
+    alt="Cursor default"
+    on:click
+    {src}
+/>

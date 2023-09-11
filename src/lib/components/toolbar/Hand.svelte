@@ -3,7 +3,13 @@
     import src from '$lib/assets/image/hand-raised.svg';
     import { Tool } from '$lib/type';
 
-    export let active = false;
+    export let action: Tool | null = null;
 </script>
 
-<Action {src} {active} alt="Hand (panning tool)" on:click action={Tool.Hand} />
+<Action
+    action={Tool.Hand}
+    active={action === Tool.Hand}
+    alt="Hand (panning tool)"
+    on:click
+    {src}
+/>

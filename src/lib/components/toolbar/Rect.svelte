@@ -3,7 +3,13 @@
     import src from '$lib/assets/image/square-2-stack.svg';
     import { Tool } from '$lib/type';
 
-    export let active = false;
+    export let action: Tool | null = null;
 </script>
 
-<Action {src} {active} alt="Rect action" on:click action={Tool.Rect} />
+<Action
+    action={Tool.Rect}
+    active={action === Tool.Rect}
+    alt="Rect action"
+    on:click
+    {src}
+/>

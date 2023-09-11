@@ -27,14 +27,14 @@
     "@testing-library/svelte": "~4.0.3",
     "@typescript-eslint/eslint-plugin": "~6.6.0",
     "@typescript-eslint/parser": "~6.6.0",
-    "@vitest/coverage-v8": "~0.34.3",
+    "@vitest/coverage-v8": "~0.34.4",
     "autoprefixer": "~10.4.15",
     "cypress": "~12.17.4",
-    "eslint": "~8.48.0",
+    "eslint": "~8.49.0",
     "eslint-config-prettier": "~9.0.0",
     "eslint-plugin-cypress": "~2.14.0",
     "eslint-plugin-storybook": "~0.6.13",
-    "eslint-plugin-svelte": "~2.33.0",
+    "eslint-plugin-svelte": "~2.33.1",
     "jsdom": "~22.1.0",
     "postcss": "~8.4.29",
     "prettier": "~3.0.3",
@@ -46,11 +46,11 @@
     "tslib": "~2.6.2",
     "typescript": "~5.2.2",
     "vite": "~4.4.9",
-    "vitest": "~0.34.3"
+    "vitest": "~0.34.4"
   },
   "type": "module",
   "dependencies": {
-    "@fontsource/lato": "~5.0.11",
+    "@fontsource/lato": "~5.0.12",
     "monolieta-search": "~1.2.3",
     "nanoid": "~4.0.2"
   },
