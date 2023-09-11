@@ -11,26 +11,20 @@
 
     let completed = false;
 
-    const onClick = (event: Event) => {
+    const onClick = () => {
         if (selectable) {
-            dispatch('click', {
-                event,
-                resource
-            });
+            dispatch('click', resource);
         }
     };
 
-    const onLoad = (event: Event) => {
+    const onLoad = () => {
         completed = true;
-        dispatch('load', {
-            event,
-            resource
-        });
+        dispatch('load', resource);
     };
 
     $: select = entity !== null && entity === resource.id;
 
-    $: background = completed && select ? 'bg-primary' : '';
+    $: background = completed && select ? 'bg-primary-light' : '';
     $: size = completed && select ? 'h-[98%] w-[98%] p-0.5' : 'w-full h-full';
 
     $: cursor = selectable ? 'cursor-pointer' : 'cursor-default';

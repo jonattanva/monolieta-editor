@@ -12,3 +12,11 @@ export const set = (tool: Tool) => {
 export const action = derived(current, ($current) => {
     return $current;
 });
+
+export const cursor = (tool: Tool): string => {
+    return {
+        [Tool.Cursor]: 'cursor-default',
+        [Tool.Hand]: 'cursor-grab',
+        [Tool.Rect]: 'cursor-cell'
+    }[tool];
+};

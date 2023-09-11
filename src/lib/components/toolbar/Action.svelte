@@ -8,15 +8,22 @@
      * Specifies an alternate text for an image
      */
     export let alt = '';
+
+    /**
+     * Attribute used for testing purposes
+     */
+    export let testid = '';
+
     export let active = false;
     export let action = '';
 
-    $: select = active ? 'bg-gray-100' : 'bg-transparent';
+    $: style = active ? 'bg-gray-100' : 'bg-transparent';
 </script>
 
 <button
-    class="flex h-7 w-7 items-center justify-center rounded-lg {select} hover:bg-gray-100 active:scale-95"
+    class="flex h-7 w-7 items-center justify-center rounded-lg {style} hover:bg-gray-100 active:scale-95"
     data-action={action}
+    data-testid={testid}
     on:click
     title={alt}
     type="button"

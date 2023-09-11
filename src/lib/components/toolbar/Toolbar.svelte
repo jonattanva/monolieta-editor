@@ -20,10 +20,10 @@
 </script>
 
 <div
-    class="flex w-full flex-row items-center gap-2 rounded-md border bg-white px-3 py-1.5 drop-shadow"
+    class="flex w-full cursor-default flex-row items-center gap-2 rounded-md border bg-white px-3 py-1.5 drop-shadow"
 >
-    <Hand on:click={onClick} {action} />
-    <Cursor on:click={onClick} {action} />
+    <Hand on:click={onClick} {action} testid={Tool.Hand} />
+    <Cursor on:click={onClick} {action} testid={Tool.Cursor} />
     <Separator />
-    <Rect on:click={onClick} {action} />
+    <Rect on:click={onClick} {action} testid={Tool.Rect} />
 </div>

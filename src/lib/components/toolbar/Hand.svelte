@@ -4,6 +4,11 @@
     import { Tool } from '$lib/type';
 
     export let action: Tool | null = null;
+
+    /**
+     * Attribute used for testing purposes
+     */
+    export let testid = '';
 </script>
 
 <Action
@@ -11,5 +16,6 @@
     active={action === Tool.Hand}
     alt="Hand (panning tool)"
     on:click
+    {testid}
     {src}
 />

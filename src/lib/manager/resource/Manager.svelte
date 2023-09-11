@@ -6,6 +6,8 @@
     import { insert, values } from '$lib/stores/resource';
     import { translate } from '$lib/stores/locale';
 
+    export let entity: string | null = null;
+
     $: resources = $values;
 
     const onImport = (event: CustomEvent) => {
@@ -21,7 +23,7 @@
         <Information {resources} />
         <div>
             {#if resources.length > 0}
-                <Collection {resources} selectable={true} />
+                <Collection {resources} {entity} selectable={true} on:click />
             {:else}
                 <Helper
                     message={$translate('You have not yet started a project')}

@@ -1,14 +1,21 @@
 <script lang="ts">
     import Main from '$lib/layouts/Main.svelte';
-    import Resource from '$lib/manager/resource/Manager.svelte';
-    import Toolbar from '$lib/manager/editor/Manager.svelte';
+    import Explorer from '$lib/manager/resource/Manager.svelte';
+    import Editor from '$lib/manager/editor/Manager.svelte';
+    import type { Resource } from '$lib/type';
+
+    let resource: Resource | null = null;
+
+    const onSelect = (event: CustomEvent) => {
+        resource = event.detail;
+    };
 </script>
 
 <Main>
     <svelte:fragment slot="main">
-        <Resource />
+        <Explorer on:click={onSelect} entity={resource?.id} />
     </svelte:fragment>
     <svelte:fragment slot="body">
-        <Toolbar />
+        <Editor {resource} />
     </svelte:fragment>
 </Main>

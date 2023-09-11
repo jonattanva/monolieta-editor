@@ -40,3 +40,15 @@ export type Option = {
     interval?: number;
     width: number;
 };
+
+export type Size = {
+    width: number;
+    height: number;
+};
+
+export type Axis = {
+    x: number;
+    y: number;
+};
+
+export type Rect = Axis & Size;

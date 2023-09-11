@@ -59,7 +59,7 @@
                 testid="menu"
             />
             {#if isOpenMenu}
-                <div class="absolute left-8">
+                <div class="absolute left-8 z-20">
                     <Dropdown.Main>
                         <Dropdown.Section>
                             <Dropdown.Item
