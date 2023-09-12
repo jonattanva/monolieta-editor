@@ -102,6 +102,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
       - run: pnpm install
+      - run: npx cypress install
       - uses: cypress-io/github-action@v6
         with:
           env: true
