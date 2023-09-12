@@ -9,6 +9,7 @@
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
     "cypress": "cypress open",
+    "prepare": "svelte-kit sync",
     "dev": "vite dev",
     "format": "prettier --write .",
     "lint": "prettier --check . && eslint .",
