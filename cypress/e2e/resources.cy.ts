@@ -23,6 +23,8 @@ describe('Resources', () => {
         cy.get('@menu').should('be.visible');
         cy.get('@menu').click();
 
+        cy.findByText(/showing 0 of 0 items/i).should('be.visible');
+
         cy.findByTestId(this.selector['import resource']).as('import-resource');
         cy.get('@import-resource').should('be.visible');
         cy.get('@import-resource').click();
@@ -36,12 +38,16 @@ describe('Resources', () => {
 
         cy.get(this.selector['list resources']).as('list');
         cy.get('@list').should('have.length', 1);
+
+        cy.findByText(/showing 1 of 1 items/i).should('be.visible');
     });
 
     it('should import image', function () {
         cy.findByTestId(this.selector['menu']).as('menu');
         cy.get('@menu').should('be.visible');
         cy.get('@menu').click();
+
+        cy.findByText(/showing 0 of 0 items/i).should('be.visible');
 
         cy.findByTestId(this.selector['import resource']).as('import-resource');
         cy.get('@import-resource').should('be.visible');
@@ -56,5 +62,7 @@ describe('Resources', () => {
 
         cy.get(this.selector['list resources']).as('list');
         cy.get('@list').should('have.length', 1);
+
+        cy.findByText(/showing 1 of 1 items/i).should('be.visible');
     });
 });

@@ -3,6 +3,7 @@
     import Explorer from '$lib/manager/resource/Manager.svelte';
     import Editor from '$lib/manager/editor/Manager.svelte';
     import type { Resource } from '$lib/type';
+    import { PUBLIC_ACCEPT_RESOURCE } from '$env/static/public';
 
     let resource: Resource | null = null;
 
@@ -13,7 +14,11 @@
 
 <Main>
     <svelte:fragment slot="main">
-        <Explorer on:click={onSelect} entity={resource?.id} />
+        <Explorer
+            accept={PUBLIC_ACCEPT_RESOURCE}
+            entity={resource?.id}
+            on:click={onSelect}
+        />
     </svelte:fragment>
     <svelte:fragment slot="body">
         <Editor {resource} />

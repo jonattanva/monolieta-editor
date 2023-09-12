@@ -17,11 +17,11 @@
 </script>
 
 <div
-    class="m-0 flex h-full w-full items-stretch p-0"
+    class="m-0 flex h-full w-full items-stretch p-0 {style}"
     bind:offsetWidth={displayWidth}
     bind:offsetHeight={displayHeight}
 >
-    <div class="absolute z-10 mx-4 my-5 {style}">
+    <div class="absolute z-10 mx-4 my-5">
         <Toolbar on:click={onClick} action={$action} />
     </div>
     <Editor {displayWidth} {displayHeight} {resource} />

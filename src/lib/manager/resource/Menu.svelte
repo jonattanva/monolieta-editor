@@ -10,6 +10,8 @@
 
     const dispatch = createEventDispatcher();
 
+    export let accept: string | null = 'image/*';
+    
     let isOpenMenu = false;
     let fileInput: HTMLInputElement | null = null;
 
@@ -80,10 +82,10 @@
 </div>
 
 <input
-    accept="image/*,video/*"
     bind:this={fileInput}
     class="hidden"
     multiple={false}
     on:change={onFileSelected}
     type="file"
+    {accept}
 />

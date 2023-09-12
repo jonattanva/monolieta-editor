@@ -7,6 +7,7 @@
     import { translate } from '$lib/stores/locale';
 
     export let entity: string | null = null;
+    export let accept: string | null = 'image/*';
 
     $: resources = $values;
 
@@ -16,7 +17,7 @@
 </script>
 
 <div class="px-4 pt-6">
-    <Menu on:import={onImport} />
+    <Menu on:import={onImport} {accept} />
 </div>
 <div class="w-full p-4">
     <div class="flex flex-col gap-4">
