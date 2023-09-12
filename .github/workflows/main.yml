@@ -89,12 +89,12 @@ jobs:
           key: ${{ runner.os }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
           restore-keys: |
             ${{ runner.os }}-pnpm-store-
-      - run: npm install
+      - run: pnpm install
       - uses: cypress-io/github-action@v5
         with:
           env: true
           install: false
-          start: pnpm run dev -- --host
+          start: pnpm run dev --host
           wait-on: 'http://localhost:5173'
           browser: chrome
       - uses: actions/upload-artifact@v3
