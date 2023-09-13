@@ -1,11 +1,7 @@
 <script lang="ts">
     import Picture from '../Picture.svelte';
-    import {
-        calculateAspectRatio,
-        calculateEditorSize,
-        calculateImagePosition,
-        getScale
-    } from '$lib/display';
+    import { calculateAspectRatio, calculateImagePosition } from '$lib/display';
+    import { getScale, calculateEditorSize } from '$lib/math';
     import type { Resource } from '$lib/type';
 
     export let displayHeight = 0;

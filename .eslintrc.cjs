@@ -5,7 +5,6 @@ module.exports = {
         'plugin:@typescript-eslint/recommended',
         'plugin:svelte/recommended',
         'prettier',
-        'plugin:storybook/recommended',
         'plugin:cypress/recommended'
     ],
     parser: '@typescript-eslint/parser',

@@ -1,0 +1,2 @@
+[x] - Validar funcionamiento de eslint
+[] - Escalar el componente RECT cuando el tamaño de la imagen cambia
