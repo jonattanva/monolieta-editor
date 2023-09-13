@@ -14,6 +14,17 @@ export enum Sortable {
     desc = 'desc'
 }
 
+export enum Edge {
+    E = 'e-resize',
+    N = 'n-resize',
+    NE = 'ne-resize',
+    NW = 'nw-resize',
+    S = 's-resize',
+    SE = 'se-resize',
+    SW = 'sw-resize',
+    W = 'w-resize'
+}
+
 export type Entity = {
     id: string;
 };
