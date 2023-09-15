@@ -28,7 +28,7 @@
     });
 </script>
 
-<div class="relative h-full w-full">
+<div class="relative h-full w-full select-none">
     {#if source}
         <img
             class="h-full w-full select-none object-cover p-0"

@@ -1,13 +1,22 @@
 import { Edge } from './type';
 import type { Axis, Rect } from './type';
+import type { Action } from 'svelte/action';
+
+interface Attributes {
+    'on:resizeend': (event: CustomEvent<Rect>) => void;
+    'on:resizestart': () => void;
+}
 
 type Option = {
     center: Axis;
     disabled: boolean;
-    resize: (axis: Rect) => void;
+    update: (value: Rect) => void;
 } & Rect;
 
-export default function resize(node: SVGElement, option: Option) {
+export const resize: Action<SVGElement, Option, Attributes> = (
+    node,
+    option
+) => {
     let startX = Infinity;
     let startY = Infinity;
     let type: Edge | null = null;
@@ -32,7 +41,7 @@ export default function resize(node: SVGElement, option: Option) {
                 y: option.y
             };
 
-            option.resize(calculate(delta, option.center, position, type));
+            option.update(calculate(delta, option.center, position, type));
         }
     };
 
@@ -56,7 +65,11 @@ export default function resize(node: SVGElement, option: Option) {
                 y: option.y
             };
 
-            option.resize(calculate(delta, option.center, position, type));
+            node.dispatchEvent(
+                new CustomEvent('resizeend', {
+                    detail: calculate(delta, option.center, position, type)
+                })
+            );
         }
 
         document.removeEventListener('mouseup', onMouseUp);
@@ -70,13 +83,19 @@ export default function resize(node: SVGElement, option: Option) {
         const target = event.target as HTMLElement;
         type = target.dataset.type as Edge;
 
+        node.dispatchEvent(new CustomEvent('resizestart'));
+
         document.addEventListener('mousemove', onMouseMove);
         document.addEventListener('mouseup', onMouseUp);
     };
 
-    node.addEventListener('mousedown', onMouseDown);
+    if (!option.disabled) {
+        node.addEventListener('mousedown', onMouseDown);
+    }
 
     return {
+        update(parameter: Option) {},
+
         destroy() {
             document.removeEventListener('mouseup', onMouseUp);
             document.removeEventListener('mousemove', onMouseMove);
@@ -84,7 +103,7 @@ export default function resize(node: SVGElement, option: Option) {
             node.removeEventListener('mousedown', onMouseDown);
         }
     };
-}
+};
 
 function calculate(delta: Axis, center: Axis, rect: Rect, edge: Edge) {
     // prettier-ignore

@@ -1,50 +1,71 @@
 import type { Axis } from './type';
+import type { Action } from 'svelte/action';
+
+interface Attributes {
+    'on:draggableend': (event: CustomEvent<Axis>) => void;
+    'on:draggablestart': () => void;
+}
 
 type Option = {
     disabled: boolean;
-    set: (axis: Axis) => void;
+    update: (axis: Axis) => void;
 } & Axis;
 
-export function draggable(node: SVGElement, option: Option) {
+export const draggable: Action<SVGElement, Option, Attributes> = (
+    node,
+    option
+) => {
     let startX = Infinity;
     let startY = Infinity;
-
-    const onMouseDown = (event: MouseEvent) => {
-        if (option.disabled) {
-            return;
-        }
-
-        startX = event.clientX - option.x;
-        startY = event.clientY - option.y;
-
-        addEventListener('mousemove', onMouseMove);
-        addEventListener('mouseup', onMouseUp);
-    };
 
     const onMouseMove = (event: MouseEvent) => {
         const x = event.clientX - startX;
         const y = event.clientY - startY;
 
-        option.set({ x, y });
+        option.update({ x, y });
         node.style.cursor = 'all-scroll';
     };
 
-    const onMouseUp = () => {
+    const onMouseUp = (event: MouseEvent) => {
+        const x = event.clientX - startX;
+        const y = event.clientY - startY;
+
         node.style.cursor = 'default';
 
-        removeEventListener('mousemove', onMouseMove);
+        node.dispatchEvent(
+            new CustomEvent('draggableend', {
+                detail: { x, y }
+            })
+        );
+
         removeEventListener('mouseup', onMouseUp);
+        removeEventListener('mousemove', onMouseMove);
     };
 
-    node.addEventListener('mousedown', onMouseDown);
+    const onMouseDown = (event: MouseEvent) => {
+        startX = event.clientX - option.x;
+        startY = event.clientY - option.y;
+
+        node.dispatchEvent(new CustomEvent('draggablestart'));
+
+        addEventListener('mouseup', onMouseUp);
+        addEventListener('mousemove', onMouseMove);
+    };
+
+    if (!option.disabled) {
+        node.addEventListener('mousedown', onMouseDown);
+    }
 
     return {
-        update: (values: Option) => {
-            option = values;
+        update: (parameter: Option) => {
+            option = parameter;
         },
 
         destroy() {
-            onMouseUp();
+            node.style.cursor = 'default';
+
+            removeEventListener('mouseup', onMouseUp);
+            removeEventListener('mousemove', onMouseMove);
         }
     };
-}
+};
