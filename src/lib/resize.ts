@@ -94,7 +94,9 @@ export const resize: Action<SVGElement, Option, Attributes> = (
     }
 
     return {
-        update(parameter: Option) {},
+        update: (parameter: Option) => {
+            option = parameter;
+        },
 
         destroy() {
             document.removeEventListener('mouseup', onMouseUp);

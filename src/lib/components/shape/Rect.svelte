@@ -16,23 +16,24 @@
     export let x: number = 100;
     export let y: number = 100;
 
-    let center = centroid({ x, y, width, height });
-    let position = {
-        height,
-        width,
-        x,
-        y
+    let position = { height, width, x, y };
+    let center = centroid(position);
+
+    const apply = (event: CustomEvent) => {
+        position = {
+            x,
+            y,
+            width,
+            height,
+            ...event.detail
+        };
+
+        center = centroid(position);
     };
 
     const onDrag = (axis: Axis) => {
         x = axis.x;
         y = axis.y;
-
-        center = centroid({
-            ...axis,
-            width,
-            height
-        });
     };
 
     const onResize = (rect: Rect) => {
@@ -40,11 +41,6 @@
         width = rect.width;
         x = rect.x;
         y = rect.y;
-    };
-
-    const onResizeEnd = (event: CustomEvent) => {
-        const position = event.detail;
-        center = centroid(position);
     };
 </script>
 
@@ -58,6 +54,7 @@
     <rect
         fill-opacity={opacity}
         use:draggable={{ disabled, update: onDrag, x, y }}
+        on:draggableend={apply}
         {height}
         {width}
         {x}
@@ -69,15 +66,12 @@
             <use
                 data-type={Edge.NW}
                 href={`#${KEY_CIRCLE_EDGE}`}
-                on:resizeend={onResizeEnd}
+                on:resizeend={apply}
                 use:resize={{
+                    ...position,
                     center,
                     disabled,
-                    height,
-                    update: onResize,
-                    width,
-                    x,
-                    y
+                    update: onResize
                 }}
                 {x}
                 {y}
@@ -85,15 +79,12 @@
             <use
                 data-type={Edge.N}
                 href={`#${KEY_CIRCLE_EDGE}`}
-                on:resizeend={onResizeEnd}
+                on:resizeend={apply}
                 use:resize={{
+                    ...position,
                     center,
                     disabled,
-                    height,
-                    update: onResize,
-                    width,
-                    x,
-                    y
+                    update: onResize
                 }}
                 x={x + width / 2}
                 {y}
@@ -101,15 +92,12 @@
             <use
                 data-type={Edge.NE}
                 href={`#${KEY_CIRCLE_EDGE}`}
-                on:resizeend={onResizeEnd}
+                on:resizeend={apply}
                 use:resize={{
+                    ...position,
                     center,
                     disabled,
-                    height,
-                    update: onResize,
-                    width,
-                    x,
-                    y
+                    update: onResize
                 }}
                 x={x + width}
                 {y}
@@ -117,15 +105,12 @@
             <use
                 data-type={Edge.E}
                 href={`#${KEY_CIRCLE_EDGE}`}
-                on:resizeend={onResizeEnd}
+                on:resizeend={apply}
                 use:resize={{
+                    ...position,
                     center,
                     disabled,
-                    height,
-                    update: onResize,
-                    width,
-                    x,
-                    y
+                    update: onResize
                 }}
                 x={x + width}
                 y={y + height / 2}
@@ -133,15 +118,12 @@
             <use
                 data-type={Edge.SE}
                 href={`#${KEY_CIRCLE_EDGE}`}
-                on:resizeend={onResizeEnd}
+                on:resizeend={apply}
                 use:resize={{
+                    ...position,
                     center,
                     disabled,
-                    height,
-                    update: onResize,
-                    width,
-                    x,
-                    y
+                    update: onResize
                 }}
                 x={x + width}
                 y={y + height}
@@ -149,15 +131,12 @@
             <use
                 data-type={Edge.S}
                 href={`#${KEY_CIRCLE_EDGE}`}
-                on:resizeend={onResizeEnd}
+                on:resizeend={apply}
                 use:resize={{
+                    ...position,
                     center,
                     disabled,
-                    height,
-                    update: onResize,
-                    width,
-                    x,
-                    y
+                    update: onResize
                 }}
                 x={x + width / 2}
                 y={y + height}
@@ -165,15 +144,12 @@
             <use
                 data-type={Edge.SW}
                 href={`#${KEY_CIRCLE_EDGE}`}
-                on:resizeend={onResizeEnd}
+                on:resizeend={apply}
                 use:resize={{
+                    ...position,
                     center,
                     disabled,
-                    height,
-                    update: onResize,
-                    width,
-                    x,
-                    y
+                    update: onResize
                 }}
                 y={y + height}
                 {x}
@@ -181,21 +157,19 @@
             <use
                 data-type={Edge.W}
                 href={`#${KEY_CIRCLE_EDGE}`}
-                on:resizeend={onResizeEnd}
+                on:resizeend={apply}
                 use:resize={{
+                    ...position,
                     center,
                     disabled,
-                    height,
-                    update: onResize,
-                    width,
-                    x,
-                    y
+                    update: onResize
                 }}
                 y={y + height / 2}
                 {x}
             />
             {#if debug}
-                <use href={`#${KEY_CIRCLE_EDGE}`} x={center.x} y={center.y} />
+                {@const current = centroid({ width, height, x, y })}
+                <use href={`#${KEY_CIRCLE_EDGE}`} x={current.x} y={current.y} />
             {/if}
         </g>
     {/if}
