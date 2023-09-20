@@ -5,6 +5,7 @@
     import Separator from './Separator.svelte';
     import { Tool } from '$lib/type';
     import { createEventDispatcher } from 'svelte';
+    import Cube from './Cube.svelte';
 
     export let action: Tool = Tool.Cursor;
 
@@ -26,4 +27,5 @@
     <Cursor on:click={onClick} {action} testid={Tool.Cursor} />
     <Separator />
     <Rect on:click={onClick} {action} testid={Tool.Rect} />
+    <Cube on:click={onClick} {action} testid={Tool.Cuboid} />
 </div>

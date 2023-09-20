@@ -1,4 +1,5 @@
 export enum Tool {
+    Cuboid = 'cuboid',
     Cursor = 'cursor',
     Hand = 'hand',
     Rect = 'rect'
@@ -52,14 +53,14 @@ export type Option = {
     width: number;
 };
 
-export type Size = {
-    width: number;
-    height: number;
-};
-
-export type Axis = {
+export type Vector = {
     x: number;
     y: number;
 };
 
-export type Rect = Axis & Size;
+export type Size = {
+    height: number;
+    width: number;
+};
+
+export type Rect = Size & Vector;

@@ -1,13 +1,12 @@
 <script lang="ts">
     import Picture from '../Picture.svelte';
-    import { calculateAspectRatio, calculateImagePosition } from '$lib/display';
-    import { getScale, calculateEditorSize } from '$lib/math';
+    import display from '$lib/display';
+    import math from '$lib/math';
     import type { Resource } from '$lib/type';
 
-    export let displayHeight = 0;
     export let displayWidth = 0;
+    export let displayHeight = 0;
     export let resource: Resource | null = null;
-    export let scale = 1;
 
     let imageWidth = 0;
     let imageHeight = 0;
@@ -24,13 +23,19 @@
     };
 
     // prettier-ignore
-    $: aspectRatio = calculateAspectRatio({
+    $: aspectRatio = display.aspectRatio({
         height: displayHeight, 
         width: displayWidth
     }, image);
 
-    $: editor = calculateEditorSize(getScale(aspectRatio, scale), aspectRatio);
-    $: position = calculateImagePosition(aspectRatio, editor, image);
+    $: vector = math.scale(aspectRatio, 2);
+
+    $: editor = {
+        height: aspectRatio.height + vector.y,
+        width: aspectRatio.width + vector.x
+    };
+
+    $: position = display.image(aspectRatio, editor, image);
 </script>
 
 <div

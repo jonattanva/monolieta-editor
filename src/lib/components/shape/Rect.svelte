@@ -1,23 +1,31 @@
 <script lang="ts">
+    import Text from './Text.svelte';
+    import math from '$lib/math';
     import { Edge } from '$lib/type';
     import { KEY_CIRCLE_EDGE } from '$lib/constant';
-    import { centroid } from '$lib/math';
     import { draggable } from '$lib/draggable';
     import { resize } from '$lib/resize';
-    import type { Axis, Rect } from '$lib/type';
+    import type { Rect, Vector } from '$lib/type';
 
-    export let background: string = 'transparent';
-    export let color: string = '#15ff0d';
-    export let debug = true;
-    export let disabled: boolean = false;
-    export let height: number = 100;
+    export let background = 'transparent';
+    export let color = '#15ff0d';
+    export let debug = false;
+    export let disabled = false;
+    export let height: number;
+    export let label = '';
     export let opacity: number = 0.1;
-    export let width: number = 100;
-    export let x: number = 100;
-    export let y: number = 100;
+    export let width: number;
+    export let x: number;
+    export let y: number;
 
-    let position = { height, width, x, y };
-    let center = centroid(position);
+    let position = {
+        height,
+        width,
+        x,
+        y
+    };
+
+    let center = math.centroid(position);
 
     const apply = (event: CustomEvent) => {
         position = {
@@ -28,12 +36,12 @@
             ...event.detail
         };
 
-        center = centroid(position);
+        center = math.centroid(position);
     };
 
-    const onDrag = (axis: Axis) => {
-        x = axis.x;
-        y = axis.y;
+    const onDrag = (vector: Vector) => {
+        x = vector.x;
+        y = vector.y;
     };
 
     const onResize = (rect: Rect) => {
@@ -60,6 +68,15 @@
         {x}
         {y}
     />
+    
+    {#if debug}
+        {@const center = math.centroid({ width, height, x, y })}
+        <use href={`#${KEY_CIRCLE_EDGE}`} x={center.x} y={center.y} />
+    {/if}
+
+    {#if label}
+        <Text {x} {y} {color} {label} />
+    {/if}
 
     {#if !disabled}
         <g>
@@ -167,10 +184,6 @@
                 y={y + height / 2}
                 {x}
             />
-            {#if debug}
-                {@const current = centroid({ width, height, x, y })}
-                <use href={`#${KEY_CIRCLE_EDGE}`} x={current.x} y={current.y} />
-            {/if}
         </g>
     {/if}
 </g>

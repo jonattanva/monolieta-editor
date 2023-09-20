@@ -1,22 +1,18 @@
-import { getRatio, getArea } from './math';
-import type { Rect, Size } from '$lib/type';
+import math from './math';
+import type { Rect, Size } from './type';
 
-export const calculateAspectRatio = (container: Size, image: Size) => {
-    const ratio = getRatio(image.width, image.height);
-    const containerRatio = getRatio(container.width, container.height);
+const aspectRatio = (container: Size, image: Size): Rect => {
+    const imageRatio = math.ratio(image.width, image.height);
+    const containerRatio = math.ratio(container.width, container.height);
 
-    return containerRatio < ratio
-        ? calculateImageInVertical(container, ratio)
-        : calculateImageInHorizontal(container, ratio);
+    return containerRatio < imageRatio
+        ? vertical(container, imageRatio)
+        : horizontal(container, imageRatio);
 };
 
-export const calculateImagePosition = (
-    aspectRatio: Rect,
-    editor: Size,
-    image: Size
-) => {
-    const a1 = getArea(editor.width, editor.height);
-    const a2 = getArea(image.width, image.height);
+export const image = (aspectRatio: Rect, editor: Size, image: Size): Rect => {
+    const a1 = math.area(editor.width, editor.height);
+    const a2 = math.area(image.width, image.height);
 
     if (a2 < a1) {
         aspectRatio.x = (editor.width - image.width) / 2;
@@ -31,7 +27,19 @@ export const calculateImagePosition = (
     return aspectRatio;
 };
 
-const calculateImageInHorizontal = (size: Size, ratio: number) => {
+const vertical = (size: Size, ratio: number): Rect => {
+    const innerHeight = size.width / ratio;
+    const y = (size.height - innerHeight) / 2;
+
+    return {
+        x: 0,
+        y: y,
+        width: size.width,
+        height: innerHeight
+    };
+};
+
+const horizontal = (size: Size, ratio: number): Rect => {
     const innerWidth = size.height * ratio;
     const x = (size.width - innerWidth) / 2;
 
@@ -43,14 +51,7 @@ const calculateImageInHorizontal = (size: Size, ratio: number) => {
     };
 };
 
-const calculateImageInVertical = (size: Size, ratio: number) => {
-    const innerHeight = size.width / ratio;
-    const y = (size.height - innerHeight) / 2;
-
-    return {
-        x: 0,
-        y: y,
-        width: size.width,
-        height: innerHeight
-    };
+export default {
+    aspectRatio,
+    image
 };
