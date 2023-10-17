@@ -8,6 +8,13 @@ const ratio = (width: number, height: number): number => {
     return width / height;
 };
 
+const sum = (v1: Vector, v2: Vector): Vector => {
+    return {
+        x: v1.x + v2.x,
+        y: v1.y + v2.y
+    };
+};
+
 const scale = (vector: Vector, value = 1): Vector => ({
     x: vector.x * value,
     y: vector.y * value
@@ -22,5 +29,6 @@ export default {
     area,
     centroid,
     ratio,
-    scale
+    scale,
+    sum,
 };

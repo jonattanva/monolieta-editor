@@ -5,7 +5,10 @@
     import { KEY_CIRCLE_EDGE } from '$lib/constant';
     import { draggable } from '$lib/draggable';
     import { resize } from '$lib/resize';
+    import { createEventDispatcher } from 'svelte';
     import type { Rect, Vector } from '$lib/type';
+
+    const dispatch = createEventDispatcher();
 
     export let background = 'transparent';
     export let color = '#15ff0d';
@@ -42,6 +45,10 @@
     const onDrag = (vector: Vector) => {
         x = vector.x;
         y = vector.y;
+
+        dispatch('drag', {
+            value: vector
+        });
     };
 
     const onResize = (rect: Rect) => {
@@ -68,7 +75,7 @@
         {x}
         {y}
     />
-    
+
     {#if debug}
         {@const center = math.centroid({ width, height, x, y })}
         <use href={`#${KEY_CIRCLE_EDGE}`} x={center.x} y={center.y} />
@@ -187,25 +194,3 @@
         </g>
     {/if}
 </g>
-
-<style>
-    use[data-type='se-resize'],
-    use[data-type='nw-resize'] {
-        cursor: nwse-resize;
-    }
-
-    use[data-type='s-resize'],
-    use[data-type='n-resize'] {
-        cursor: ns-resize;
-    }
-
-    use[data-type='sw-resize'],
-    use[data-type='ne-resize'] {
-        cursor: nesw-resize;
-    }
-
-    use[data-type='w-resize'],
-    use[data-type='e-resize'] {
-        cursor: ew-resize;
-    }
-</style>

@@ -2,7 +2,8 @@ export enum Tool {
     Cuboid = 'cuboid',
     Cursor = 'cursor',
     Hand = 'hand',
-    Rect = 'rect'
+    Rect = 'rect',
+    Line = 'line'
 }
 
 export enum Theme {

@@ -2,6 +2,7 @@
     import Cursor from './Cursor.svelte';
     import Hand from './Hand.svelte';
     import Rect from './Rect.svelte';
+    import Line from './Line.svelte';
     import Separator from './Separator.svelte';
     import { Tool } from '$lib/type';
     import { createEventDispatcher } from 'svelte';
@@ -28,4 +29,5 @@
     <Separator />
     <Rect on:click={onClick} {action} testid={Tool.Rect} />
     <Cube on:click={onClick} {action} testid={Tool.Cuboid} />
+    <Line on:click={onClick} {action} testid={Tool.Line} />
 </div>

@@ -1,15 +1,15 @@
-import type { Axis } from './type';
+import type { Vector } from './type';
 import type { Action } from 'svelte/action';
 
 interface Attributes {
-    'on:draggableend': (event: CustomEvent<Axis>) => void;
+    'on:draggableend': (event: CustomEvent<Vector>) => void;
     'on:draggablestart': () => void;
 }
 
 type Option = {
     disabled: boolean;
-    update: (axis: Axis) => void;
-} & Axis;
+    update: (axis: Vector) => void;
+} & Vector;
 
 export const draggable: Action<SVGElement, Option, Attributes> = (
     node,

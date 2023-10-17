@@ -1,6 +1,7 @@
 <script lang="ts">
-    import Rect from '../shape/Rect.svelte';
     import Cuboid from '../shape/Cuboid.svelte';
+    import Line from '../shape/Line.svelte';
+    import Rect from '../shape/Rect.svelte';
     import { KEY_CIRCLE_EDGE } from '$lib/constant';
 
     export let color: string = '#15ff0d';
@@ -20,10 +21,10 @@
             stroke="transparent"
         />
     </defs>
-    <Rect {color} x={100} y={100} width={100} height={100} />
     <Cuboid
-        {color}
-        back={{ x: 200, y: 200, width: 100, height: 100 }}
-        front={{ x: 250, y: 250, width: 100, height: 100 }}
+        from={{ x: 150, y: 200, width: 100, height: 100 }}
+        to={{ x: 200, y: 250, width: 100, height: 100 }}
     />
+    <Line from={{ x: 300, y: 350 }} to={{ x: 400, y: 450 }} />
+    <Rect {color} x={100} y={100} width={100} height={100} />
 </svg>

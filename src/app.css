@@ -32,3 +32,23 @@ body {
         @apply text-sm font-normal text-slate-500 dark:text-slate-400;
     }
 }
+
+use[data-type='se-resize'],
+use[data-type='nw-resize'] {
+    cursor: nwse-resize;
+}
+
+use[data-type='s-resize'],
+use[data-type='n-resize'] {
+    cursor: ns-resize;
+}
+
+use[data-type='sw-resize'],
+use[data-type='ne-resize'] {
+    cursor: nesw-resize;
+}
+
+use[data-type='w-resize'],
+use[data-type='e-resize'] {
+    cursor: ew-resize;
+}

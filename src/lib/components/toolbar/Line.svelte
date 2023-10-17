@@ -1,6 +1,6 @@
 <script lang="ts">
     import Action from './Action.svelte';
-    import src from '$lib/assets/image/cube.svg';
+    import src from '$lib/assets/image/line.svg';
     import { Tool } from '$lib/type';
 
     export let action: Tool | null = null;
@@ -12,9 +12,9 @@
 </script>
 
 <Action
-    action={Tool.Cuboid}
-    active={action === Tool.Cuboid}
-    alt="Cuboid action"
+    action={Tool.Line}
+    active={action === Tool.Line}
+    alt="Line action"
     on:click
     {testid}
     {src}
